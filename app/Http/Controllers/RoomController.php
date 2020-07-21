@@ -38,7 +38,9 @@ class RoomController extends Controller{
 	public function getRooms() {
 		$rooms = \DB::table('room')->where('room.id', '!=', 1)
 				->leftJoin('room_user', 'room.id', 'room_user.room_id')
-				->select('room.*', \DB::raw('(SELECT COUNT(*) FROM room_user WHERE room.id = room_user.room_id) as count_room'))->get();
+				->select('room.*', \DB::raw('(SELECT COUNT(*) FROM room_user WHERE room.id = room_user.room_id) as count_room'))
+				->groupBy('room.id')
+				->orderBy('count_room', 'desc')->get();
 		return response($rooms->toJson());
 	}
 	public function getRoomsUser($id = null){
