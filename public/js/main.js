@@ -47,7 +47,7 @@ $(function() {
 		});
 		
 	//
-	$('#searchRooms').keyup(function() {
+	/*$('#searchRooms').keyup(function() {
 			var filter = jQuery(this).val();
 			jQuery("#rooms-list li").each(function () {
 				if (jQuery(this).text().search(new RegExp(filter, "i")) < 0) {
@@ -56,7 +56,7 @@ $(function() {
 					jQuery(this).show()
 				}
 			});
-		});
+		});*/
 		
 	$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
         localStorage.setItem('activeTab', $(e.target).attr('href'));

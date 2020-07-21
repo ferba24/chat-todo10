@@ -1,6 +1,6 @@
 	$(function() {
 		$('#messages').html(null);
-		$('#users-count').html('0');
+		//$('#users-count').html('0');
 	});
 	
 	function convertTime(time) {
@@ -119,8 +119,8 @@ function renderUser(data) {
 				}
 			}
 		}).join(" ");
-		$('#users-count').html(data.length);
-		$('#users').html(html);
+		//$('#users-count').html(data.length);
+		//$('#users').html(html);
 	}
 	
 	function renderUserPrivate(data) {	

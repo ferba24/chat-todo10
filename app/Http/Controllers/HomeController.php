@@ -69,17 +69,15 @@ class HomeController extends Controller{
 			}else{
 				$count_rooms = null;
 			}*/
-			$count_rooms = 1;
 			//Obtiene el room actual del usuario
 			$sessionRoom = $req->session()->get('room');
 			$xen_user = $user;
-			return view('home', compact('xen_user', 'rooms', 'count_rooms', 'sessionRoom'));
+			return view('home', compact('xen_user', 'rooms', 'sessionRoom'));
 		}else{
-			$count_rooms = null;
 			$rooms = null;
 			$xen_user  = null;
 			$sessionRoom = null;
-			return view('home', compact('xen_user', 'rooms', 'count_rooms', 'sessionRoom'));
+			return view('home', compact('xen_user', 'rooms', 'sessionRoom'));
 		}
     }
 	public function logout() {

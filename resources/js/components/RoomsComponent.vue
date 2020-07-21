@@ -60,8 +60,7 @@
 									</td>
 									<td class="text-center" style="width:90px;">{{ room.count_room }}</td>
 									<td class="text-center justify-content-center" style="width:90px;">
-										<button v-if="room.has_user" class="btn btn-light btn-block btn-sm" role="button" disabled>Already</button>
-										<a v-if="!room.has_user" class="btn btn-success btn-block btn-sm active" @click="selectedRoom(`${room.id}`)"  role="button"><i class="fas fa-door-open"></i>Enter</a>
+										<a class="btn btn-success btn-block btn-sm active" @click="selectedRoom(`${room.id}`)"  role="button"><i class="fas fa-door-open"></i>Enter</a>
 									</td>
 								</tr>
 							</tbody>
