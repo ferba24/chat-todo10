@@ -22,6 +22,7 @@ Vue.component('rooms-component', require('./components/RoomsComponent.vue').defa
 Vue.component('rooms-change-component', require('./components/RoomsChangeComponent.vue').default);
 Vue.component('login-user-component', require('./components/LoginUserComponent.vue').default);
 Vue.component('private-component', require('./components/PrivateComponent.vue').default);
+Vue.component('sidebar-component', require('./components/SidebarComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
