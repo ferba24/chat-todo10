@@ -29,10 +29,13 @@
 	<link href="{{ asset('css/messages.css') }}" rel="stylesheet">
 	<script src="{{asset('tinymce.min.js?apiKey=r72gi40ebpxjpvsf9huxa66nnm5ykzsz4390dhb5wvea5yg4') }}"></script>
 	<script>
-		// Se puso el setup para evitar el enter en el chat
 		tinymce.init({
+			menubar: false,
 			selector:'#text',
+			height: 50,
+			toolbar: 'bold italic underline',
 			setup: function (ed) {
+				// Se puso el setup para evitar el enter en el chat
 				ed.on('keydown',function(e) {
 					if(e.keyCode == 13){
 						alert("ENTER PRESSED");
@@ -57,19 +60,16 @@
 </head>
 <body>
     <div id="app-vue">
-		<input type="hidden" name="user_id" id="user_id" value="{{ session('user') }}"/>	
-					
+		<input type="hidden" name="user_id" id="user_id" value="{{ session('user') }}"/>		
 		<nav class="navbar navbar-expand-md navbar-light bg-white shadow-lg navbar-custom" >
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
 					@if($xen_user)
                     <ul class="navbar-nav mr-auto">	
-							
                         <li  class="dropdown" id="user-content-me3">	
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration: none;">
 								<span class="avatar avatar--xxs avatar--default avatar--default--dynamic" data-user-id="1" style="background-color: #85a3e0; color: #24478f">
@@ -77,7 +77,6 @@
 									{{ strtoupper(substr($xen_user->username,0,1)) }}
 								</span> 
 							</span>
-							
 								<small style="padding-left: 5px">{{ strtoupper($xen_user->username) }}</small>
 								<span class="caret"></span>
 							</a>
@@ -87,46 +86,42 @@
 							</ul>
                         </li>
                     </ul>
-
 					@endif
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-							<li class="nav-item">
-								<a class="nav-link" href="{{ env('URL_SYSTEM') }}" style="color: white">
-									<i class="fas fa-home"></i>
-								</a>
-							</li>
-							<li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="modal" data-target="#showModal" style="color: white">
-									<small>ROOMS LIST</small>
-								</a>
-                            </li>
-							<li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="modal" data-target="#showModalPrivate" style="color: white">
-									<i class="far fa-comment-dots"></i>
-									<small>PRIVATE MSG</small>
-								</a>
-                            </li>
-							<li class="nav-item">
-                                <a class="nav-link" style="color: white">
-									<i class="fas fa-music"></i>
-									<small>SOUNDS</small>
-								</a>
-                            </li>
-							<li class="nav-item">
-								<input type="checkbox" name="toggle-event" id="toggle-event" checked data-toggle="toggle"/>
-							</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ env('URL_SYSTEM') }}" style="color: white">
+								<i class="fas fa-home"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#" data-toggle="modal" data-target="#showModal" style="color: white">
+								<small>ROOMS LIST</small>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#" data-toggle="modal" data-target="#showModalPrivate" style="color: white">
+								<i class="far fa-comment-dots"></i>
+								<small>PRIVATE MSG</small>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" style="color: white">
+								<i class="fas fa-music"></i>
+								<small>SOUNDS</small>
+							</a>
+						</li>
+						<li class="nav-item">
+							<input type="checkbox" name="toggle-event" id="toggle-event" checked data-toggle="toggle"/>
+						</li>
                     </ul>
                 </div>
             </div>
         </nav>
-
-        <main class="py-4">
+        <main>
             @yield('content')
-        </main>
-    
+		</main>
 		<div class="modal fade" id="showModalRoomAdd" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">
