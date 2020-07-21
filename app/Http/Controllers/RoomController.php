@@ -29,7 +29,7 @@ class RoomController extends Controller{
 		return redirect()->route('home')->with('success', 'Se ha creado satisfactoriamente!');
 	}
 	//
-	public function exitRoom($room = null) {
+	public function exitRoom(Request $req, $room = null) {
 		$room = RoomUser::where("room_id", $room)->where('user_id', $req->session()->get('user'))->first();
 		$room->delete();
 		return redirect()->route('home')->with('success', 'Se ha creado satisfactoriamente!');
