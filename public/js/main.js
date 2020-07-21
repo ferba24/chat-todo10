@@ -23,7 +23,7 @@ $(function() {
 	 });
 	 
 	 //
-	 $("#searchy").keyup(function(){
+	 /*$("#searchy").keyup(function(){
 	 _this = this;
 	 // Show only matching TR, hide rest of them
 	 $.each($("#searchy tbody tr"), function() {
@@ -32,7 +32,7 @@ $(function() {
 		 else
 			$(this).show();
 		 });
-	 });
+	 });*/
 	 
 	 //
 	 $('#search').keyup(function() {

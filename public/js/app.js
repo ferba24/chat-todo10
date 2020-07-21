@@ -2206,21 +2206,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       arrayRooms: [],
-      arrayRoomsUser: [],
-      empty: false
+      empty: false,
+      term: ""
     };
   },
   methods: {
     getRooms: function getRooms() {
       var me = this;
-      var user_id = document.getElementById('user_id').value; //console.log('user_id: ' + user_id);
-
+      var user_id = document.getElementById('user_id').value;
       axios.get(this.$backendURL + '/room/getRoom').then(function (rooms) {
         me.arrayRooms = rooms.data;
       })["catch"](function (error) {
@@ -2231,7 +2228,7 @@ __webpack_require__.r(__webpack_exports__);
       location.href = this.$backendURL + '/room/selected/' + id;
     },
     emptyRooms: function emptyRooms() {
-      alert('hello');
+      this.empty = this.empty ? false : true;
     }
   },
   filters: {
@@ -2240,10 +2237,33 @@ __webpack_require__.r(__webpack_exports__);
       return value.toString().substring(0, 1).toUpperCase();
     }
   },
+  computed: {
+    filterRooms: function filterRooms() {
+      var _this = this;
+
+      var filtered = this.arrayRooms; //Se filtra por rooms vacíos
+
+      if (this.empty) {
+        filtered = this.arrayRooms.filter(function (m) {
+          return m.count_room <= 0;
+        });
+      } //Se filtra por el término buscado
+
+
+      if (this.term != "") {
+        filtered = filtered.filter(function (m) {
+          return m.room_name.toLowerCase().indexOf(_this.term) > -1;
+        });
+      }
+
+      return filtered;
+    }
+  },
   mounted: function mounted() {
     //Cada vez que se abre el modal se recarga la lista de rooms
-    $('#showModal').on('show.bs.modal', this.getRooms);
-    $('#selectedx').on('touch.bs.toggle click.bs.toggle', this.emptyRooms);
+    $('#showModal').on('show.bs.modal', this.getRooms); //Cada vez que cambia el filtro de rooms vacíos
+
+    $(document).on('touch.bs.toggle click.bs.toggle', 'div[data-toggle^=toggle]', this.emptyRooms);
   }
 });
 
@@ -39202,97 +39222,44 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
             _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-9" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.term,
+                        expression: "term"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", placeholder: "Search room" },
+                    domProps: { value: _vm.term },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.term = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      staticClass: "form-text text-muted",
+                      attrs: { id: "searchx" }
+                    },
+                    [_vm._v("Find your preferred room in this field.")]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
               _vm._m(1),
               _vm._v(" "),
-              _vm._m(2),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-2 hidden-md hidden-sm" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.empty,
-                      expression: "empty"
-                    }
-                  ],
-                  attrs: {
-                    type: "checkbox",
-                    id: "selectedx",
-                    "data-toggle": "toggle"
-                  },
-                  domProps: {
-                    checked: Array.isArray(_vm.empty)
-                      ? _vm._i(_vm.empty, null) > -1
-                      : _vm.empty
-                  },
-                  on: {
-                    change: [
-                      function($event) {
-                        var $$a = _vm.empty,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 && (_vm.empty = $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              (_vm.empty = $$a
-                                .slice(0, $$i)
-                                .concat($$a.slice($$i + 1)))
-                          }
-                        } else {
-                          _vm.empty = $$c
-                        }
-                      },
-                      function($event) {
-                        return _vm.emptyRooms()
-                      }
-                    ]
-                  }
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.empty,
-                      expression: "empty"
-                    }
-                  ],
-                  attrs: { type: "checkbox", id: "selectedx" },
-                  domProps: {
-                    checked: Array.isArray(_vm.empty)
-                      ? _vm._i(_vm.empty, null) > -1
-                      : _vm.empty
-                  },
-                  on: {
-                    change: function($event) {
-                      var $$a = _vm.empty,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = null,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 && (_vm.empty = $$a.concat([$$v]))
-                        } else {
-                          $$i > -1 &&
-                            (_vm.empty = $$a
-                              .slice(0, $$i)
-                              .concat($$a.slice($$i + 1)))
-                        }
-                      } else {
-                        _vm.empty = $$c
-                      }
-                    }
-                  }
-                }),
-                _vm._v("\n\t\t\t\t\t\t" + _vm._s(_vm.empty) + "\n\t\t\t\t\t")
-              ])
+              _vm._m(2)
             ]),
             _vm._v(" "),
             _c(
@@ -39314,7 +39281,7 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "tbody",
-                        _vm._l(_vm.arrayRooms, function(room) {
+                        _vm._l(_vm.filterRooms, function(room) {
                           return _c("tr", { key: room.id }, [
                             _c("td", [
                               _c("div", { staticClass: "row" }, [
@@ -39500,30 +39467,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-9" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "text",
-            id: "searchy",
-            "aria-describedby": "search",
-            placeholder: "Search room"
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "small",
-          { staticClass: "form-text text-muted", attrs: { id: "searchx" } },
-          [_vm._v("Find your preferred room in this field.")]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-1 hidden-md hidden-sm" }, [
       _c(
         "span",
@@ -39536,6 +39479,16 @@ var staticRenderFns = [
         { staticStyle: { "margin-left": "-15px", "font-size": "10px" } },
         [_c("b", [_vm._v("ROOMS")])]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2 hidden-md hidden-sm" }, [
+      _c("input", {
+        attrs: { type: "checkbox", id: "selectedx", "data-toggle": "toggle" }
+      })
     ])
   },
   function() {

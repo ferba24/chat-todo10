@@ -149,7 +149,7 @@
     </div>
     <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
 	<!--<script src="{{ asset('textrich/src/jquery.richtext.min.js') }}"></script>	-->
-	<script src="{{ asset('js/socket.io.min.js') }}"></script>
+	<!--<script src="{{ asset('js/socket.io.min.js') }}"></script>-->
 	<script src="{{ asset('js/ion.sound.js') }}"></script>
 	<script src="{{ asset('js/main.js') }}"></script>
 	
@@ -189,11 +189,11 @@
 						});
 					}
 					
-					if($checkbox[0].attributes.id.value == 'selectedx') {
+					/*if($checkbox[0].attributes.id.value == 'selectedx') {
 						$.each($("#searchy tbody tr"), function() {
 							$(this).show();
 						});
-					}
+					}*/
 				}
 			});
 	</script>

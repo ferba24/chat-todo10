@@ -10,7 +10,7 @@
 				<div class="row">
 					<div class="col-md-9">
 						<div class="form-group">
-							<input type="text" class="form-control" id="searchy" aria-describedby="search" placeholder="Search room" />
+							<input type="text" class="form-control" v-model="term" placeholder="Search room" />
 							<small id="searchx" class="form-text text-muted">Find your preferred room in this field.</small>
 						</div>
 					</div>
@@ -19,9 +19,7 @@
 						<span style="margin-left: -15px; font-size: 10px;"><b>ROOMS</b></span>
 					</div>
 					<div class="col-md-2 hidden-md hidden-sm">
-						<input type="checkbox" id="selectedx" data-toggle="toggle" v-model="empty" @change="emptyRooms()"/>
-						<input type="checkbox" id="selectedx" v-model="empty"/>
-						{{ empty }}
+						<input type="checkbox" id="selectedx" data-toggle="toggle"/>
 					</div>
 				</div>
 				<div class="row" style="height: 300px; overflow-y: auto;">
@@ -35,7 +33,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for="room in arrayRooms" :key="room.id">
+								<tr v-for="room in filterRooms" :key="room.id">
 									<td>							
 										<div class="row">
 											<div class="col-md-4 p-0" v-if="room.room_photo == null">
@@ -86,15 +84,14 @@ export default {
 	data(){
 		return{
 			arrayRooms: [],
-			arrayRoomsUser: [],
 			empty: false,
+			term: "",
 		}
 	},
 	methods:{
 		getRooms() {
 			let me = this;
 			let user_id = document.getElementById('user_id').value;
-			//console.log('user_id: ' + user_id);
 			axios.get(this.$backendURL + '/room/getRoom')
 			.then((rooms) => {
 				me.arrayRooms = rooms.data;
@@ -106,7 +103,7 @@ export default {
 			location.href = this.$backendURL + '/room/selected/' + id;
 		},
 		emptyRooms(){
-			alert('hello')
+			this.empty = (this.empty)?false:true;
 		}
 	},
 	filters: {
@@ -116,10 +113,29 @@ export default {
 
 		}
 	},
+	computed: {
+		filterRooms: function(){
+			let filtered = this.arrayRooms;
+			//Se filtra por rooms vacíos
+			if(this.empty){
+				filtered = this.arrayRooms.filter(
+                    m => m.count_room <= 0
+                );
+			}
+			//Se filtra por el término buscado
+			if(this.term != ""){
+                filtered = filtered.filter(
+                    m => m.room_name.toLowerCase().indexOf(this.term) > -1
+                );
+            }
+			return filtered;
+		}
+	},
 	mounted(){
 		//Cada vez que se abre el modal se recarga la lista de rooms
 		$('#showModal').on('show.bs.modal', this.getRooms);
-		$('#selectedx').on('touch.bs.toggle click.bs.toggle', this.emptyRooms);
+		//Cada vez que cambia el filtro de rooms vacíos
+		$(document).on('touch.bs.toggle click.bs.toggle', 'div[data-toggle^=toggle]', this.emptyRooms);
 	}
 }
 </script>
