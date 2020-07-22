@@ -10,7 +10,7 @@ class ChatController extends Controller{
 		$message->user_id = $req->get('user');
 		$message->room_id = $req->get('room');
 		$message->messages = $req->get('message');
-		$message->json = "";
+		$message->json = ""; // Borrar esta columna en la DB
 		$message->save();
 
 		broadcast(new MessageSent($message->room_id, $message->user_id, $message->messages))->toOthers();
@@ -18,6 +18,9 @@ class ChatController extends Controller{
 		return response('Message Sent!');
 	}
 	public function getMessages(){
-		echo "hola";
+		$messages = \DB::table('chat')
+					->leftJoin('xenusers', 'chat.user_id', 'xenusers.user_id')
+					->select('xenusers.json as user', 'chat.room_id as room', 'chat.messages as message', 'chat.created_at as date')->get();
+		return response($messages->toJson());
 	}
 }
