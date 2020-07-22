@@ -29,26 +29,11 @@
 				<div class="alert alert-success text-center" role="alert" style="padding: 5px;">
 					<small>This is a custom notice for this room. Terms and condictions link? Rules link? Whatever</small>
 				</div>
-                <div class="card-body" style="overflow-y: auto;" id="scroll">
-					<div class="mesgs">
-						<div class="msg_history">
-							<div id="messages" style=" margin-top: -15px;"></div>
-						</div>
-					</div>
-                </div>
+                <chatmessages-component :messages="messages"></chatmessages-component>
             </div>
-			<br/>
-			<form>
-				<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-				<div class="row">
-					<div class="col-md-10">
-						<textarea class="content" name="text" id="text" placeholder="Messages" autofocus></textarea>
-					</div>
-					<div class="col-md-2">
-						<button type="button" class="btn btn-primary form-control" name="sendMessage" id="sendMessage" onclick="messagesAdd(this)">Send</button>
-					</div>
-				</div>
-			</form>
+			<groupformchat-component 
+				v-on:messagesent="addMessage">
+			</groupformchat-component>
         </div>
         <div class="col-md-3">
 			<sidebar-component></sidebar-component>
