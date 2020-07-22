@@ -23,6 +23,8 @@ Vue.component('rooms-change-component', require('./components/RoomsChangeCompone
 Vue.component('login-user-component', require('./components/LoginUserComponent.vue').default);
 Vue.component('private-component', require('./components/PrivateComponent.vue').default);
 Vue.component('sidebar-component', require('./components/SidebarComponent.vue').default);
+Vue.component('groupformchat-component', require('./components/GroupFormChatComponent.vue').default);
+Vue.component('chatmessages-component', require('./components/ChatMessagesComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -34,4 +36,31 @@ Vue.prototype.$backendURL = "http://chat2.com-devel";
 
 const app = new Vue({
     el: '#app-vue',
+    data: {
+        messages: [],
+    },
+    created() {
+        //this.fetchMessages();
+        window.Echo.private('chat').listen('MessageSent', (e) => {
+            console.log('echo hello!');
+            this.messages.push({
+                    message: e.message,
+                    user: e.user,
+                    room: e.room
+            });
+        });
+    },
+    methods: {
+        /*fetchMessages() {
+            axios.get('/messages').then(response => {
+                this.messages = response.data;
+            });
+        },*/
+        addMessage(message) {
+            this.messages.push(message);
+            axios.post('/chat/create', message).then(response => {
+                console.log(response.data);
+            });
+        },
+    },
 });

@@ -1,5 +1,5 @@
 	$(function() {
-		$('#messages').html(null);
+		//$('#messages').html(null);
 		//$('#users-count').html('0');
 	});
 	
@@ -218,7 +218,7 @@ function renderUser(data) {
 	  $('#users2').html(html);
   }
   
-  function messagesAdd(e) {
+  /*function messagesAdd(e) {
 	  
 	  var myContent = tinymce.activeEditor.getContent();	  
 	  tinymce.activeEditor.setContent("");
@@ -241,7 +241,7 @@ function renderUser(data) {
 	  //tinymce.activeEditor.setContent(null);
 	 
 	  return false;
-  }
+  }*/
   
   function messagesAddPrivate(e) {
 	  
