@@ -29,7 +29,7 @@
 	<link href="{{ asset('css/messages.css') }}" rel="stylesheet">
 	<script src="{{asset('tinymce.min.js?apiKey=r72gi40ebpxjpvsf9huxa66nnm5ykzsz4390dhb5wvea5yg4') }}"></script>
 	<script>
-		tinymce.init({
+		/*tinymce.init({
 			menubar: false,
 			selector:'#text',
 			height: 50,
@@ -43,7 +43,7 @@
 					}
 				});
 			}
-		});
+		});*/
 		tinymce.execCommand('mceFocus',false,'text');
 		tinymce.init({
 			selector:'#text2',
@@ -68,7 +68,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-					@if($xen_user)
+					@if(isset($xen_user) && $xen_user)
                     <ul class="navbar-nav mr-auto">	
                         <li  class="dropdown" id="user-content-me3">	
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration: none;">
