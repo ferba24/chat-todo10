@@ -38,24 +38,29 @@ const app = new Vue({
     el: '#app-vue',
     data: {
         messages: [],
+        currentRoom: 0,
     },
     created() {
-        //this.fetchMessages();
+        this.fetchMessages();
+
         window.Echo.private('chat').listen('MessageSent', (e) => {
             console.log('echo hello!');
             this.messages.push({
                     message: e.message,
                     user: e.user,
-                    room: e.room
+                    room: e.room,
+                    date: e.date
             });
         });
     },
     methods: {
-        /*fetchMessages() {
-            axios.get('/messages').then(response => {
+        //PRUEBA
+        fetchMessages() {
+            axios.get('/chat/getMessages').then(response => {
                 this.messages = response.data;
             });
-        },*/
+        },
+        //Añade un mensaje al chat grupal
         addMessage(message) {
             this.messages.push(message);
             axios.post('/chat/create', message).then(response => {
