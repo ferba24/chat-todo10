@@ -43,9 +43,11 @@ class HomeController extends Controller{
 			$X_user = new XenUser();
 			//Se obtiene el usuario desde la api de xenforo
 			$user = $X_user->getUserById_Xenforo($user);
-			$user = $user->user;
-			// se actualiza la información del usuario en laravel
-			$X_user->setUserById($user);
+			if(isset($user->user) && $user->user){
+				$user = $user->user;
+				// se actualiza la información del usuario en laravel
+				$X_user->setUserById($user);
+			}
 			//Se revisa que el usuario está regstrado en el room 1 general
 			$check_r_u = RoomUser::where('user_id', $user->user_id)->where('room_id', 1)->first();
 			if(!$check_r_u){
