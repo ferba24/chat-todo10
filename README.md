@@ -10,3 +10,11 @@
  npm run dev (compilar en dev)
 
  npm run production
+
+ ## API PUSHER
+
+ Cambiar en los archivos:
+
+ - web/routes.php
+ - .env
+ - js/bootstrap.js
