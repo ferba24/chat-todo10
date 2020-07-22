@@ -1,17 +1,6 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return redirect()->route('home');
@@ -19,8 +8,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home/', 'HomeController@index')->name('home');
-Route::get('/home/logout', 'HomeController@logout')->name('home.logout');
+Route::get('home', 'HomeController@index')->name('home');
+Route::get('home/logout', 'HomeController@logout')->name('home.logout');
+
+Route::post('broadcast', function(Request $req){
+    $pusher = new Pusher\Pusher(
+                        "236acea19ee8b3a3672a", //PUSHER_APP_KEY
+                        "aa3d0ed20d984c0b2179", //PUSHER_APP_SECRET
+                        "991438" //PUSHER_APP_ID
+                    );
+    return $pusher->socket_auth($req->get('channel_name'), $req->get('socket_id'));
+});
 
 Route::prefix('room')->group(function(){
     Route::get('selected/{room}', 'RoomController@selected')->name('room.selected');
@@ -39,8 +37,10 @@ Route::get('/api/getUserPrivateChat/{user}', 'ApiController@getUserPrivateChat')
 Route::post('/api/saveUsers', 'ApiController@saveUsers')->name('api.saveUsers');
 Route::post('/api/login', 'ApiController@login')->name('api.login');
 
-//
-Route::post('/chat/create', 'ChatController@create')->name('chat.create');
+Route::prefix('chat')->group(function(){
+    Route::post('create', 'ChatController@create')->name('chat.create');
+    Route::get('/getMessages', 'ChatController@getMessages')->name('chat.getMessages');
+});
 
 //
 Route::resources([
