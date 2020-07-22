@@ -1,26 +1,23 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Chat;
-use App\RoomUser;
+use App\Events\MessageSent;
 
-class ChatController extends Controller
-{
-    //
-	public function create(Request $request) {
-		$chat = Chat::create($request->all());
-		
-		$room = RoomUser::where('user_id', $request->input('user_id'))->
-		where('room_id', $request->input('room_id'))->first();
-		
-		$update = Chat::where('user_id', $request->input('user_id'))->
-		where('room_id', $request->input('room_id'))->get();
-		
-		foreach ($update AS $upd) {
-			$upd->json = $room->json;
-			$upd->update();
-		}
+class ChatController extends Controller{
+	public function create(Request $req) {
+		$message = new Chat;
+		$message->user_id = $req->get('user');
+		$message->room_id = $req->get('room');
+		$message->messages = $req->get('message');
+		$message->json = "";
+		$message->save();
+
+		broadcast(new MessageSent($message->room_id, $message->user_id, $message->messages))->toOthers();
+
+		return response('Message Sent!');
+	}
+	public function getMessages(){
+		echo "hola";
 	}
 }
