@@ -16,7 +16,7 @@ class XenUser{
 				['verify' => env('XENFORO_SSL')]);
 			return json_decode((string) $res->getBody());
 		}catch(\GuzzleHttp\Exception\RequestException $e){
-	
+			
 		}
 	}
 	public function setUserById($user = null){
@@ -68,7 +68,7 @@ class XenUser{
 				'Accept' => 'application/json',
 				'XF-Api-Key' => env('XENFORO_TOKEN')]
 		]);		
-		$res = $client->post(env('XENFORO_URL'). "auth/?password=$password&login=$username",
+		$res = $client->post( env('XENFORO_URL') . "auth/?password=$password&login=$username",
             ['verify' => env('XENFORO_SSL')]);
 			
 		return json_decode((string) $res->getBody());
