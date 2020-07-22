@@ -59,9 +59,9 @@
 	</script>
 </head>
 <body>
-    <div id="app-vue">
+    <div id="app-vue" class="fill">
 		<input type="hidden" name="user_id" id="user_id" value="{{ session('user') }}"/>		
-		<nav class="navbar navbar-expand-md navbar-light bg-white shadow-lg navbar-custom" >
+		<nav id="card-box-navbar" class="navbar navbar-expand-md navbar-light bg-white shadow-lg navbar-custom" >
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -119,9 +119,9 @@
                 </div>
             </div>
         </nav>
-        <main>
-            @yield('content')
-		</main>
+        
+        @yield('content')
+		
 		<div class="modal fade" id="showModalRoomAdd" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">

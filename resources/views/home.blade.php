@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row justify-content-center">
+<div class="container-fluid fill">
+    <div class="row justify-content-center fill">
         <div class="col-md-9" style="margin-bottom: 20px">
-            <div class="card" style="height:350px;">
+            <div id="card-box-messages" class="card">
                 <div class="card-header">
 					@if($rooms)
 					<ul class="nav nav-pills nav-stacked">
@@ -29,11 +29,13 @@
 				<div class="alert alert-success text-center" role="alert" style="padding: 5px;">
 					<small>This is a custom notice for this room. Terms and condictions link? Rules link? Whatever</small>
 				</div>
-                <chatmessages-component :messages="messages"></chatmessages-component>
-            </div>
-			<groupformchat-component 
-				v-on:messagesent="addMessage">
-			</groupformchat-component>
+				<chatmessages-component :messages="messages"></chatmessages-component>
+			</div>
+			<div id="card-box-form">
+				<groupformchat-component 
+					v-on:messagesent="addMessage">
+				</groupformchat-component>
+			</div>
         </div>
         <div class="col-md-3">
 			<sidebar-component></sidebar-component>

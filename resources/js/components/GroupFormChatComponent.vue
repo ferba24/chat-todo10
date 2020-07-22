@@ -42,9 +42,20 @@ export default{
         tinymce.init({
 			menubar: false,
 			selector:'#text',
-			height: 50,
 			toolbar: 'bold italic underline',
 			setup: function (ed) {
+                ed.on('load', function(e) {
+                    //Obtener tamaños y establecer el tamaño del chat
+                    let sizeNet = document.getElementById('card-box-navbar').getBoundingClientRect().height
+                        + document.getElementById('card-box-form').getBoundingClientRect().height
+                        + 20; //20 es para hacer un fix correcto
+                    document.getElementById('card-box-messages').style = "max-height: calc( 100vh - " + sizeNet + "px );";
+
+                    //Borrar estas líneas, ya que es de prueba
+                    var objDiv = document.getElementById("scroll-messages-content");
+                    objDiv.scrollTop = objDiv.scrollHeight;
+                    /** */
+                });
 				// Se puso el setup para evitar el enter en el chat
 				ed.on('keydown',function(e) {
 					if(e.keyCode == 13){

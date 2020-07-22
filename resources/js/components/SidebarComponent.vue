@@ -1,6 +1,6 @@
 <template>
-<div class="card" style="height:520px;">
-    <div class="card-header">
+<div class="card">
+    <div id="sidebar-header" class="card-header">
         <ul class="nav nav-pills nav-stacked" id="myTab">
             <li><a href="#users" data-toggle="tab"  class="active">Users &nbsp;<span class="badge badge-pill badge-dark"><div id="users-count">{{ users_count }}</div></span></a></li>
             <li><a href="#rooms" data-toggle="tab" >Rooms &nbsp;<span class="badge badge-pill badge-dark">{{ rooms_count }}</span></a></li>
@@ -30,11 +30,11 @@
             </div>
         </div>
         <div id="rooms" class="tab-pane fade">
-            <div id="search-wrapperRooms">
-                <input type="text" class="form form-control remove-rounded" name="searchRooms" id="searchRooms" placeholder="Search room ..." v-model="term_room"/>
+            <div id="search-wrapper-rooms">
+                <input type="text" class="form form-control remove-rounded" placeholder="Search room ..." v-model="term_room"/>
                 <i class="fa fa-search"></i>
             </div>
-            <div class="card-body" style="height: 100%; max-height: 400px; overflow-y: auto;">	
+            <div id="sidebar-block" class="card-body" style="overflow-y: auto;">	
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -46,8 +46,8 @@
                     <tbody>
                         <tr v-for="room in filterRooms" :key="room.id">
                             <td>{{ room.room_name }}</td>
-                            <td>{{ room.count_room }}</td>
-                            <td><small><a class="btn btn-success btn-block btn-sm active" @click="selectedRoom(`${room.id}`)"  role="button"><i class="fas fa-door-open"></i> Enter</a></small></td>
+                            <td class="text-center">{{ room.count_room }}</td>
+                            <td class="text-center"><a class="btn btn-success btn-sm active" @click="selectedRoom(`${room.id}`)"  role="button"><i class="fas fa-door-open"></i> Enter</a></td>
                         </tr>
                     </tbody>	
                 </table>
@@ -94,7 +94,15 @@ export default{
     },
     mounted(){
         this.getRooms();
+
         $('a[data-toggle="tab"]').on('show.bs.tab', this.changeTab(this));
+
+        //Obtener tamaños y establecer el tamaño del bloque del sidebar
+        let sizeNet = 35
+            + document.getElementById('sidebar-header').getBoundingClientRect().height
+            + document.getElementById('card-box-navbar').getBoundingClientRect().height;
+        
+        document.getElementById('sidebar-block').style = "max-height: calc( 100vh - " + sizeNet + "px );overflow-y: auto;";
     },
     computed:{
         filterRooms: function(){
@@ -116,5 +124,8 @@ table td{
     font-size: 12px;
     line-height: 18px;
     padding: 3px 5px;
+}
+#sidebar-block{
+    padding-top: 1px;
 }
 </style>

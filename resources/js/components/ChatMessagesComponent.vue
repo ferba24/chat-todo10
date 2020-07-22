@@ -1,9 +1,7 @@
 <template>
 <div class="card-body messages-content" style="overflow-y: auto;" id="scroll-messages-content">
     <div v-for="message in messages" :key="message.id">
-        <p>{{ message.user }}</p>
-        <p>{{ message.message }}</p>
-        <p>{{ message.room }}</p>
+        <p class="msg">[{{ message.user | get_username }}] {{ message.date | date_format }}: <span v-html="message.message"></span></p>
     </div>
 </div>
     
@@ -15,6 +13,16 @@ export default {
     data(){
         return{
             size: 0,
+        }
+    },
+    filters:{
+        get_username: function(value){
+            let parse = JSON.parse(value);
+            return parse.username;
+        },
+        date_format: function(value){
+            let date = new Date(value);
+            return date.getHours()+':'+(date.getMinutes()<10?'0':'') + date.getMinutes();
         }
     },
     watch: {
@@ -35,3 +43,12 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+#scroll-messages-content .msg{
+    display: flex;
+}
+p{
+    margin: 0px !important;
+}
+</style>
