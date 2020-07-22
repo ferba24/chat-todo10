@@ -1,7 +1,7 @@
-	$(function() {
-		//$('#messages').html(null);
-		//$('#users-count').html('0');
-	});
+$(function() {
+	//$('#messages').html(null);
+	//$('#users-count').html('0');
+});
 	
 	function convertTime(time) {
 		// Split timestamp into [ Y, M, D, h, m, s ]
@@ -13,7 +13,7 @@
 	function exitRoom(roomId) {
 		location.href = url + "/room/exitRoom/" + roomId;
 	}
-
+/*
 	function render(data) {
 		var html = data.map(function(elem, index){
 			var json = JSON.parse(elem.json);
@@ -61,7 +61,7 @@
 		}
 		$('#messages').html(html);
 	}
-
+*/
 function renderUser(data) {
 		var html = data.map(function(elem, index) {
 			var json = JSON.parse(elem.json);
