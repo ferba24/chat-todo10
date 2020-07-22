@@ -39,7 +39,7 @@ Route::post('/api/login', 'ApiController@login')->name('api.login');
 
 Route::prefix('chat')->group(function(){
     Route::post('create', 'ChatController@create')->name('chat.create');
-    Route::get('/getMessages', 'ChatController@getMessages')->name('chat.getMessages');
+    Route::get('getMessages', 'ChatController@getMessages')->name('chat.getMessages');
 });
 
 //
