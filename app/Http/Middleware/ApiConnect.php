@@ -1,12 +1,22 @@
 <?php
 namespace App\Http\Middleware;
+use App\Traits\SessionTrait;
 use Closure;
 
 class ApiConnect{
-    public function handle($request, Closure $next){
-        if( !$request->get('_api_token') && $request->get('_api_token') != env('API_CONNECT') ){
+    use SessionTrait;
+
+    public function handle($req, Closure $next){
+        $user = $this->getUserFromCookie($req);
+        if(!$user){
             abort(404);
         }
-        return $next($request);
+        $sessions = \DB::table('sessions')->get();
+		foreach($sessions as $s){
+			$payload = unserialize(base64_decode($s->payload));
+			if(isset($payload['user']) && $payload['user'] == $user ){
+                return $next($req);
+			}
+		}
     }
 }

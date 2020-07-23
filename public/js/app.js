@@ -58463,7 +58463,6 @@ Vue.component('chatmessages-component', __webpack_require__(/*! ./components/Cha
  */
 
 Vue.prototype.$backendURL = "http://chat2.com-devel";
-Vue.prototype.$api_connect = "PCWIHwDQ4yM+Yig4r5wCuRV1Kpc0BiOW7iepk=";
 var app = new Vue({
   el: '#app-vue',
   data: {
@@ -58488,15 +58487,12 @@ var app = new Vue({
       });
     }); //Revisa si el usuario está logeado
 
-    var data = {
-      '_api_token': this.$api_connect
-    };
-    axios.post(this.$backendURL + '/api/checkLogin', data).then(function (response) {
+    axios.get(this.$backendURL + '/api/checkLogin').then(function (response) {
       if (response.data && response.data != '') {
         _this.login_user = response.data;
       }
     });
-    axios.post(this.$backendURL + '/api/checkRoom', data).then(function (response) {
+    axios.get(this.$backendURL + '/api/checkRoom').then(function (response) {
       if (response.data && response.data != '') {
         _this.current_room = response.data;
       } else {
@@ -58509,14 +58505,14 @@ var app = new Vue({
     fetchMessages: function fetchMessages() {
       var _this2 = this;
 
-      axios.get('/chat/getMessages').then(function (response) {
+      axios.get(this.$backendURL + '/chat/getMessages').then(function (response) {
         _this2.messages = response.data;
       });
     },
     //Añade un mensaje al chat grupal
     addMessage: function addMessage(message) {
       this.messages.push(message);
-      axios.post('/chat/create', message).then(function (response) {
+      axios.post(this.$backendURL + '/chat/create', message).then(function (response) {
         console.log(response.data);
       });
     },
@@ -58536,6 +58532,11 @@ var app = new Vue({
           $("#showModalRooms").modal("show");
         });
       }
+    },
+    current_room: function current_room(value) {
+      /*axios.post(this.$backendURL + '/chat/create', message).then(response => {
+          console.log(response.data);
+      });*/
     }
   }
 });

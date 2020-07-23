@@ -33,7 +33,6 @@ Vue.component('chatmessages-component', require('./components/ChatMessagesCompon
  */
 
 Vue.prototype.$backendURL = "http://chat2.com-devel";
-Vue.prototype.$api_connect = "PCWIHwDQ4yM+Yig4r5wCuRV1Kpc0BiOW7iepk=";
 
 const app = new Vue({
     el: '#app-vue',
@@ -56,15 +55,12 @@ const app = new Vue({
             });
         });
         //Revisa si el usuario está logeado
-        let data = {
-            '_api_token': this.$api_connect
-        };
-        axios.post(this.$backendURL + '/api/checkLogin', data).then(response => {
+        axios.get(this.$backendURL + '/api/checkLogin').then(response => {
             if (response.data && response.data != '') {
                 this.login_user = response.data;
             }
         });
-        axios.post(this.$backendURL + '/api/checkRoom', data).then(response => {
+        axios.get(this.$backendURL + '/api/checkRoom').then(response => {
             if (response.data && response.data != '') {
                 this.current_room = response.data;
             } else {
@@ -75,14 +71,14 @@ const app = new Vue({
     methods: {
         //PRUEBA
         fetchMessages() {
-            axios.get('/chat/getMessages').then(response => {
+            axios.get(this.$backendURL + '/chat/getMessages').then(response => {
                 this.messages = response.data;
             });
         },
         //Añade un mensaje al chat grupal
         addMessage(message) {
             this.messages.push(message);
-            axios.post('/chat/create', message).then(response => {
+            axios.post(this.$backendURL + '/chat/create', message).then(response => {
                 console.log(response.data);
             });
         },
@@ -102,6 +98,11 @@ const app = new Vue({
                     $("#showModalRooms").modal("show");
                 });
             }
+        },
+        current_room: function (value) {
+            /*axios.post(this.$backendURL + '/chat/create', message).then(response => {
+                console.log(response.data);
+            });*/
         }
     }
 });
