@@ -31,7 +31,7 @@ class RoomController extends Controller{
 		$room->delete();
 		return redirect()->route('home')->with('success', 'Se ha creado satisfactoriamente!');
 	}
-	//
+	// Get all rooms
 	public function getRooms() {
 		$rooms = \DB::table('room')->where('room.id', '!=', 1)
 				->leftJoin('room_user', 'room.id', 'room_user.room_id')
@@ -39,6 +39,10 @@ class RoomController extends Controller{
 				->groupBy('room.id')
 				->orderBy('count_room', 'desc')->get();
 		return response($rooms->toJson());
+	}
+	// Set room
+	public function setActualRoom(){
+		
 	}
 	public function getRoomsUser($id = null){
 		if(!$id){
