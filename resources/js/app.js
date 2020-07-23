@@ -33,17 +33,19 @@ Vue.component('chatmessages-component', require('./components/ChatMessagesCompon
  */
 
 Vue.prototype.$backendURL = "http://chat2.com-devel";
+Vue.prototype.$api_connect = "PCWIHwDQ4yM+Yig4r5wCuRV1Kpc0BiOW7iepk=";
 
 const app = new Vue({
     el: '#app-vue',
     data: {
         messages: [],
-        currentRoom: 0,
+        current_room: 0,
         login_user: 0,
     },
     created() {
+        //TEST
         this.fetchMessages();
-
+        //Escucha los mensajes de Pusher
         window.Echo.private('chat').listen('MessageSent', (e) => {
             console.log('echo hello!');
             this.messages.push({
@@ -53,14 +55,22 @@ const app = new Vue({
                     date: e.date
             });
         });
-        
-    },
-    mounted() {
-        if (this.login_user == 0) {
-            $(document).ready(function() {
-                $("#showModalLogin").modal("show");
-            });
-        }
+        //Revisa si el usuario está logeado
+        let data = {
+            '_api_token': this.$api_connect
+        };
+        axios.post(this.$backendURL + '/api/checkLogin', data).then(response => {
+            if (response.data && response.data != '') {
+                this.login_user = response.data;
+            }
+        });
+        axios.post(this.$backendURL + '/api/checkRoom', data).then(response => {
+            if (response.data && response.data != '') {
+                this.current_room = response.data;
+            } else {
+                this.current_room = 1;
+            }
+        });
     },
     methods: {
         //PRUEBA
@@ -83,7 +93,11 @@ const app = new Vue({
     },
     watch: {
         login_user: function (value) {
-            if (value != 0) {
+            if (value == 0) {
+                $(document).ready(function() {
+                    $("#showModalLogin").modal("show");
+                });
+            }else{
                 $(document).ready(function() {
                     $("#showModalRooms").modal("show");
                 });

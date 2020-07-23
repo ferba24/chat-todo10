@@ -58463,17 +58463,20 @@ Vue.component('chatmessages-component', __webpack_require__(/*! ./components/Cha
  */
 
 Vue.prototype.$backendURL = "http://chat2.com-devel";
+Vue.prototype.$api_connect = "PCWIHwDQ4yM+Yig4r5wCuRV1Kpc0BiOW7iepk=";
 var app = new Vue({
   el: '#app-vue',
   data: {
     messages: [],
-    currentRoom: 0,
+    current_room: 0,
     login_user: 0
   },
   created: function created() {
     var _this = this;
 
-    this.fetchMessages();
+    //TEST
+    this.fetchMessages(); //Escucha los mensajes de Pusher
+
     window.Echo["private"]('chat').listen('MessageSent', function (e) {
       console.log('echo hello!');
 
@@ -58483,14 +58486,23 @@ var app = new Vue({
         room: e.room,
         date: e.date
       });
+    }); //Revisa si el usuario está logeado
+
+    var data = {
+      '_api_token': this.$api_connect
+    };
+    axios.post(this.$backendURL + '/api/checkLogin', data).then(function (response) {
+      if (response.data && response.data != '') {
+        _this.login_user = response.data;
+      }
     });
-  },
-  mounted: function mounted() {
-    if (this.login_user == 0) {
-      $(document).ready(function () {
-        $("#showModalLogin").modal("show");
-      });
-    }
+    axios.post(this.$backendURL + '/api/checkRoom', data).then(function (response) {
+      if (response.data && response.data != '') {
+        _this.current_room = response.data;
+      } else {
+        _this.current_room = 1;
+      }
+    });
   },
   methods: {
     //PRUEBA
@@ -58515,7 +58527,11 @@ var app = new Vue({
   },
   watch: {
     login_user: function login_user(value) {
-      if (value != 0) {
+      if (value == 0) {
+        $(document).ready(function () {
+          $("#showModalLogin").modal("show");
+        });
+      } else {
         $(document).ready(function () {
           $("#showModalRooms").modal("show");
         });
