@@ -3,14 +3,14 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Login 2</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Login</h5>
 				<small>Login by users</small>
 			</div>
 			<div class="modal-body">
 				<form @submit.prevent="login">
-
-					<div v-if="errors && errors.generic" class="text-danger">{{ errors.generic }}</div>
-
+					<div v-if="errors && errors.generic" class="text-danger">
+						{{ errors.generic }}
+					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
@@ -22,28 +22,31 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-								<div class="form-group">
-									<label>Password</label>
-									<input type="password" name="password" v-model="fields.password" id="password" placeholder="Password" class="form-control"/>
-									<div v-if="errors && errors.password" class="text-danger">{{ errors.password[0] }}</div>
-								</div>
+							<div class="form-group">
+								<label>Password</label>
+								<input type="password" name="password" v-model="fields.password" id="password" placeholder="********" class="form-control"/>
+								<div v-if="errors && errors.password" class="text-danger">{{ errors.password[0] }}</div>
 							</div>
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<button type="submit" class="btn btn-primary">Log in</button>
+							<button id="sendButton" type="submit" class="btn btn-primary">
+							<span v-if="!send_login">
+								Log in
+							</span>
+							<span v-if="send_login">
+								<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+								Loading...
+							</span>
+							</button>
 						</div>
 					</div>
 				</form>
-				<br/>
-				<div class="row">
-					<div class="col-md-6 text-left">
-						<a href="https://customers.todo10.com/xenforojose/index.php?register/" class="btn btn-default">Register Now</a>
-					</div>
-					<div class="col-md-6 text-right">
-						<a href="https://customers.todo10.com/xenforojose/" class="btn btn-default">Close</a>
-					</div>
-				</div>
+			</div>
+			<div class="modal-footer">
+				<a href="https://customers.todo10.com/xenforojose/index.php?register/" class="btn btn btn-secondary">Register Now</a>
+				<a href="https://customers.todo10.com/xenforojose/" class="btn btn-secondary">Close</a>
 			</div>
 		</div>
 	</div>
@@ -54,17 +57,28 @@
 export default {
 	data(){
 		return {
+			send_login: false,
 			fields: {},
 			errors: {},
 		}
 	},
 	methods:{
 		login: function() {
+			this.send_login = true;
+			document.getElementById('sendButton').setAttribute("disabled", "disabled");
+
 			let url = this.$backendURL + '/api/login';
 			this.errors = {};
 			axios.post(url, this.fields).then(response => {
 				if(response.data.success) {
-					location.href = this.$backendURL + '/home/';
+					this.send_login = false;
+					document.getElementById('sendButton').removeAttribute("disabled");
+					//Envía el ID del usuario conectado
+					this.$emit('login_usersent', {
+						user_id: response.data.user.user_id
+					});
+					$('#showModalLogin').modal('hide');
+					//location.href = this.$backendURL + '/home/';
 				} 
 			})
 			.catch(error => {
@@ -74,7 +88,7 @@ export default {
 				if(error.response.status == 500) {
 					this.errors = {"generic": "Incorrect password. Please try again."} || {};
 				}
-			});   
+			});
 		}
 	}
 }

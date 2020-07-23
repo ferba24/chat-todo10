@@ -2097,9 +2097,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      send_login: false,
       fields: {},
       errors: {}
     };
@@ -2108,11 +2112,20 @@ __webpack_require__.r(__webpack_exports__);
     login: function login() {
       var _this = this;
 
+      this.send_login = true;
+      document.getElementById('sendButton').setAttribute("disabled", "disabled");
       var url = this.$backendURL + '/api/login';
       this.errors = {};
       axios.post(url, this.fields).then(function (response) {
         if (response.data.success) {
-          location.href = _this.$backendURL + '/home/';
+          _this.send_login = false;
+          document.getElementById('sendButton').removeAttribute("disabled"); //Envía el ID del usuario conectado
+
+          _this.$emit('login_usersent', {
+            user_id: response.data.user.user_id
+          });
+
+          $('#showModalLogin').modal('hide'); //location.href = this.$backendURL + '/home/';
         }
       })["catch"](function (error) {
         if (error.response.status == 422) {
@@ -2140,6 +2153,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -2397,7 +2411,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     //Cada vez que se abre el modal se recarga la lista de rooms
-    $('#showModal').on('show.bs.modal', this.getRooms); //Cada vez que cambia el filtro de rooms vacíos
+    $('#showModalRooms').on('show.bs.modal', this.getRooms); //Cada vez que cambia el filtro de rooms vacíos
 
     $(document).on('touch.bs.toggle click.bs.toggle', 'div[data-toggle^=toggle]', this.emptyRooms);
   }
@@ -45083,7 +45097,11 @@ var render = function() {
               [
                 _vm.errors && _vm.errors.generic
                   ? _c("div", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.errors.generic))
+                      _vm._v(
+                        "\n\t\t\t\t\t\t" +
+                          _vm._s(_vm.errors.generic) +
+                          "\n\t\t\t\t\t"
+                      )
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -45151,7 +45169,7 @@ var render = function() {
                           type: "password",
                           name: "password",
                           id: "password",
-                          placeholder: "Password"
+                          placeholder: "********"
                         },
                         domProps: { value: _vm.fields.password },
                         on: {
@@ -45177,14 +45195,41 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(1)
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { id: "sendButton", type: "submit" }
+                      },
+                      [
+                        !_vm.send_login
+                          ? _c("span", [
+                              _vm._v("\n\t\t\t\t\t\t\t\tLog in\n\t\t\t\t\t\t\t")
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.send_login
+                          ? _c("span", [
+                              _c("span", {
+                                staticClass: "spinner-border spinner-border-sm",
+                                attrs: { role: "status", "aria-hidden": "true" }
+                              }),
+                              _vm._v(
+                                "\n\t\t\t\t\t\t\t\tLoading...\n\t\t\t\t\t\t\t"
+                              )
+                            ])
+                          : _vm._e()
+                      ]
+                    )
+                  ])
+                ])
               ]
-            ),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _vm._m(2)
-          ])
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(1)
         ])
       ])
     ]
@@ -45199,7 +45244,7 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Login 2")]
+        [_vm._v("Login")]
       ),
       _vm._v(" "),
       _c("small", [_vm._v("Login by users")])
@@ -45209,45 +45254,26 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Log in")]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6 text-left" }, [
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-default",
-            attrs: {
-              href:
-                "https://customers.todo10.com/xenforojose/index.php?register/"
-            }
-          },
-          [_vm._v("Register Now")]
-        )
-      ]),
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn btn-secondary",
+          attrs: {
+            href: "https://customers.todo10.com/xenforojose/index.php?register/"
+          }
+        },
+        [_vm._v("Register Now")]
+      ),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-6 text-right" }, [
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-default",
-            attrs: { href: "https://customers.todo10.com/xenforojose/" }
-          },
-          [_vm._v("Close")]
-        )
-      ])
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { href: "https://customers.todo10.com/xenforojose/" }
+        },
+        [_vm._v("Close")]
+      )
     ])
   }
 ]
@@ -45698,7 +45724,7 @@ var render = function() {
     {
       staticClass: "modal fade",
       attrs: {
-        id: "showModal",
+        id: "showModalRooms",
         "data-backdrop": "static",
         "data-keyboard": "false",
         tabindex: "-1",
@@ -58441,7 +58467,8 @@ var app = new Vue({
   el: '#app-vue',
   data: {
     messages: [],
-    currentRoom: 0
+    currentRoom: 0,
+    login_user: 0
   },
   created: function created() {
     var _this = this;
@@ -58458,6 +58485,13 @@ var app = new Vue({
       });
     });
   },
+  mounted: function mounted() {
+    if (this.login_user == 0) {
+      $(document).ready(function () {
+        $("#showModalLogin").modal("show");
+      });
+    }
+  },
   methods: {
     //PRUEBA
     fetchMessages: function fetchMessages() {
@@ -58473,6 +58507,19 @@ var app = new Vue({
       axios.post('/chat/create', message).then(function (response) {
         console.log(response.data);
       });
+    },
+    //Establece el ID del usuario logeado
+    setLoginUser: function setLoginUser(user) {
+      this.login_user = user.user_id;
+    }
+  },
+  watch: {
+    login_user: function login_user(value) {
+      if (value != 0) {
+        $(document).ready(function () {
+          $("#showModalRooms").modal("show");
+        });
+      }
     }
   }
 });

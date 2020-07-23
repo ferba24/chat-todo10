@@ -39,6 +39,7 @@ const app = new Vue({
     data: {
         messages: [],
         currentRoom: 0,
+        login_user: 0,
     },
     created() {
         this.fetchMessages();
@@ -52,6 +53,14 @@ const app = new Vue({
                     date: e.date
             });
         });
+        
+    },
+    mounted() {
+        if (this.login_user == 0) {
+            $(document).ready(function() {
+                $("#showModalLogin").modal("show");
+            });
+        }
     },
     methods: {
         //PRUEBA
@@ -67,5 +76,18 @@ const app = new Vue({
                 console.log(response.data);
             });
         },
+        //Establece el ID del usuario logeado
+        setLoginUser(user) {
+            this.login_user = user.user_id;
+        }
     },
+    watch: {
+        login_user: function (value) {
+            if (value != 0) {
+                $(document).ready(function() {
+                    $("#showModalRooms").modal("show");
+                });
+            }
+        }
+    }
 });

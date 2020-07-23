@@ -32,9 +32,7 @@
 				<chatmessages-component :messages="messages"></chatmessages-component>
 			</div>
 			<div id="card-box-form">
-				<groupformchat-component 
-					v-on:messagesent="addMessage">
-				</groupformchat-component>
+				<groupformchat-component v-on:messagesent="addMessage"></groupformchat-component>
 			</div>
         </div>
         <div class="col-md-3">
@@ -44,26 +42,26 @@
 </div><!-- .container-fluid -->
 <rooms-component></rooms-component>
 <rooms-change-component></rooms-change-component>
-<login-user-component></login-user-component>
+<login-user-component v-on:login_usersent="setLoginUser"></login-user-component>
 <private-component></private-component>
 @endsection
 
 @section('script')
 	@if(!$sessionRoom)
 		@if($xen_user)
-			<script src="{{ asset('js/chat-empty.js') }}"></script>
+			<!--<script src="{{ asset('js/chat-empty.js') }}"></script>-->
 		@else
-			<script src="{{ asset('js/chat-login.js') }}"></script>
+			<!--<script src="{{ asset('js/chat-login.js') }}"></script>-->
 		@endif
 	@else
 		@if($xen_user)
 			<script type="text/javascript">
 				var user_id = "{{ session('user') }}";
-				var url = "{{ env('MIX_APP_URL') }}";
+				//var url = "{{ env('MIX_APP_URL') }}";
 			</script>
 			<script src="{{ asset('js/chat.js') }}"></script>
 		@else
-			<script src="{{ asset('js/chat-login.js') }}"></script>
+			<!--<script src="{{ asset('js/chat-login.js') }}"></script>-->
 		@endif
 	@endif
 @endsection
