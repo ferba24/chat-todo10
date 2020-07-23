@@ -81,7 +81,7 @@
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="#" class="nav-link" data-toggle="modal" data-target="#showModal"><small>ROOMS</small></a></li>
+								<li><a href="#" class="nav-link" data-toggle="modal" data-target="#showModalRooms"><small>ROOMS</small></a></li>
 								<li><a href="{{ route('home.logout') }}" class="nav-link"><small>LOGOUT</small></a></li>
 							</ul>
                         </li>
