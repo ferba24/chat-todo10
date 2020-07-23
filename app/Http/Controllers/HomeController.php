@@ -11,7 +11,9 @@ class HomeController extends Controller{
 	use SessionTrait;
 
     public function index(Request $req){
-		/*$sessions = \DB::table('sessions')->get();
+		/*echo \Cookie::get('XSRF-TOKEN');
+		echo "<br>";
+		$sessions = \DB::table('sessions')->get();
 		foreach($sessions as $s){
 			$payload = unserialize(base64_decode($s->payload));
 			if(isset($payload['user'])){
