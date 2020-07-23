@@ -28,19 +28,24 @@ Route::prefix('room')->group(function(){
     Route::get('exitRoom/{room}', 'RoomController@exitRoom')->name('room.exitRoom');
 });
 
-//
+Route::prefix('chat')->group(function(){
+    Route::post('create', 'ChatController@create')->name('chat.create');
+    Route::get('getMessages', 'ChatController@getMessages')->name('chat.getMessages');
+});
+Route::middleware(['api_connect'])->group(function () {
+    //Routes
+    Route::prefix('api')->group(function(){
+        Route::post('login', 'ApiController@login');
+        Route::post('checkLogin', 'ApiController@checkLogin');
+        Route::post('checkRoom', 'ApiController@checkRoom');
+    });
+});
 Route::get('/api/getUser/{room}/{search?}', 'ApiController@getUser')->name('api.getUser');
 Route::get('/api/getUserPrivate', 'ApiController@getUserPrivate')->name('api.getUserPrivate');
 Route::get('/api/getMessages/{room}', 'ApiController@getMessages')->name('api.getMessages');
 Route::get('/api/getCountUsers/{room}', 'ApiController@getCountUsers')->name('api.getCountUsers'); //no se usa
 Route::get('/api/getUserPrivateChat/{user}', 'ApiController@getUserPrivateChat')->name('api.getUserPrivateChat');
 Route::post('/api/saveUsers', 'ApiController@saveUsers')->name('api.saveUsers');
-Route::post('/api/login', 'ApiController@login')->name('api.login');
-
-Route::prefix('chat')->group(function(){
-    Route::post('create', 'ChatController@create')->name('chat.create');
-    Route::get('getMessages', 'ChatController@getMessages')->name('chat.getMessages');
-});
 
 //
 Route::resources([
