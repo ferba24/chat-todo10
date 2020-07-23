@@ -5,8 +5,11 @@ use App\Http\Requests;
 use App\XenUser;
 use App\Room;
 use App\RoomUser;
+use App\Traits\SessionTrait;
 
 class HomeController extends Controller{
+	use SessionTrait;
+
     public function index(Request $req){
 		/*$sessions = \DB::table('sessions')->get();
 		foreach($sessions as $s){
@@ -23,22 +26,11 @@ class HomeController extends Controller{
 		exit(1);*/
 		/*
 		Se busca la cookie del usuario para validar si está logeado o no
+		desde SessionTrait->getUserFromCookie
 		*/
-		if(isset($_COOKIE["xf_user"]) && (\Cookie::get('xf_user') == null)) {
-			$xf_user = $_COOKIE["xf_user"];
-			$pos = strpos($xf_user, ',');
-			$user = substr($xf_user,0,$pos);
-		}else{
-			if (\Cookie::get('xf_user') !== null) {
-				$user = \Cookie::get('xf_user');
-				$req->session()->put('user', $user);
-			} else {
-				$user = null;
-			}
-		}
+		$user = $this->getUserFromCookie($req);
 		// Si está logeado
 		if($user) {
-			$req->session()->put('user', $user);
 			// Api xenforo
 			$X_user = new XenUser();
 			//Se obtiene el usuario desde la api de xenforo

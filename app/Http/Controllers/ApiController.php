@@ -78,7 +78,7 @@ class ApiController extends Controller{
 	}
 	
 	//
-	public function getMessages($room = '') {
+	/*public function getMessages($room = '') {
 		$chat = Chat::where('room_id', $room)->orderBy('id', 'asc')->get();
 		//		
 		foreach($chat AS $c) {
@@ -88,14 +88,14 @@ class ApiController extends Controller{
 			$c->update();
 		}
 		return response()->json($chat);
-	}
+	}*/
 	
 	// 
-	public function getCountUsers($room = '') {
+	/*public function getCountUsers($room = '') {
 		$count_users = RoomUser::join('room', 'room.id', '=', 'room_user.room_id')
 				->where('room_user.room_id', '=', $room)->count();
 		return response()->json($count_users);
-	}
+	}*/
 	
 	//
 	public function saveUsers(Request $request) {
@@ -115,18 +115,18 @@ class ApiController extends Controller{
         return response()->json($xen_user);
 	}
 	
-	//
-	public function login(Request $request) {
-		$this->validate($request, [
+	// API LOGIN
+	public function login(Request $req) {
+		$this->validate($req, [
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
 		$xen_user = new XenUser();
 		$xen_user = $xen_user->login(
-			$request->input('username'),
-			$request->input('password')
+			$req->input('username'),
+			$req->input('password')
 		);
-        return response()->json($xen_user)->cookie('xf_user', $xen_user->user->user_id);
+		return response()->json($xen_user)->cookie('xf_user', $xen_user->user->user_id);
 	}
 	
 	//
