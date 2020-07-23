@@ -6,6 +6,7 @@
         <div class="col-md-9" style="margin-bottom: 20px">
             <div id="card-box-messages" class="card">
                 <div class="card-header">
+					<!-- ARREGLAR CON UN COMPONENTE DE VUE -->
 					@if($rooms)
 					<ul class="nav nav-pills nav-stacked">
 						@foreach($rooms as $room)

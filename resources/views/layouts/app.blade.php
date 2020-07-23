@@ -67,7 +67,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
+					<!-- Left Side Of Navbar -->
+					<!-- ARREGLAR LO SIGUIENTE COMO COMPONENTE DE VUE -->
 					@if(isset($xen_user) && $xen_user)
                     <ul class="navbar-nav mr-auto">	
                         <li  class="dropdown" id="user-content-me3">	
