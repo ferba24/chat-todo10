@@ -1,4 +1,5 @@
 <template>
+<!-- DELETE COMPONENT -->
 <div class="modal fade" id="showModalRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
     	<div class="modal-content">
@@ -81,32 +82,32 @@
 </template>
 
 <script>
-    export default {
-			data(){
-				return{
-					arrayRooms: [], // Este array contendrá las tareas de nuestra bd
-				}
-			},
-			methods:{
-				getRooms: function() {
-					let me = this;
-					let url = this.$backendURL + '/room/getRoom' //Ruta que hemos creado para que nos devuelva todas las tareas
-					axios.get(url).then(function (response) {
-						//creamos un array y guardamos el contenido que nos devuelve el response
-						me.arrayRooms = response.data;
-					})
-					.catch(function (error) {
-						// handle error
-						console.log(error);
-					});
-				},
-				selectedRoom: function(id) {
-					
-					location.href = this.$backendURL + '/room/selected/' + id;
-				}
-			},
-			mounted() {
-				this.getRooms();
-			}
-    }
+export default {
+	data(){
+		return{
+			arrayRooms: [], // Este array contendrá las tareas de nuestra bd
+		}
+	},
+	methods:{
+		getRooms: function() {
+			let me = this;
+			let url = this.$backendURL + '/room/getRoom' //Ruta que hemos creado para que nos devuelva todas las tareas
+			axios.get(url).then(function (response) {
+				//creamos un array y guardamos el contenido que nos devuelve el response
+				me.arrayRooms = response.data;
+			})
+			.catch(function (error) {
+				// handle error
+				console.log(error);
+			});
+		},
+		selectedRoom: function(id) {
+			
+			location.href = this.$backendURL + '/room/selected/' + id;
+		}
+	},
+	mounted() {
+		this.getRooms();
+	}
+}
 </script>

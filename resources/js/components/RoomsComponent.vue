@@ -1,5 +1,5 @@
 <template>
-<div class="modal fade" id="showModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="showModalRooms" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
     	<div class="modal-content">
 			<div class="modal-header">
@@ -132,7 +132,7 @@ export default {
 	},
 	mounted(){
 		//Cada vez que se abre el modal se recarga la lista de rooms
-		$('#showModal').on('show.bs.modal', this.getRooms);
+		$('#showModalRooms').on('show.bs.modal', this.getRooms);
 		//Cada vez que cambia el filtro de rooms vacíos
 		$(document).on('touch.bs.toggle click.bs.toggle', 'div[data-toggle^=toggle]', this.emptyRooms);
 	}

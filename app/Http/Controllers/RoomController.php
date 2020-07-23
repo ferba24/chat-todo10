@@ -6,9 +6,6 @@ use App\RoomUser;
 use App\XenUser;
 
 class RoomController extends Controller{
-	public function index() {
-		
-	}
 	public function selected(Request $req, $room = '') {
 		// Add user to room
 		$rooms = RoomUser::where('room_id', $room)->where('user_id', $req->session()->get('user'))->first();

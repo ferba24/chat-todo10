@@ -1,3 +1,3 @@
-$(document).ready(function() {
-  $("#showModal").modal("show");
-});
+/*$(document).ready(function() {
+  $("#showModalRooms").modal("show");
+});*/
