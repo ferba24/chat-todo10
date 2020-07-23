@@ -28,7 +28,7 @@ class HomeController extends Controller{
 		Se busca la cookie del usuario para validar si está logeado o no
 		desde SessionTrait->getUserFromCookie
 		*/
-		$user = $this->getUserFromCookie($req);
+		/*$user = $this->getUserFromCookie($req);
 		// Si está logeado
 		if($user) {
 			// Api xenforo
@@ -64,15 +64,15 @@ class HomeController extends Controller{
 				$count_rooms = null;
 			}*/
 			//Obtiene el room actual del usuario
-			$sessionRoom = $req->session()->get('room');
+			/*$sessionRoom = $req->session()->get('room');
 			$xen_user = $user;
 			return view('home', compact('xen_user', 'rooms', 'sessionRoom'));
-		}else{
+		}else{*/
 			$rooms = null;
 			$xen_user  = null;
 			$sessionRoom = null;
 			return view('home', compact('xen_user', 'rooms', 'sessionRoom'));
-		}
+		//}
     }
 	public function logout() {
 		\Cookie::forget('xf_user');

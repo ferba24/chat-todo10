@@ -7,9 +7,11 @@ use App\Chat;
 use App\XenUser;
 use App\PrivateChatUser;
 use App\PrivateChatUserChat;
+use App\Traits\SessionTrait;
 use Cookie;
 
 class ApiController extends Controller{
+	use SessionTrait;
     //
 	public function getUser($room = '', $search = '') {	
 		if($room != '') {
@@ -115,7 +117,10 @@ class ApiController extends Controller{
         return response()->json($xen_user);
 	}
 	
-	// API LOGIN
+	/* 
+	API LOGIN
+	return json($xen_user) // from XenUser
+	*/
 	public function login(Request $req) {
 		$this->validate($req, [
             'username' => 'required|string',
@@ -128,9 +133,12 @@ class ApiController extends Controller{
 		);
 		return response()->json($xen_user)->cookie('xf_user', $xen_user->user->user_id);
 	}
-	
-	//
-	public function updateUser() {
-		
+	// Check Login
+	public function checkLogin(Request $req){
+		return $this->getUserFromCookie($req);
+	}
+	// Check Room
+	public function checkRoom(Request $req){
+		return $this->getRoomLogin($req);
 	}
 }
