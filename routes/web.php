@@ -32,16 +32,14 @@ Route::prefix('chat')->group(function(){
     Route::post('create', 'ChatController@create')->name('chat.create');
     Route::get('getMessages', 'ChatController@getMessages')->name('chat.getMessages');
 });
-Route::middleware(['api_connect'])->group(function () {
-    //Routes
-    Route::prefix('api')->group(function(){
-        Route::post('login', 'ApiController@login');
-        Route::get('checkLogin', 'ApiController@checkLogin');
-        Route::get('checkRoom', 'ApiController@checkRoom');
-    });
-    Route::prefix('room')->group(function(){
-        //Route::post('login', 'ApiController@login');
-    });
+
+Route::prefix('api')->group(function(){
+    Route::post('login', 'ApiController@login');
+    Route::get('checkLogin', 'ApiController@checkLogin');
+    Route::get('checkRoom', 'ApiController@checkRoom')->middleware('api_connect');
+});
+Route::prefix('room')->group(function(){
+    //Route::post('login', 'ApiController@login');
 });
 Route::get('/api/getUser/{room}/{search?}', 'ApiController@getUser')->name('api.getUser');
 Route::get('/api/getUserPrivate', 'ApiController@getUserPrivate')->name('api.getUserPrivate');

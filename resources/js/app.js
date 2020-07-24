@@ -58,15 +58,21 @@ const app = new Vue({
         axios.get(this.$backendURL + '/api/checkLogin').then(response => {
             if (response.data && response.data != '') {
                 this.login_user = response.data;
+                
+                axios.get(this.$backendURL + '/api/checkRoom').then(response => {
+                    if (response.data && response.data != '') {
+                        this.current_room = response.data;
+                    } else {
+                        this.current_room = 1;
+                    }
+                });
             }
         });
-        axios.get(this.$backendURL + '/api/checkRoom').then(response => {
-            if (response.data && response.data != '') {
-                this.current_room = response.data;
-            } else {
-                this.current_room = 1;
-            }
-        });
+        if (this.login_user == 0) {
+            $(document).ready(function() {
+                $("#showModalLogin").modal("show");
+            });
+        }
     },
     methods: {
         //PRUEBA

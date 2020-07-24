@@ -58490,15 +58490,21 @@ var app = new Vue({
     axios.get(this.$backendURL + '/api/checkLogin').then(function (response) {
       if (response.data && response.data != '') {
         _this.login_user = response.data;
+        axios.get(_this.$backendURL + '/api/checkRoom').then(function (response) {
+          if (response.data && response.data != '') {
+            _this.current_room = response.data;
+          } else {
+            _this.current_room = 1;
+          }
+        });
       }
     });
-    axios.get(this.$backendURL + '/api/checkRoom').then(function (response) {
-      if (response.data && response.data != '') {
-        _this.current_room = response.data;
-      } else {
-        _this.current_room = 1;
-      }
-    });
+
+    if (this.login_user == 0) {
+      $(document).ready(function () {
+        $("#showModalLogin").modal("show");
+      });
+    }
   },
   methods: {
     //PRUEBA
