@@ -80,6 +80,7 @@
 
 <script>
 export default {
+	props: ['login_user'],
 	data(){
 		return{
 			arrayRooms: [],
@@ -132,9 +133,18 @@ export default {
 	},
 	mounted(){
 		//Cada vez que se abre el modal se recarga la lista de rooms
-		$('#showModalRooms').on('show.bs.modal', this.getRooms);
+		if(this.login_user != 0){
+			$('#showModalRooms').on('show.bs.modal', this.getRooms);
+		}
 		//Cada vez que cambia el filtro de rooms vacíos
 		$(document).on('touch.bs.toggle click.bs.toggle', 'div[data-toggle^=toggle]', this.emptyRooms);
+	},
+	watch: {
+		login_user: function (value) {
+            if (value != 0) {
+                $('#showModalRooms').on('show.bs.modal', this.getRooms);
+            }
+        },
 	}
 }
 </script>

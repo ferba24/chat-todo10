@@ -1978,6 +1978,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['login_user'],
   data: function data() {
     return {
       newMessage: '',
@@ -1987,18 +1988,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     sendMessage: function sendMessage() {
-      this.user = document.getElementById('user_id').value;
+      if (this.login_user != 0) {
+        this.user = document.getElementById('user_id').value;
 
-      if (this.room != 0 && this.user != 0) {
-        this.$emit('messagesent', {
-          room: this.room,
-          user: this.user,
-          message: this.newMessage
-        });
-        this.newMessage = '';
-        tinymce.get('text').setContent('');
-      } else {
-        console.log("not sent message");
+        if (this.room != 0 && this.user != 0) {
+          this.$emit('messagesent', {
+            room: this.room,
+            user: this.user,
+            message: this.newMessage
+          });
+          this.newMessage = '';
+          tinymce.get('text').setContent('');
+        } else {
+          console.log("not sent message");
+        }
       }
     }
   },
@@ -2144,129 +2147,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RoomsChangeComponent.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RoomsChangeComponent.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      arrayRooms: [] // Este array contendrá las tareas de nuestra bd
-
-    };
-  },
-  methods: {
-    getRooms: function getRooms() {
-      var me = this;
-      var url = this.$backendURL + '/room/getRoom'; //Ruta que hemos creado para que nos devuelva todas las tareas
-
-      axios.get(url).then(function (response) {
-        //creamos un array y guardamos el contenido que nos devuelve el response
-        me.arrayRooms = response.data;
-      })["catch"](function (error) {
-        // handle error
-        console.log(error);
-      });
-    },
-    selectedRoom: function selectedRoom(id) {
-      location.href = this.$backendURL + '/room/selected/' + id;
-    }
-  },
-  mounted: function mounted() {
-    this.getRooms();
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RoomsComponent.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RoomsComponent.vue?vue&type=script&lang=js& ***!
@@ -2357,6 +2237,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['login_user'],
   data: function data() {
     return {
       arrayRooms: [],
@@ -2411,9 +2292,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     //Cada vez que se abre el modal se recarga la lista de rooms
-    $('#showModalRooms').on('show.bs.modal', this.getRooms); //Cada vez que cambia el filtro de rooms vacíos
+    if (this.login_user != 0) {
+      $('#showModalRooms').on('show.bs.modal', this.getRooms);
+    } //Cada vez que cambia el filtro de rooms vacíos
+
 
     $(document).on('touch.bs.toggle click.bs.toggle', 'div[data-toggle^=toggle]', this.emptyRooms);
+  },
+  watch: {
+    login_user: function login_user(value) {
+      if (value != 0) {
+        $('#showModalRooms').on('show.bs.modal', this.getRooms);
+      }
+    }
   }
 });
 
@@ -2487,6 +2378,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['login_user'],
   data: function data() {
     return {
       users_count: 0,
@@ -2520,7 +2412,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.getRooms();
+    if (this.login_user != 0) {
+      this.getRooms();
+    }
+
     $('a[data-toggle="tab"]').on('show.bs.tab', this.changeTab(this)); //Obtener tamaños y establecer el tamaño del bloque del sidebar
 
     var sizeNet = 35 + document.getElementById('sidebar-header').getBoundingClientRect().height + document.getElementById('card-box-navbar').getBoundingClientRect().height;
@@ -2539,6 +2434,15 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return filtered;
+    }
+  },
+  watch: {
+    login_user: function login_user(value) {
+      if (value != 0) {
+        this.getRooms();
+      } else {
+        this.arrayRooms = [];
+      }
     }
   }
 });
@@ -45411,299 +45315,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RoomsChangeComponent.vue?vue&type=template&id=be9e0900&":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RoomsChangeComponent.vue?vue&type=template&id=be9e0900& ***!
-  \***********************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "modal fade",
-      attrs: {
-        id: "showModalRoom",
-        tabindex: "-1",
-        role: "dialog",
-        "aria-labelledby": "exampleModalLabel",
-        "aria-hidden": "true"
-      }
-    },
-    [
-      _c("div", { staticClass: "modal-dialog", attrs: { role: "document" } }, [
-        _c("div", { staticClass: "modal-content" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "modal-body" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "row",
-                staticStyle: { height: "300px", "overflow-y": "auto" }
-              },
-              [
-                _c("div", { staticClass: "col-md-12" }, [
-                  _c(
-                    "table",
-                    {
-                      staticClass: "table table-bordered table-striped",
-                      attrs: { id: "searchxt" }
-                    },
-                    [
-                      _vm._m(2),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.arrayRooms, function(room) {
-                          return _c("tr", { key: room.id }, [
-                            _c("td", [
-                              _c("div", { staticClass: "row" }, [
-                                room.room_photo == null
-                                  ? _c("div", { staticClass: "col-md-4" }, [
-                                      _c(
-                                        "span",
-                                        {
-                                          staticClass:
-                                            "avatar avatar--m avatar--default avatar--default--dynamic",
-                                          staticStyle: {
-                                            "background-color": "#85a3e0",
-                                            color: "#24478f"
-                                          },
-                                          attrs: { "data-user-id": "1" }
-                                        },
-                                        [
-                                          _c(
-                                            "span",
-                                            { staticClass: "avatar-u1-m" },
-                                            [
-                                              _vm._v(
-                                                "\n\t\t\t\t\t\t\t\t\t\t\t\t\t" +
-                                                  _vm._s(
-                                                    room.room_name
-                                                      .substring(0, 1)
-                                                      .toUpperCase()
-                                                  ) +
-                                                  " \n\t\t\t\t\t\t\t\t\t\t\t\t"
-                                              )
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ])
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                room.room_photo !== null
-                                  ? _c("div", { staticClass: "col-md-4" }, [
-                                      _c(
-                                        "span",
-                                        {
-                                          staticClass:
-                                            "avatar avatar--m avatar--default avatar--default--dynamic",
-                                          staticStyle: {
-                                            "background-color": "#85a3e0",
-                                            color: "#24478f"
-                                          },
-                                          attrs: { "data-user-id": "1" }
-                                        },
-                                        [
-                                          _c("img", {
-                                            staticClass:
-                                              "avatar-u1-o js-croppedAvatar cropImage",
-                                            staticStyle: {
-                                              left: "-9px",
-                                              top: "0px",
-                                              "touch-action": "none",
-                                              "user-select": "none",
-                                              "-webkit-user-drag": "none",
-                                              "-webkit-tap-highlight-color":
-                                                "rgba(0, 0, 0, 0)",
-                                              width: "115px"
-                                            },
-                                            attrs: {
-                                              src:
-                                                "/chat/public/room/" +
-                                                room.room_photo,
-                                              alt: "root",
-                                              draggable: "false"
-                                            }
-                                          })
-                                        ]
-                                      )
-                                    ])
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "col-md-8" }, [
-                                  _vm._v(
-                                    "\n\t\t\t\t\t\t\t\t\t\t" +
-                                      _vm._s(room.room_name) +
-                                      " "
-                                  ),
-                                  _c("br"),
-                                  _vm._v(" "),
-                                  _c("small", [
-                                    _vm._v(_vm._s(room.room_description))
-                                  ])
-                                ])
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "text-center" }, [
-                              _c("small", [_vm._v(_vm._s(room.count_room))])
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              {
-                                staticClass:
-                                  "text-center justify-content-center"
-                              },
-                              [
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass:
-                                      "btn btn-success btn-block btn-sm active",
-                                    attrs: { role: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.selectedRoom("" + room.id)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fas fa-door-open"
-                                    }),
-                                    _vm._v(
-                                      "\n\t\t\t\t\t\t\t\t\t\t\tEnter\n\t\t\t\t\t\t\t\t\t\t"
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
-                          ])
-                        }),
-                        0
-                      )
-                    ]
-                  )
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _vm._m(3)
-          ])
-        ])
-      ])
-    ]
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Rooms 1")]
-      ),
-      _vm._v(" "),
-      _c("small", [_vm._v("Choose a room to start chatting")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-9" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              id: "searchxt",
-              "aria-describedby": "search",
-              placeholder: "Search room"
-            }
-          }),
-          _vm._v(" "),
-          _c("small", { staticClass: "form-text text-muted" }, [
-            _vm._v("Find your preferred room in this field.")
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1 d-none d-sm-block" }, [
-        _c("small", { staticStyle: { "margin-left": "-15px" } }, [
-          _c("b", [_vm._v("EMPTY")])
-        ]),
-        _vm._v(" "),
-        _c("small", { staticStyle: { "margin-left": "-15px" } }, [
-          _c("b", [_vm._v("ROOMS")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-2 d-none d-sm-block" }, [
-        _c("input", {
-          attrs: { type: "checkbox", id: "selected", "data-toggle": "toggle" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("td", { staticClass: "text-center" }, [_vm._v("Room Name")]),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-center" }, [_vm._v("Users")]),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-center" }, [_vm._v("Action")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        {
-          staticClass: "col-md-12 text-right",
-          attrs: { "data-dismiss": "modal" }
-        },
-        [
-          _c("a", { staticClass: "btn btn-default", attrs: { href: "#" } }, [
-            _vm._v("Close")
-          ])
-        ]
-      )
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RoomsComponent.vue?vue&type=template&id=743e2ce0&scoped=true&":
 /*!*****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RoomsComponent.vue?vue&type=template&id=743e2ce0&scoped=true& ***!
@@ -58449,8 +58060,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('rooms-component', __webpack_require__(/*! ./components/RoomsComponent.vue */ "./resources/js/components/RoomsComponent.vue")["default"]);
-Vue.component('rooms-change-component', __webpack_require__(/*! ./components/RoomsChangeComponent.vue */ "./resources/js/components/RoomsChangeComponent.vue")["default"]);
+Vue.component('rooms-component', __webpack_require__(/*! ./components/RoomsComponent.vue */ "./resources/js/components/RoomsComponent.vue")["default"]); //Vue.component('rooms-change-component', require('./components/RoomsChangeComponent.vue').default);
+
 Vue.component('login-user-component', __webpack_require__(/*! ./components/LoginUserComponent.vue */ "./resources/js/components/LoginUserComponent.vue")["default"]);
 Vue.component('private-component', __webpack_require__(/*! ./components/PrivateComponent.vue */ "./resources/js/components/PrivateComponent.vue")["default"]);
 Vue.component('sidebar-component', __webpack_require__(/*! ./components/SidebarComponent.vue */ "./resources/js/components/SidebarComponent.vue")["default"]);
@@ -58473,9 +58084,7 @@ var app = new Vue({
   created: function created() {
     var _this = this;
 
-    //TEST
-    this.fetchMessages(); //Escucha los mensajes de Pusher
-
+    //Escucha los mensajes de Pusher
     window.Echo["private"]('chat').listen('MessageSent', function (e) {
       console.log('echo hello!');
 
@@ -58489,6 +58098,9 @@ var app = new Vue({
 
     axios.get(this.$backendURL + '/api/checkLogin').then(function (response) {
       if (response.data && response.data != '') {
+        //TEST
+        _this.fetchMessages();
+
         _this.login_user = response.data;
         axios.get(_this.$backendURL + '/api/checkRoom').then(function (response) {
           if (response.data && response.data != '') {
@@ -58497,14 +58109,12 @@ var app = new Vue({
             _this.current_room = 1;
           }
         });
+      } else {
+        $(document).ready(function () {
+          $("#showModalLogin").modal("show");
+        });
       }
     });
-
-    if (this.login_user == 0) {
-      $(document).ready(function () {
-        $("#showModalLogin").modal("show");
-      });
-    }
   },
   methods: {
     //PRUEBA
@@ -58874,75 +58484,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PrivateComponent_vue_vue_type_template_id_45297fb6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PrivateComponent_vue_vue_type_template_id_45297fb6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/RoomsChangeComponent.vue":
-/*!**********************************************************!*\
-  !*** ./resources/js/components/RoomsChangeComponent.vue ***!
-  \**********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _RoomsChangeComponent_vue_vue_type_template_id_be9e0900___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoomsChangeComponent.vue?vue&type=template&id=be9e0900& */ "./resources/js/components/RoomsChangeComponent.vue?vue&type=template&id=be9e0900&");
-/* harmony import */ var _RoomsChangeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoomsChangeComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/RoomsChangeComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _RoomsChangeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _RoomsChangeComponent_vue_vue_type_template_id_be9e0900___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _RoomsChangeComponent_vue_vue_type_template_id_be9e0900___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/RoomsChangeComponent.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/RoomsChangeComponent.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/components/RoomsChangeComponent.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoomsChangeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./RoomsChangeComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RoomsChangeComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoomsChangeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/RoomsChangeComponent.vue?vue&type=template&id=be9e0900&":
-/*!*****************************************************************************************!*\
-  !*** ./resources/js/components/RoomsChangeComponent.vue?vue&type=template&id=be9e0900& ***!
-  \*****************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RoomsChangeComponent_vue_vue_type_template_id_be9e0900___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./RoomsChangeComponent.vue?vue&type=template&id=be9e0900& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RoomsChangeComponent.vue?vue&type=template&id=be9e0900&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RoomsChangeComponent_vue_vue_type_template_id_be9e0900___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RoomsChangeComponent_vue_vue_type_template_id_be9e0900___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -58,6 +58,7 @@
 </template>
 <script>
 export default{
+    props: ['login_user'],
     data(){
         return{
             users_count: 0,
@@ -93,7 +94,9 @@ export default{
         }
     },
     mounted(){
-        this.getRooms();
+        if(this.login_user != 0){
+            this.getRooms();
+        }
 
         $('a[data-toggle="tab"]').on('show.bs.tab', this.changeTab(this));
 
@@ -115,6 +118,15 @@ export default{
             }
 			return filtered;
         }
+    },
+    watch: {
+        login_user: function (value) {
+            if (value != 0) {
+                this.getRooms();
+            }else{
+                this.arrayRooms = [];
+            }
+        },
     }
 }
 </script>

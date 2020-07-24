@@ -19,7 +19,7 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 Vue.component('rooms-component', require('./components/RoomsComponent.vue').default);
-Vue.component('rooms-change-component', require('./components/RoomsChangeComponent.vue').default);
+//Vue.component('rooms-change-component', require('./components/RoomsChangeComponent.vue').default);
 Vue.component('login-user-component', require('./components/LoginUserComponent.vue').default);
 Vue.component('private-component', require('./components/PrivateComponent.vue').default);
 Vue.component('sidebar-component', require('./components/SidebarComponent.vue').default);
@@ -42,8 +42,6 @@ const app = new Vue({
         login_user: 0,
     },
     created() {
-        //TEST
-        this.fetchMessages();
         //Escucha los mensajes de Pusher
         window.Echo.private('chat').listen('MessageSent', (e) => {
             console.log('echo hello!');
@@ -57,8 +55,11 @@ const app = new Vue({
         //Revisa si el usuario está logeado
         axios.get(this.$backendURL + '/api/checkLogin').then(response => {
             if (response.data && response.data != '') {
-                this.login_user = response.data;
+                //TEST
+                this.fetchMessages();
                 
+                this.login_user = response.data;
+
                 axios.get(this.$backendURL + '/api/checkRoom').then(response => {
                     if (response.data && response.data != '') {
                         this.current_room = response.data;
@@ -66,13 +67,12 @@ const app = new Vue({
                         this.current_room = 1;
                     }
                 });
+            } else {
+                $(document).ready(function() {
+                    $("#showModalLogin").modal("show");
+                });
             }
         });
-        if (this.login_user == 0) {
-            $(document).ready(function() {
-                $("#showModalLogin").modal("show");
-            });
-        }
     },
     methods: {
         //PRUEBA

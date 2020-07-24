@@ -14,6 +14,7 @@
 </template>
 <script>
 export default{
+    props: ['login_user'],
     data(){
         return {
             newMessage: '',
@@ -23,17 +24,19 @@ export default{
     },
     methods: {
         sendMessage() {
-            this.user = document.getElementById('user_id').value;
-            if(this.room != 0 && this.user != 0){
-                this.$emit('messagesent', {
-                    room: this.room,
-                    user: this.user,
-                    message: this.newMessage
-                });
-                this.newMessage = '';
-                tinymce.get('text').setContent('');
-            }else{
-                console.log("not sent message");
+            if(this.login_user != 0){
+                this.user = document.getElementById('user_id').value;
+                if(this.room != 0 && this.user != 0){
+                    this.$emit('messagesent', {
+                        room: this.room,
+                        user: this.user,
+                        message: this.newMessage
+                    });
+                    this.newMessage = '';
+                    tinymce.get('text').setContent('');
+                }else{
+                    console.log("not sent message");
+                }
             }
         }
     },

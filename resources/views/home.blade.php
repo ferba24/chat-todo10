@@ -33,16 +33,15 @@
 				<chatmessages-component :messages="messages"></chatmessages-component>
 			</div>
 			<div id="card-box-form">
-				<groupformchat-component v-on:messagesent="addMessage"></groupformchat-component>
+				<groupformchat-component v-on:messagesent="addMessage" :login_user="login_user"></groupformchat-component>
 			</div>
         </div>
         <div class="col-md-3">
-			<sidebar-component></sidebar-component>
+			<sidebar-component :login_user="login_user"></sidebar-component>
 		</div><!-- .col-md-3 -->
 	</div><!-- .row.justify-content-center -->
 </div><!-- .container-fluid -->
-<rooms-component></rooms-component>
-<rooms-change-component></rooms-change-component>
+<rooms-component :login_user="login_user"></rooms-component>
 <login-user-component v-on:login_usersent="setLoginUser"></login-user-component>
 <private-component></private-component>
 @endsection
