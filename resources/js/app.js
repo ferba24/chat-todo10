@@ -60,13 +60,7 @@ const app = new Vue({
                 
                 this.login_user = response.data;
 
-                axios.get(this.$backendURL + '/api/checkRoom').then(response => {
-                    if (response.data && response.data != '') {
-                        this.current_room = response.data;
-                    } else {
-                        this.current_room = 1;
-                    }
-                });
+                this.checkRoomId();
             } else {
                 $(document).ready(function() {
                     $("#showModalLogin").modal("show");
@@ -88,6 +82,15 @@ const app = new Vue({
                 console.log(response.data);
             });
         },
+        checkRoomId() {
+            axios.get(this.$backendURL + '/api/checkRoom').then(response => {
+                if (response.data && response.data != '') {
+                    this.current_room = response.data;
+                } else {
+                    this.current_room = 1;
+                }
+            });
+        },
         //Establece el ID del usuario logeado
         setLoginUser(user) {
             this.login_user = user.user_id;
@@ -96,13 +99,11 @@ const app = new Vue({
     watch: {
         login_user: function (value) {
             if (value == 0) {
-                $(document).ready(function() {
-                    $("#showModalLogin").modal("show");
-                });
-            }else{
-                $(document).ready(function() {
-                    $("#showModalRooms").modal("show");
-                });
+                $("#showModalLogin").modal("show");
+            } else {
+                this.checkRoomId();
+
+                $("#showModalRooms").modal("show");
             }
         },
         current_room: function (value) {

@@ -2248,12 +2248,15 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     getRooms: function getRooms() {
       var me = this;
-      var user_id = document.getElementById('user_id').value;
-      axios.get(this.$backendURL + '/room/getRoom').then(function (rooms) {
-        me.arrayRooms = rooms.data;
-      })["catch"](function (error) {
-        console.log('Error in RoomsController.vue: ' + error);
-      });
+
+      if (me.login_user != 0) {
+        var user_id = document.getElementById('user_id').value;
+        axios.get(this.$backendURL + '/room/getRoom').then(function (rooms) {
+          me.arrayRooms = rooms.data;
+        })["catch"](function (error) {
+          console.log('Error in RoomsController.vue: ' + error);
+        });
+      }
     },
     selectedRoom: function selectedRoom(id) {
       location.href = this.$backendURL + '/room/selected/' + id;
@@ -2292,17 +2295,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     //Cada vez que se abre el modal se recarga la lista de rooms
-    if (this.login_user != 0) {
-      $('#showModalRooms').on('show.bs.modal', this.getRooms);
-    } //Cada vez que cambia el filtro de rooms vacíos
-
+    $('#showModalRooms').on('show.bs.modal', this.getRooms); //Cada vez que cambia el filtro de rooms vacíos
 
     $(document).on('touch.bs.toggle click.bs.toggle', 'div[data-toggle^=toggle]', this.emptyRooms);
   },
   watch: {
     login_user: function login_user(value) {
       if (value != 0) {
-        $('#showModalRooms').on('show.bs.modal', this.getRooms);
+        this.getRooms();
       }
     }
   }
@@ -58102,13 +58102,8 @@ var app = new Vue({
         _this.fetchMessages();
 
         _this.login_user = response.data;
-        axios.get(_this.$backendURL + '/api/checkRoom').then(function (response) {
-          if (response.data && response.data != '') {
-            _this.current_room = response.data;
-          } else {
-            _this.current_room = 1;
-          }
-        });
+
+        _this.checkRoomId();
       } else {
         $(document).ready(function () {
           $("#showModalLogin").modal("show");
@@ -58132,6 +58127,17 @@ var app = new Vue({
         console.log(response.data);
       });
     },
+    checkRoomId: function checkRoomId() {
+      var _this3 = this;
+
+      axios.get(this.$backendURL + '/api/checkRoom').then(function (response) {
+        if (response.data && response.data != '') {
+          _this3.current_room = response.data;
+        } else {
+          _this3.current_room = 1;
+        }
+      });
+    },
     //Establece el ID del usuario logeado
     setLoginUser: function setLoginUser(user) {
       this.login_user = user.user_id;
@@ -58140,13 +58146,10 @@ var app = new Vue({
   watch: {
     login_user: function login_user(value) {
       if (value == 0) {
-        $(document).ready(function () {
-          $("#showModalLogin").modal("show");
-        });
+        $("#showModalLogin").modal("show");
       } else {
-        $(document).ready(function () {
-          $("#showModalRooms").modal("show");
-        });
+        this.checkRoomId();
+        $("#showModalRooms").modal("show");
       }
     },
     current_room: function current_room(value) {
