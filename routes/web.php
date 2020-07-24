@@ -37,6 +37,11 @@ Route::prefix('api')->group(function(){
     Route::post('login', 'ApiController@login');
     Route::get('checkLogin', 'ApiController@checkLogin');
     Route::get('checkRoom', 'ApiController@checkRoom')->middleware('api_connect');
+    Route::middleware(['api_connect'])->group(function () {
+        Route::prefix('user')->group(function(){
+            Route::get('getCurrent', 'ApiController@getCurrentUser');
+        });
+    });
 });
 Route::prefix('room')->group(function(){
     //Route::post('login', 'ApiController@login');

@@ -2214,7 +2214,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['login_user'],
+  data: function data() {
+    return {
+      user: {}
+    };
+  },
+  methods: {
+    getCurrentUser: function getCurrentUser() {
+      var me = this;
+      axios.get(me.$backendURL + '/api/user/getCurrent').then(function (response) {
+        me.user = JSON.parse(response.data);
+      })["catch"](function (error) {
+        console.log('Error in NavbarController.vue: ' + error);
+      });
+    }
+  },
+  filters: {
+    capitalize: function capitalize(value) {
+      if (!value) return '';
+      return value.toString().substring(0, 1).toUpperCase();
+    }
+  },
+  watch: {
+    login_user: function login_user(value) {
+      if (value != 0) {
+        this.getCurrentUser();
+      } else {
+        this.user = {};
+      }
+    }
+  }
+});
 
 /***/ }),
 
@@ -45273,7 +45305,80 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "nav",
+    {
+      staticClass:
+        "navbar navbar-expand-md navbar-light bg-white shadow-lg navbar-custom",
+      attrs: { id: "card-box-navbar" }
+    },
+    [
+      _c("div", { staticClass: "container-fluid" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "collapse navbar-collapse",
+            attrs: { id: "navbarSupportedContent" }
+          },
+          [
+            _c("ul", { staticClass: "navbar-nav mr-auto" }, [
+              _c(
+                "li",
+                { staticClass: "dropdown", attrs: { id: "user-content-me3" } },
+                [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "dropdown-toggle",
+                      staticStyle: { "text-decoration": "none" },
+                      attrs: { "data-toggle": "dropdown", href: "#" }
+                    },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "avatar avatar--xxs avatar--default avatar--default--dynamic",
+                          staticStyle: {
+                            "background-color": "#85a3e0",
+                            color: "#24478f"
+                          },
+                          attrs: { "data-user-id": "1" }
+                        },
+                        [
+                          _c("span", { staticClass: "avatar-u1-s" }, [
+                            _vm._v(
+                              "\r\n                            " +
+                                _vm._s(
+                                  _vm._f("capitalize")(_vm.user.username)
+                                ) +
+                                "\r\n                        "
+                            )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("small", { staticStyle: { "padding-left": "5px" } }, [
+                        _vm._v(_vm._s(_vm.user.username))
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "caret" })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(1)
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._m(2)
+          ]
+        )
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -45281,185 +45386,123 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "nav",
+      "button",
       {
-        staticClass:
-          "navbar navbar-expand-md navbar-light bg-white shadow-lg navbar-custom",
-        attrs: { id: "card-box-navbar" }
+        staticClass: "navbar-toggler",
+        attrs: {
+          type: "button",
+          "data-toggle": "collapse",
+          "data-target": "#navbarSupportedContent",
+          "aria-controls": "navbarSupportedContent",
+          "aria-expanded": "false",
+          "aria-label": "Toggle navigation"
+        }
       },
-      [
-        _c("div", { staticClass: "container-fluid" }, [
-          _c(
-            "button",
-            {
-              staticClass: "navbar-toggler",
-              attrs: {
-                type: "button",
-                "data-toggle": "collapse",
-                "data-target": "#navbarSupportedContent",
-                "aria-controls": "navbarSupportedContent",
-                "aria-expanded": "false",
-                "aria-label": "Toggle navigation"
-              }
-            },
-            [_c("span", { staticClass: "navbar-toggler-icon" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "collapse navbar-collapse",
-              attrs: { id: "navbarSupportedContent" }
-            },
-            [
-              _c("ul", { staticClass: "navbar-nav mr-auto" }, [
-                _c(
-                  "li",
-                  {
-                    staticClass: "dropdown",
-                    attrs: { id: "user-content-me3" }
-                  },
-                  [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "dropdown-toggle",
-                        staticStyle: { "text-decoration": "none" },
-                        attrs: { "data-toggle": "dropdown", href: "#" }
-                      },
-                      [
-                        _c(
-                          "span",
-                          {
-                            staticClass:
-                              "avatar avatar--xxs avatar--default avatar--default--dynamic",
-                            staticStyle: {
-                              "background-color": "#85a3e0",
-                              color: "#24478f"
-                            },
-                            attrs: { "data-user-id": "1" }
-                          },
-                          [_c("span", { staticClass: "avatar-u1-s" })]
-                        ),
-                        _vm._v(" "),
-                        _c("small", { staticStyle: { "padding-left": "5px" } }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "caret" })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("ul", { staticClass: "dropdown-menu" }, [
-                      _c("li", [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "nav-link",
-                            attrs: {
-                              href: "#",
-                              "data-toggle": "modal",
-                              "data-target": "#showModalRooms"
-                            }
-                          },
-                          [_c("small", [_vm._v("ROOMS")])]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "nav-link",
-                            attrs: { href: "<!-- LOGOUT ROUTE -->" }
-                          },
-                          [_c("small", [_vm._v("LOGOUT")])]
-                        )
-                      ])
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-                _c("li", { staticClass: "nav-item" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "nav-link",
-                      staticStyle: { color: "white" },
-                      attrs: { href: "<!-- URL CHAT -->" }
-                    },
-                    [_c("i", { staticClass: "fas fa-home" })]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "nav-link",
-                      staticStyle: { color: "white" },
-                      attrs: {
-                        href: "#",
-                        "data-toggle": "modal",
-                        "data-target": "#showModalRooms"
-                      }
-                    },
-                    [_c("small", [_vm._v("ROOMS LIST")])]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "nav-link",
-                      staticStyle: { color: "white" },
-                      attrs: {
-                        href: "#",
-                        "data-toggle": "modal",
-                        "data-target": "#showModalPrivate"
-                      }
-                    },
-                    [
-                      _c("i", { staticClass: "far fa-comment-dots" }),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("PRIVATE MSG")])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "nav-link",
-                      staticStyle: { color: "white" }
-                    },
-                    [
-                      _c("i", { staticClass: "fas fa-music" }),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("SOUNDS")])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("input", {
-                    attrs: {
-                      type: "checkbox",
-                      name: "toggle-event",
-                      id: "toggle-event",
-                      checked: "",
-                      "data-toggle": "toggle"
-                    }
-                  })
-                ])
-              ])
-            ]
-          )
-        ])
-      ]
+      [_c("span", { staticClass: "navbar-toggler-icon" })]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "dropdown-menu" }, [
+      _c("li", [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            attrs: {
+              href: "#",
+              "data-toggle": "modal",
+              "data-target": "#showModalRooms"
+            }
+          },
+          [_c("small", [_vm._v("ROOMS")])]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", [
+        _c(
+          "a",
+          { staticClass: "nav-link", attrs: { href: "<!-- LOGOUT ROUTE -->" } },
+          [_c("small", [_vm._v("LOGOUT")])]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+      _c("li", { staticClass: "nav-item" }, [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            staticStyle: { color: "white" },
+            attrs: { href: "<!-- URL CHAT -->" }
+          },
+          [_c("i", { staticClass: "fas fa-home" })]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "nav-item" }, [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            staticStyle: { color: "white" },
+            attrs: {
+              href: "#",
+              "data-toggle": "modal",
+              "data-target": "#showModalRooms"
+            }
+          },
+          [_c("small", [_vm._v("ROOMS LIST")])]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "nav-item" }, [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            staticStyle: { color: "white" },
+            attrs: {
+              href: "#",
+              "data-toggle": "modal",
+              "data-target": "#showModalPrivate"
+            }
+          },
+          [
+            _c("i", { staticClass: "far fa-comment-dots" }),
+            _vm._v(" "),
+            _c("small", [_vm._v("PRIVATE MSG")])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "nav-item" }, [
+        _c("a", { staticClass: "nav-link", staticStyle: { color: "white" } }, [
+          _c("i", { staticClass: "fas fa-music" }),
+          _vm._v(" "),
+          _c("small", [_vm._v("SOUNDS")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "nav-item" }, [
+        _c("input", {
+          attrs: {
+            type: "checkbox",
+            name: "toggle-event",
+            id: "toggle-event",
+            checked: "",
+            "data-toggle": "toggle"
+          }
+        })
+      ])
+    ])
   }
 ]
 render._withStripped = true

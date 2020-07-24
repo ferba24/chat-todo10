@@ -10,10 +10,10 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration: none;">
                         <span class="avatar avatar--xxs avatar--default avatar--default--dynamic" data-user-id="1" style="background-color: #85a3e0; color: #24478f">
                         <span class="avatar-u1-s">
-                            <!-- 1 LETTER NAME USER -->
+                            {{ user.username | capitalize }}
                         </span> 
                     </span>
-                        <small style="padding-left: 5px"><!-- NAME USER --></small>
+                        <small style="padding-left: 5px">{{ user.username }}</small>
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
@@ -57,7 +57,39 @@
 </template>
 
 <script>
-export default{
+export default {
+    props: ['login_user'],
+    data(){
+		return{
+			user: {},
+		}
+    },
+    methods: {
+        getCurrentUser(){
+            let me = this;
+            axios.get(me.$backendURL + '/api/user/getCurrent')
+            .then((response) => {
+                me.user = JSON.parse(response.data);
+            }).catch(function (error) {
+                console.log('Error in NavbarController.vue: ' + error);
+            });
+        }
+    },
+    filters: {
+		capitalize: function (value){
+			if(!value) return ''
+			return value.toString().substring(0,1).toUpperCase();
 
+		}
+	},
+    watch: {
+        login_user: function(value){
+            if(value != 0){
+                this.getCurrentUser();
+            }else{
+                this.user = {};
+            }
+        }
+    }
 }
 </script>

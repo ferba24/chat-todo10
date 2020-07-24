@@ -60,9 +60,9 @@
 </head>
 <body>
     <div id="app-vue" class="fill">
-		<input type="hidden" name="user_id" id="user_id" value="{{ session('user') }}"/>		
+		<!--<input type="hidden" name="user_id" id="user_id" value="{{ session('user') }}"/>-->
 		
-		<navbar-component></navbar-component>
+		<navbar-component :login_user="login_user"></navbar-component>
 		
         @yield('content')
 		

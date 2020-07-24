@@ -13,7 +13,7 @@ use Cookie;
 class ApiController extends Controller{
 	use SessionTrait;
     //
-	public function getUser($room = '', $search = '') {	
+	/*public function getUser($room = '', $search = '') {	
 		if($room != '') {
 			$users = RoomUser::where('room_id', $room)->get();
 			if(isset($users)) {
@@ -44,7 +44,7 @@ class ApiController extends Controller{
 							 * Arreglar la parte d eque está eliminado la sesión de la DB y aún sigue
 							 * apareciendo el usuario root, porque no se compara y mejor
 							 * Poner en el room_user una columna active para no hacer tantas validaciones
-							 */
+							 *
 						}
 					}
 				}
@@ -52,7 +52,7 @@ class ApiController extends Controller{
 				return response()->json($users);
 			}
 		} 
-	}
+	}*/
 	
 	//
 	public function getUserPrivate() {	
@@ -140,5 +140,14 @@ class ApiController extends Controller{
 	// Check Room
 	public function checkRoom(Request $req){
 		return $this->getRoomLogin($req);
+	}
+	public function getCurrentUser(Request $req){
+		$id = $this->getUserFromCookie($req);
+		if($id && $id != 0){
+			$x_u = new XenUser;
+			$user = $x_u->getUserById($id);
+			return response()->json($user->json);
+		}
+		return null;
 	}
 }
