@@ -19,24 +19,20 @@ export default{
         return {
             newMessage: '',
             room: -1,
-            user: 0,
         }
     },
     methods: {
         sendMessage() {
-            if(this.login_user != 0){
-                this.user = document.getElementById('user_id').value;
-                if(this.room != 0 && this.user != 0){
-                    this.$emit('messagesent', {
-                        room: this.room,
-                        user: this.user,
-                        message: this.newMessage
-                    });
-                    this.newMessage = '';
-                    tinymce.get('text').setContent('');
-                }else{
-                    console.log("not sent message");
-                }
+            if(this.room != 0 && this.login_user != 0){
+                this.$emit('messagesent', {
+                    room: this.room,
+                    user: this.login_user,
+                    message: this.newMessage
+                });
+                this.newMessage = '';
+                tinymce.get('text').setContent('');
+            }else{
+                console.log("not sent message");
             }
         }
     },
