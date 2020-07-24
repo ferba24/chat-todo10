@@ -3,7 +3,7 @@
 	<div class="modal-dialog" role="document">
     	<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Rooms H</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Rooms</h5>
 				<small>Choose a room to start chatting</small>
 			</div>
 			<div class="modal-body">
@@ -18,8 +18,8 @@
 						<span style="margin-left: -15px; font-size: 10px;"><b>EMPTY</b></span>
 						<span style="margin-left: -15px; font-size: 10px;"><b>ROOMS</b></span>
 					</div>
-					<div class="col-md-2 hidden-md hidden-sm">
-						<input type="checkbox" id="selectedx" data-toggle="toggle"/>
+					<div class="col-md-2 hidden-md hidden-sm" id="toggleRooms">
+						<input type="checkbox" id="toggleRooms_input" data-toggle="toggle"/>
 					</div>
 				</div>
 				<div class="row" style="height: 300px; overflow-y: auto;">
@@ -136,7 +136,7 @@ export default {
 		//Cada vez que se abre el modal se recarga la lista de rooms
 		$('#showModalRooms').on('show.bs.modal', this.getRooms);
 		//Cada vez que cambia el filtro de rooms vacíos
-		$(document).on('touch.bs.toggle click.bs.toggle', 'div[data-toggle^=toggle]', this.emptyRooms);
+		$('#toggleRooms').on('touch.bs.toggle click.bs.toggle', this.emptyRooms);
 	},
 	watch:{
 		login_user: function(value){

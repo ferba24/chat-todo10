@@ -48,7 +48,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <input type="checkbox" name="toggle-event" id="toggle-event" checked data-toggle="toggle"/>
+                    <div id="toggleSound">
+                        <input type="checkbox" checked id="toggleSound_input" data-toggle="toggle"/>
+                    </div>
+                    {{ sound_active }}
                 </li>
             </ul>
         </div>
@@ -58,10 +61,10 @@
 
 <script>
 export default {
-    props: ['login_user'],
+    props: ['login_user', 'sound_active'],
     data(){
 		return{
-			user: {},
+            user: {},
 		}
     },
     methods: {
@@ -72,6 +75,11 @@ export default {
                 me.user = JSON.parse(response.data);
             }).catch(function (error) {
                 console.log('Error in NavbarController.vue: ' + error);
+            });
+        },
+        changeSoundOption(){
+            this.$emit('sound_activesent',{
+                sound: (this.sound_active)?false:true
             });
         }
     },
@@ -90,6 +98,9 @@ export default {
                 this.user = {};
             }
         }
+    },
+    mounted(){
+        $('#toggleSound').on('touch.bs.toggle click.bs.toggle', this.changeSoundOption);
     }
 }
 </script>
