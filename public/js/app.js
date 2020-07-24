@@ -58060,8 +58060,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('rooms-component', __webpack_require__(/*! ./components/RoomsComponent.vue */ "./resources/js/components/RoomsComponent.vue")["default"]); //Vue.component('rooms-change-component', require('./components/RoomsChangeComponent.vue').default);
-
+Vue.component('rooms-component', __webpack_require__(/*! ./components/RoomsComponent.vue */ "./resources/js/components/RoomsComponent.vue")["default"]);
 Vue.component('login-user-component', __webpack_require__(/*! ./components/LoginUserComponent.vue */ "./resources/js/components/LoginUserComponent.vue")["default"]);
 Vue.component('private-component', __webpack_require__(/*! ./components/PrivateComponent.vue */ "./resources/js/components/PrivateComponent.vue")["default"]);
 Vue.component('sidebar-component', __webpack_require__(/*! ./components/SidebarComponent.vue */ "./resources/js/components/SidebarComponent.vue")["default"]);

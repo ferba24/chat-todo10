@@ -19,7 +19,6 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 Vue.component('rooms-component', require('./components/RoomsComponent.vue').default);
-//Vue.component('rooms-change-component', require('./components/RoomsChangeComponent.vue').default);
 Vue.component('login-user-component', require('./components/LoginUserComponent.vue').default);
 Vue.component('private-component', require('./components/PrivateComponent.vue').default);
 Vue.component('sidebar-component', require('./components/SidebarComponent.vue').default);
