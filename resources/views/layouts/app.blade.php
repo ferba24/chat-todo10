@@ -23,27 +23,11 @@
 	
 	<link href="{{ asset('fontawesome/css/all.min.css') }}" rel="stylesheet"/>
 	<link href="{{ asset('fontawesome/css/solid.min.css') }}" rel="stylesheet"/>	
-	<!--<link href="{{ asset('textrich/src/richtext.min.css') }}" rel="stylesheet" >-->
 	<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 	<link href="{{ asset('css/style.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/messages.css') }}" rel="stylesheet">
 	<script src="{{asset('tinymce.min.js?apiKey=r72gi40ebpxjpvsf9huxa66nnm5ykzsz4390dhb5wvea5yg4') }}"></script>
 	<script>
-		/*tinymce.init({
-			menubar: false,
-			selector:'#text',
-			height: 50,
-			toolbar: 'bold italic underline',
-			setup: function (ed) {
-				// Se puso el setup para evitar el enter en el chat
-				ed.on('keydown',function(e) {
-					if(e.keyCode == 13){
-						alert("ENTER PRESSED");
-						e.preventDefault();
-					}
-				});
-			}
-		});*/
 		tinymce.execCommand('mceFocus',false,'text');
 		tinymce.init({
 			selector:'#text2',
@@ -62,7 +46,7 @@
     <div id="app-vue" class="fill">
 		<!--<input type="hidden" name="user_id" id="user_id" value="{{ session('user') }}"/>-->
 		
-		<navbar-component :login_user="login_user"></navbar-component>
+		<navbar-component :login_user="login_user" :sound_active="sound_active" v-on:sound_activesent="setSoundActive"></navbar-component>
 		
         @yield('content')
 		
@@ -87,55 +71,10 @@
     @include('private')
     </div>
     <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
-	<!--<script src="{{ asset('textrich/src/jquery.richtext.min.js') }}"></script>	-->
-	<!--<script src="{{ asset('js/socket.io.min.js') }}"></script>-->
-	<script src="{{ asset('js/ion.sound.js') }}"></script>
-	<script src="{{ asset('js/main.js') }}"></script>
 	
 	@yield('script')
 	
 	<script src="{{ asset('js/highlight.min.js') }}"></script>
 	<script src="{{ asset('js/bootstrap4-toggle.min.js') }}"></script>
-	
-	<script type="text/javascript">
-
-		$(document).on('touch.bs.toggle click.bs.toggle', 'div[data-toggle^=toggle]', function (e) {
-				var $checkbox = $(this).find('input[type=checkbox]');
-				if(!$(this).hasClass('off')) {
-					if($checkbox[0].attributes.id.value == 'selected') {
-						 $.each($("#searchxt tbody tr"), function() {
-							 if($(this).find("td:nth-child(2)").text() != '0') {
-								$(this).hide();
-							 } else {
-								$(this).show();
-							 }
-						});
-					}
-					/*if($checkbox[0].attributes.id.value == 'selectedx') {
-						$.each($("#searchy tbody tr"), function() {
-							 if($(this).find("td:nth-child(2)").text() != '0') {
-								$(this).hide();
-							 } else {
-								$(this).show();
-							 }
-						});
-					}*/
-				} else {
-					
-					if($checkbox[0].attributes.id.value == 'selected') {
-						 $.each($("#searchxt tbody tr"), function() {
-							$(this).show();
-						});
-					}
-					
-					/*if($checkbox[0].attributes.id.value == 'selectedx') {
-						$.each($("#searchy tbody tr"), function() {
-							$(this).show();
-						});
-					}*/
-				}
-			});
-	</script>
- 	
 </body>
 </html>
