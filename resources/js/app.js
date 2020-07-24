@@ -24,6 +24,7 @@ Vue.component('private-component', require('./components/PrivateComponent.vue').
 Vue.component('sidebar-component', require('./components/SidebarComponent.vue').default);
 Vue.component('groupformchat-component', require('./components/GroupFormChatComponent.vue').default);
 Vue.component('chatmessages-component', require('./components/ChatMessagesComponent.vue').default);
+Vue.component('navbar-component', require('./components/NavbarComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
