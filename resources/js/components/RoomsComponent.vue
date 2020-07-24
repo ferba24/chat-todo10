@@ -92,7 +92,6 @@ export default {
 		getRooms() {
 			let me = this;
 			if(me.login_user != 0){
-				let user_id = document.getElementById('user_id').value;
 				axios.get(this.$backendURL + '/room/getRoom')
 				.then((rooms) => {
 					me.arrayRooms = rooms.data;

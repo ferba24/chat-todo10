@@ -2353,7 +2353,6 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
 
       if (me.login_user != 0) {
-        var user_id = document.getElementById('user_id').value;
         axios.get(this.$backendURL + '/room/getRoom').then(function (rooms) {
           me.arrayRooms = rooms.data;
         })["catch"](function (error) {
