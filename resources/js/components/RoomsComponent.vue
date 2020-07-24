@@ -91,13 +91,15 @@ export default {
 	methods:{
 		getRooms() {
 			let me = this;
-			let user_id = document.getElementById('user_id').value;
-			axios.get(this.$backendURL + '/room/getRoom')
-			.then((rooms) => {
-				me.arrayRooms = rooms.data;
-			}).catch(function (error) {
-				console.log('Error in RoomsController.vue: ' + error);
-			});
+			if(me.login_user != 0){
+				let user_id = document.getElementById('user_id').value;
+				axios.get(this.$backendURL + '/room/getRoom')
+				.then((rooms) => {
+					me.arrayRooms = rooms.data;
+				}).catch(function (error) {
+					console.log('Error in RoomsController.vue: ' + error);
+				});
+			}
 		},
 		selectedRoom(id) {
 			location.href = this.$backendURL + '/room/selected/' + id;
@@ -133,18 +135,16 @@ export default {
 	},
 	mounted(){
 		//Cada vez que se abre el modal se recarga la lista de rooms
-		if(this.login_user != 0){
-			$('#showModalRooms').on('show.bs.modal', this.getRooms);
-		}
+		$('#showModalRooms').on('show.bs.modal', this.getRooms);
 		//Cada vez que cambia el filtro de rooms vacíos
 		$(document).on('touch.bs.toggle click.bs.toggle', 'div[data-toggle^=toggle]', this.emptyRooms);
 	},
-	watch: {
-		login_user: function (value) {
-            if (value != 0) {
-                $('#showModalRooms').on('show.bs.modal', this.getRooms);
-            }
-        },
+	watch:{
+		login_user: function(value){
+			if(value != 0){
+				this.getRooms();
+			}
+		}
 	}
 }
 </script>

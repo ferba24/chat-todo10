@@ -97,7 +97,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#" data-toggle="modal" data-target="#showModal" style="color: white">
+							<a class="nav-link" href="#" data-toggle="modal" data-target="#showModalRooms" style="color: white">
 								<small>ROOMS LIST</small>
 							</a>
 						</li>
