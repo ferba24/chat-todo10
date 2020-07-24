@@ -1,6 +1,6 @@
-$(function() {
+/*$(function() {
 		
-	ion.sound({
+	/*ion.sound({
 		sounds: [
 			{name: "bell_ring"}
 		],
@@ -32,7 +32,7 @@ $(function() {
 		 else
 			$(this).show();
 		 });
-	 });*/
+	 });
 	 
 	 //
 	 $('#search').keyup(function() {
@@ -56,7 +56,7 @@ $(function() {
 					jQuery(this).show()
 				}
 			});
-		});*/
+		});
 		
 	$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
         localStorage.setItem('activeTab', $(e.target).attr('href'));
@@ -67,3 +67,4 @@ $(function() {
     }
 	
 });
+*/

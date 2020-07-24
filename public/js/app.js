@@ -2209,8 +2209,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['login_user'],
+  props: ['login_user', 'sound_active'],
   data: function data() {
     return {
       user: {}
@@ -2223,6 +2226,11 @@ __webpack_require__.r(__webpack_exports__);
         me.user = JSON.parse(response.data);
       })["catch"](function (error) {
         console.log('Error in NavbarController.vue: ' + error);
+      });
+    },
+    changeSoundOption: function changeSoundOption() {
+      this.$emit('sound_activesent', {
+        sound: this.sound_active ? false : true
       });
     }
   },
@@ -2240,6 +2248,9 @@ __webpack_require__.r(__webpack_exports__);
         this.user = {};
       }
     }
+  },
+  mounted: function mounted() {
+    $('#toggleSound').on('touch.bs.toggle click.bs.toggle', this.changeSoundOption);
   }
 });
 
@@ -2394,7 +2405,7 @@ __webpack_require__.r(__webpack_exports__);
     //Cada vez que se abre el modal se recarga la lista de rooms
     $('#showModalRooms').on('show.bs.modal', this.getRooms); //Cada vez que cambia el filtro de rooms vacíos
 
-    $(document).on('touch.bs.toggle click.bs.toggle', 'div[data-toggle^=toggle]', this.emptyRooms);
+    $('#toggleRooms').on('touch.bs.toggle click.bs.toggle', this.emptyRooms);
   },
   watch: {
     login_user: function login_user(value) {
@@ -45367,7 +45378,24 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(2)
+            _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _vm._m(3),
+              _vm._v(" "),
+              _vm._m(4),
+              _vm._v(" "),
+              _vm._m(5),
+              _vm._v(" "),
+              _c("li", { staticClass: "nav-item" }, [
+                _vm._m(6),
+                _vm._v(
+                  "\r\n                    " +
+                    _vm._s(_vm.sound_active) +
+                    "\r\n                "
+                )
+              ])
+            ])
           ]
         )
       ])
@@ -45428,74 +45456,87 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-      _c("li", { staticClass: "nav-item" }, [
-        _c(
-          "a",
-          {
-            staticClass: "nav-link",
-            staticStyle: { color: "white" },
-            attrs: { href: "<!-- URL CHAT -->" }
-          },
-          [_c("i", { staticClass: "fas fa-home" })]
-        )
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "nav-item" }, [
-        _c(
-          "a",
-          {
-            staticClass: "nav-link",
-            staticStyle: { color: "white" },
-            attrs: {
-              href: "#",
-              "data-toggle": "modal",
-              "data-target": "#showModalRooms"
-            }
-          },
-          [_c("small", [_vm._v("ROOMS LIST")])]
-        )
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "nav-item" }, [
-        _c(
-          "a",
-          {
-            staticClass: "nav-link",
-            staticStyle: { color: "white" },
-            attrs: {
-              href: "#",
-              "data-toggle": "modal",
-              "data-target": "#showModalPrivate"
-            }
-          },
-          [
-            _c("i", { staticClass: "far fa-comment-dots" }),
-            _vm._v(" "),
-            _c("small", [_vm._v("PRIVATE MSG")])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "nav-item" }, [
-        _c("a", { staticClass: "nav-link", staticStyle: { color: "white" } }, [
-          _c("i", { staticClass: "fas fa-music" }),
-          _vm._v(" "),
-          _c("small", [_vm._v("SOUNDS")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "nav-item" }, [
-        _c("input", {
+    return _c("li", { staticClass: "nav-item" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link",
+          staticStyle: { color: "white" },
+          attrs: { href: "<!-- URL CHAT -->" }
+        },
+        [_c("i", { staticClass: "fas fa-home" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link",
+          staticStyle: { color: "white" },
           attrs: {
-            type: "checkbox",
-            name: "toggle-event",
-            id: "toggle-event",
-            checked: "",
-            "data-toggle": "toggle"
+            href: "#",
+            "data-toggle": "modal",
+            "data-target": "#showModalRooms"
           }
-        })
+        },
+        [_c("small", [_vm._v("ROOMS LIST")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link",
+          staticStyle: { color: "white" },
+          attrs: {
+            href: "#",
+            "data-toggle": "modal",
+            "data-target": "#showModalPrivate"
+          }
+        },
+        [
+          _c("i", { staticClass: "far fa-comment-dots" }),
+          _vm._v(" "),
+          _c("small", [_vm._v("PRIVATE MSG")])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c("a", { staticClass: "nav-link", staticStyle: { color: "white" } }, [
+        _c("i", { staticClass: "fas fa-music" }),
+        _vm._v(" "),
+        _c("small", [_vm._v("SOUNDS")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { attrs: { id: "toggleSound" } }, [
+      _c("input", {
+        attrs: {
+          type: "checkbox",
+          checked: "",
+          id: "toggleSound_input",
+          "data-toggle": "toggle"
+        }
+      })
     ])
   }
 ]
@@ -45888,7 +45929,7 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Rooms H")]
+        [_vm._v("Rooms")]
       ),
       _vm._v(" "),
       _c("small", [_vm._v("Choose a room to start chatting")])
@@ -45916,11 +45957,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 hidden-md hidden-sm" }, [
-      _c("input", {
-        attrs: { type: "checkbox", id: "selectedx", "data-toggle": "toggle" }
-      })
-    ])
+    return _c(
+      "div",
+      {
+        staticClass: "col-md-2 hidden-md hidden-sm",
+        attrs: { id: "toggleRooms" }
+      },
+      [
+        _c("input", {
+          attrs: {
+            type: "checkbox",
+            id: "toggleRooms_input",
+            "data-toggle": "toggle"
+          }
+        })
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -58360,24 +58412,9 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
 Vue.component('rooms-component', __webpack_require__(/*! ./components/RoomsComponent.vue */ "./resources/js/components/RoomsComponent.vue")["default"]);
 Vue.component('login-user-component', __webpack_require__(/*! ./components/LoginUserComponent.vue */ "./resources/js/components/LoginUserComponent.vue")["default"]);
 Vue.component('private-component', __webpack_require__(/*! ./components/PrivateComponent.vue */ "./resources/js/components/PrivateComponent.vue")["default"]);
@@ -58385,57 +58422,54 @@ Vue.component('sidebar-component', __webpack_require__(/*! ./components/SidebarC
 Vue.component('groupformchat-component', __webpack_require__(/*! ./components/GroupFormChatComponent.vue */ "./resources/js/components/GroupFormChatComponent.vue")["default"]);
 Vue.component('chatmessages-component', __webpack_require__(/*! ./components/ChatMessagesComponent.vue */ "./resources/js/components/ChatMessagesComponent.vue")["default"]);
 Vue.component('navbar-component', __webpack_require__(/*! ./components/NavbarComponent.vue */ "./resources/js/components/NavbarComponent.vue")["default"]);
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 Vue.prototype.$backendURL = "http://chat2.com-devel";
 var app = new Vue({
   el: '#app-vue',
   data: {
     messages: [],
     current_room: 0,
-    login_user: 0
+    login_user: 0,
+    sound_active: true
   },
-  created: function created() {
+  mounted: function mounted() {
     var _this = this;
 
     //Escucha los mensajes de Pusher
     window.Echo["private"]('chat').listen('MessageSent', function (e) {
-      console.log('echo hello!');
-
       _this.messages.push({
         message: e.message,
         user: e.user,
         room: e.room,
         date: e.date
       });
-    }); //Revisa si el usuario está logeado
 
+      _this.sounds();
+    });
+  },
+  created: function created() {
+    var _this2 = this;
+
+    //Revisa si el usuario está logeado
     axios.get(this.$backendURL + '/api/checkLogin').then(function (response) {
       if (response.data && response.data != '') {
         //TEST
-        _this.fetchMessages();
+        _this2.fetchMessages();
 
-        _this.login_user = response.data;
+        _this2.login_user = response.data;
 
-        _this.checkRoomId();
+        _this2.checkRoomId();
       } else {
-        $(document).ready(function () {
-          $("#showModalLogin").modal("show");
-        });
+        $("#showModalLogin").modal("show");
       }
     });
   },
   methods: {
     //PRUEBA
     fetchMessages: function fetchMessages() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get(this.$backendURL + '/chat/getMessages').then(function (response) {
-        _this2.messages = response.data;
+        _this3.messages = response.data;
       });
     },
     //Añade un mensaje al chat grupal
@@ -58445,20 +58479,33 @@ var app = new Vue({
         console.log(response.data);
       });
     },
+    //Cambia estatus de activo o no el sonido
+    setSoundActive: function setSoundActive(obj) {
+      this.sound_active = obj.sound;
+    },
     checkRoomId: function checkRoomId() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get(this.$backendURL + '/api/checkRoom').then(function (response) {
         if (response.data && response.data != '') {
-          _this3.current_room = response.data;
+          _this4.current_room = response.data;
         } else {
-          _this3.current_room = 1;
+          _this4.current_room = 1;
         }
       });
     },
     //Establece el ID del usuario logeado
     setLoginUser: function setLoginUser(user) {
       this.login_user = user.user_id;
+    },
+    sounds: function sounds() {
+      var me = this; //Reproduce el audio cuando llega un mensaje
+
+      /*console.log('this.sound_active: ' + (me.sound_active));
+      if (me.sound_active) {
+          let audio = new Audio(me.$backendURL + "/js/sounds/bell_ring.mp3");
+          audio.play();
+      }*/
     }
   },
   watch: {
@@ -58470,6 +58517,7 @@ var app = new Vue({
         $("#showModalRooms").modal("show");
       }
     },
+    messages: function messages(value) {},
     current_room: function current_room(value) {
       /*axios.post(this.$backendURL + '/chat/create', message).then(response => {
           console.log(response.data);
@@ -58490,33 +58538,18 @@ var app = new Vue({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
-window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
+window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"); //
 
 try {
   window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
   window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
-} catch (e) {}
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
+} catch (e) {} //
 
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'; //
 
 
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
@@ -58525,8 +58558,8 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
   key: '236acea19ee8b3a3672a',
   cluster: 'us2',
-  forceTLS: false,
   encrypted: false,
+  forceTLS: false,
   authEndpoint: '/broadcast'
 });
 

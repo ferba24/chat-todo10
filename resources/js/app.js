@@ -1,23 +1,7 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
 
 window.Vue = require('vue');
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 Vue.component('rooms-component', require('./components/RoomsComponent.vue').default);
 Vue.component('login-user-component', require('./components/LoginUserComponent.vue').default);
 Vue.component('private-component', require('./components/PrivateComponent.vue').default);
@@ -25,12 +9,6 @@ Vue.component('sidebar-component', require('./components/SidebarComponent.vue').
 Vue.component('groupformchat-component', require('./components/GroupFormChatComponent.vue').default);
 Vue.component('chatmessages-component', require('./components/ChatMessagesComponent.vue').default);
 Vue.component('navbar-component', require('./components/NavbarComponent.vue').default);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 
 Vue.prototype.$backendURL = "http://chat2.com-devel";
 
@@ -40,18 +18,21 @@ const app = new Vue({
         messages: [],
         current_room: 0,
         login_user: 0,
+        sound_active: true,
     },
-    created() {
+    mounted() {
         //Escucha los mensajes de Pusher
         window.Echo.private('chat').listen('MessageSent', (e) => {
-            console.log('echo hello!');
             this.messages.push({
                     message: e.message,
                     user: e.user,
                     room: e.room,
                     date: e.date
             });
+            this.sounds();
         });
+    },
+    created() {
         //Revisa si el usuario está logeado
         axios.get(this.$backendURL + '/api/checkLogin').then(response => {
             if (response.data && response.data != '') {
@@ -62,9 +43,7 @@ const app = new Vue({
 
                 this.checkRoomId();
             } else {
-                $(document).ready(function() {
-                    $("#showModalLogin").modal("show");
-                });
+                $("#showModalLogin").modal("show");
             }
         });
     },
@@ -82,6 +61,10 @@ const app = new Vue({
                 console.log(response.data);
             });
         },
+        //Cambia estatus de activo o no el sonido
+        setSoundActive(obj) {
+            this.sound_active = obj.sound;
+        },
         checkRoomId() {
             axios.get(this.$backendURL + '/api/checkRoom').then(response => {
                 if (response.data && response.data != '') {
@@ -94,6 +77,15 @@ const app = new Vue({
         //Establece el ID del usuario logeado
         setLoginUser(user) {
             this.login_user = user.user_id;
+        },
+        sounds() {
+            let me = this;
+            //Reproduce el audio cuando llega un mensaje
+            /*console.log('this.sound_active: ' + (me.sound_active));
+            if (me.sound_active) {
+                let audio = new Audio(me.$backendURL + "/js/sounds/bell_ring.mp3");
+                audio.play();
+            }*/
         }
     },
     watch: {
@@ -105,6 +97,9 @@ const app = new Vue({
 
                 $("#showModalRooms").modal("show");
             }
+        },
+        messages: function (value) {
+
         },
         current_room: function (value) {
             /*axios.post(this.$backendURL + '/chat/create', message).then(response => {

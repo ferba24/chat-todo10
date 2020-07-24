@@ -1,8 +1,3 @@
-$(function() {
-	//$('#messages').html(null);
-	//$('#users-count').html('0');
-});
-	
 	function convertTime(time) {
 		// Split timestamp into [ Y, M, D, h, m, s ]
 		var date = new Date(time);
@@ -13,55 +8,7 @@ $(function() {
 	function exitRoom(roomId) {
 		location.href = url + "/room/exitRoom/" + roomId;
 	}
-/*
-	function render(data) {
-		var html = data.map(function(elem, index){
-			var json = JSON.parse(elem.json);
-			if(json != null) {
-				if(user_id != json.user.user_id) {
-				return(`<div class="incoming_msg">						
-						<div class="received_msg">
-						<div class="received_withd_msg">
-							<div class="content-msg">
-							<b>${json.user.username}</b> ${elem.messages}
-							</div>
-						</div>
-						<small><a href="#">${convertTime(elem.created_at)}</a></small>
-						</div>
-				</div>`)
-				} else {
-				return(`<div class="outgoing_msg">
-						<div class="sent_msg">
-							<div class="content-msg">
-								<b>${json.user.username}</b>  ${elem.messages}
-							</div>
-							
-						<small><a href="#">${convertTime(elem.created_at)}</a></small>
-						</div>
-				</div>`)
-				}
-			}
-		}).join(" ");
-		
-		if($('#messages').html() != html) {
-			ion.sound({
-				sounds: [
-					{name: "bell_ring"}
-				],
-				path: "/js/sounds/",
-				preload: false,
-				multiplay: false,
-				volume: 0.9
-			});	
-			
-			if(!$("[data-toggle=toggle]").hasClass('off')) {
-				ion.sound.play("bell_ring");
-			}   			
-			$("#scroll").animate({ scrollTop: $('#scroll')[0].scrollHeight + 9999 }, 1000);
-		}
-		$('#messages').html(html);
-	}
-*/
+
 function renderUser(data) {
 		var html = data.map(function(elem, index) {
 			var json = JSON.parse(elem.json);
@@ -131,40 +78,6 @@ function renderUser(data) {
 			}
 		});
 	}
-	
-  /*var socket = io.connect('http://localhost:9090', { 'forceNew': true });
-  
-  setInterval(function(){
-	socket.emit('messages-add', $('#room_id').val());
-  }, 1000);
- 
-  socket.on('messages', function(data) { 
-	render(data);
-  });
-      
- socket.emit('users-add', $('#room_id').val());
-  
-  socket.on('users', function(data) { 
-	renderUser(data);
-  });*/
-  
-  /*setInterval(function(){
-	  $.getJSON(url + "/api/getMessages/" + $('#room_id').val(), function( data ) {
-		  render(data);
-	  });
-  }, 1000);
-  
-	setInterval(function(){
-		$.getJSON(url + "/api/getUser/" + $('#room_id').val(), function( data ) {
-			renderUser(data);
-		});
-	}, 5000);
-  
-   setInterval(function(){
-	  $.getJSON(url + "/api/getUserPrivate", function( data ) {
-		  renderUserPrivate(data);
-	  });
-  }, 1000);*/
   
   function private_chat(users) {	
 	$.get(url + '/private_chat/stored/' + users, function(data) {
@@ -217,32 +130,7 @@ function renderUser(data) {
 	  $("#scroll2").animate({ scrollTop: $('#scroll2')[0].scrollHeight + 9999 }, 1000);
 	  $('#users2').html(html);
   }
-  
-  /*function messagesAdd(e) {
-	  
-	  var myContent = tinymce.activeEditor.getContent();	  
-	  tinymce.activeEditor.setContent("");
-	  
-	  var payload = {
-		  "user_id": $('#user_id').val(),
-		  "room_id": $('#room_id').val(),
-		  "messages": myContent
-	  };
-	  
-	  $.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	  });
 
-	  $.post(url + "/chat/create", payload);
-	  
-	  tinymce.activeEditor.focus();
-	  //tinymce.activeEditor.setContent(null);
-	 
-	  return false;
-  }*/
-  
   function messagesAddPrivate(e) {
 	  
 	  var myContent = tinymce.activeEditor.getContent();	  
