@@ -59111,3 +59111,4 @@ module.exports = __webpack_require__(/*! D:\wamp64\www\sites\chat2\back\resource
 /***/ })
 
 /******/ });
+//# sourceMappingURL=app.js.map
