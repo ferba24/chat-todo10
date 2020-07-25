@@ -12,18 +12,18 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!--<script src="{{ asset('js/app.js') }}" defer></script>-->
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 	
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!--<link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
 	
 	<link href="{{ asset('fontawesome/css/all.min.css') }}" rel="stylesheet"/>
 	<link href="{{ asset('fontawesome/css/solid.min.css') }}" rel="stylesheet"/>	
-	<link href="{{ asset('textrich/src/richtext.min.css') }}" rel="stylesheet" >
+	<!--<link href="{{ asset('textrich/src/richtext.min.css') }}" rel="stylesheet" >-->
 	<link href="{{ asset('css/bootstrap-toggle.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/style.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/messages.css') }}" rel="stylesheet">
@@ -36,10 +36,10 @@
     
     <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
 	<script src="{{ asset('js/bootstrap-toggle.min.js') }}"></script>
-	<script src="{{ asset('textrich/src/jquery.richtext.min.js') }}"></script>
+	<!--<script src="{{ asset('textrich/src/jquery.richtext.min.js') }}"></script>
 	<script src="{{ asset('js/socket.io.min.js') }}"></script>
 	<script src="{{ asset('js/ion.sound.js') }}"></script>
-	<script src="{{ asset('js/main.js') }}"></script>
+	<script src="{{ asset('js/main.js') }}"></script>-->
 
  	@yield('script')
  	
