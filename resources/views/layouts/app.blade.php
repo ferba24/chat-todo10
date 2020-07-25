@@ -28,7 +28,7 @@
 	<link href="{{ asset('css/messages.css') }}" rel="stylesheet">
 	<script src="{{asset('tinymce.min.js?apiKey=r72gi40ebpxjpvsf9huxa66nnm5ykzsz4390dhb5wvea5yg4') }}"></script>
 	<script>
-		tinymce.execCommand('mceFocus',false,'text');
+		/*tinymce.execCommand('mceFocus',false,'text');
 		tinymce.init({
 			selector:'#text2',
 			setup: function (ed) {
@@ -39,7 +39,7 @@
 					}
 				});
 			}
-		});
+		});*/
 	</script>
 </head>
 <body>

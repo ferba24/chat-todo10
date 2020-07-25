@@ -43,5 +43,5 @@
 </div><!-- .container-fluid -->
 <rooms-component :login_user="login_user"></rooms-component>
 <login-user-component v-on:login_usersent="setLoginUser"></login-user-component>
-<private-component></private-component>
+<!-- <private-component></private-component> -->
 @endsection
