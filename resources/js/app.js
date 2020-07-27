@@ -58,12 +58,8 @@ const app = new Vue({
                 room: this.current_room,
                 message: message.message
             }).then(response => {
-                this.messages.push({
-                    user: this.login_user,
-                    room: this.current_room,
-                    message: message.message
-                });
-                console.log(response.data);
+                this.messages.push(response.data); 
+                //console.log(response.data);
             });
         },
         //Cambia estatus de activo o no el sonido

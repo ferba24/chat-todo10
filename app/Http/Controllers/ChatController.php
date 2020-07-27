@@ -21,8 +21,13 @@ class ChatController extends Controller{
 					$message->messages, 
 					$message->created_at
 				))->toOthers();
-
-		return response('Message Sent!');
+		
+		return response(json_encode([
+			'user' => $user->json, 
+			'room' => $message->room_id,
+			'message' => $message->messages,
+			'date' => $message->created_at
+		]));
 	}
 	public function getMessages(){
 		$messages = \DB::table('chat')
