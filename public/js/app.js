@@ -1976,21 +1976,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['login_user'],
   data: function data() {
     return {
-      newMessage: '',
-      room: -1
+      newMessage: ''
     };
   },
   methods: {
     sendMessage: function sendMessage() {
-      if (this.room != 0 && this.login_user != 0) {
+      if (this.current_room != 0 && this.login_user != 0) {
         this.$emit('messagesent', {
-          room: this.room,
-          user: this.login_user,
           message: this.newMessage
         });
         this.newMessage = '';
@@ -45030,8 +45025,7 @@ var render = function() {
               on: { click: _vm.sendMessage }
             },
             [_vm._v("Send")]
-          ),
-          _vm._v("\r\n            " + _vm._s(_vm.newMessage) + "\r\n        ")
+          )
         ]
       )
     ])
@@ -58452,9 +58446,6 @@ var app = new Vue({
     //Revisa si el usuario está logeado
     axios.get(this.$backendURL + '/api/checkLogin').then(function (response) {
       if (response.data && response.data != '') {
-        //TEST
-        _this2.fetchMessages();
-
         _this2.login_user = response.data;
 
         _this2.checkRoomId();
@@ -58474,8 +58465,19 @@ var app = new Vue({
     },
     //Añade un mensaje al chat grupal
     addMessage: function addMessage(message) {
-      this.messages.push(message);
-      axios.post(this.$backendURL + '/chat/create', message).then(function (response) {
+      var _this4 = this;
+
+      axios.post(this.$backendURL + '/chat/create', {
+        user: this.login_user,
+        room: this.current_room,
+        message: message.message
+      }).then(function (response) {
+        _this4.messages.push({
+          user: _this4.login_user,
+          room: _this4.current_room,
+          message: message.message
+        });
+
         console.log(response.data);
       });
     },
@@ -58484,15 +58486,17 @@ var app = new Vue({
       this.sound_active = obj.sound;
     },
     checkRoomId: function checkRoomId() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get(this.$backendURL + '/api/checkRoom').then(function (response) {
         if (response.data && response.data != '') {
-          _this4.current_room = response.data;
+          _this5.current_room = response.data;
         } else {
-          _this4.current_room = 1;
+          _this5.current_room = 1;
         }
-      });
+      }); //TEST
+
+      this.fetchMessages();
     },
     //Establece el ID del usuario logeado
     setLoginUser: function setLoginUser(user) {

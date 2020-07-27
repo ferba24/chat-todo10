@@ -7,26 +7,21 @@
         </div>
         <div class="col-md-2 justify-content-center align-self-center">
             <button type="button" class="btn btn-primary form-control" name="sendMessage" id="sendMessage" @click="sendMessage">Send</button>
-            {{ newMessage }}
         </div>
     </div>
 </form>
 </template>
 <script>
 export default{
-    props: ['login_user'],
     data(){
         return {
             newMessage: '',
-            room: -1,
         }
     },
     methods: {
         sendMessage() {
-            if(this.room != 0 && this.login_user != 0){
+            if(this.current_room != 0 && this.login_user != 0){
                 this.$emit('messagesent', {
-                    room: this.room,
-                    user: this.login_user,
                     message: this.newMessage
                 });
                 this.newMessage = '';

@@ -33,7 +33,7 @@
 				<chatmessages-component :messages="messages"></chatmessages-component>
 			</div>
 			<div id="card-box-form">
-				<groupformchat-component v-on:messagesent="addMessage" :login_user="login_user"></groupformchat-component>
+				<groupformchat-component v-on:messagesent="addMessage"></groupformchat-component>
 			</div>
         </div>
         <div class="col-md-3">

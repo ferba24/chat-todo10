@@ -36,9 +36,6 @@ const app = new Vue({
         //Revisa si el usuario está logeado
         axios.get(this.$backendURL + '/api/checkLogin').then(response => {
             if (response.data && response.data != '') {
-                //TEST
-                this.fetchMessages();
-                
                 this.login_user = response.data;
 
                 this.checkRoomId();
@@ -56,8 +53,16 @@ const app = new Vue({
         },
         //Añade un mensaje al chat grupal
         addMessage(message) {
-            this.messages.push(message);
-            axios.post(this.$backendURL + '/chat/create', message).then(response => {
+            axios.post(this.$backendURL + '/chat/create', {
+                user: this.login_user,
+                room: this.current_room,
+                message: message.message
+            }).then(response => {
+                this.messages.push({
+                    user: this.login_user,
+                    room: this.current_room,
+                    message: message.message
+                });
                 console.log(response.data);
             });
         },
@@ -73,6 +78,9 @@ const app = new Vue({
                     this.current_room = 1;
                 }
             });
+
+            //TEST
+            this.fetchMessages();
         },
         //Establece el ID del usuario logeado
         setLoginUser(user) {

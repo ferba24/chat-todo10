@@ -13,7 +13,14 @@ class ChatController extends Controller{
 		$message->json = ""; // Borrar esta columna en la DB
 		$message->save();
 
-		broadcast(new MessageSent($message->room_id, $message->user_id, $message->messages))->toOthers();
+		$user = \DB::table('xenusers')->where('user_id', $message->user_id)->first();
+
+		broadcast(new MessageSent(
+					$message->room_id, 
+					$user->json, 
+					$message->messages, 
+					$message->created_at
+				))->toOthers();
 
 		return response('Message Sent!');
 	}
