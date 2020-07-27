@@ -9,6 +9,7 @@ Vue.component('sidebar-component', require('./components/SidebarComponent.vue').
 Vue.component('groupformchat-component', require('./components/GroupFormChatComponent.vue').default);
 Vue.component('chatmessages-component', require('./components/ChatMessagesComponent.vue').default);
 Vue.component('navbar-component', require('./components/NavbarComponent.vue').default);
+Vue.component('tabsroom-component', require('./components/TabsRoomComponent.vue').default);
 
 Vue.prototype.$backendURL = "http://chat2.com-devel";
 
