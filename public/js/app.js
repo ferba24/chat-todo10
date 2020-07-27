@@ -58472,13 +58472,8 @@ var app = new Vue({
         room: this.current_room,
         message: message.message
       }).then(function (response) {
-        _this4.messages.push({
-          user: _this4.login_user,
-          room: _this4.current_room,
-          message: message.message
-        });
+        _this4.messages.push(response.data); //console.log(response.data);
 
-        console.log(response.data);
       });
     },
     //Cambia estatus de activo o no el sonido
@@ -59115,4 +59110,3 @@ module.exports = __webpack_require__(/*! D:\wamp64\www\sites\chat2\back\resource
 /***/ })
 
 /******/ });
-//# sourceMappingURL=app.js.map
