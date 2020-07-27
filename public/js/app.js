@@ -7095,7 +7095,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#scroll-messages-content .msg[data-v-423cfa84]{\r\n    display: flex;\n}\np[data-v-423cfa84]{\r\n    margin: 0px !important;\n}\r\n", ""]);
+exports.push([module.i, "\n#scroll-messages-content .msg[data-v-423cfa84]{\r\n    display: flex;\n}\np[data-v-423cfa84]{\r\n    margin: 0px !important;\n}\n.msg>span[data-v-423cfa84]{\r\n    margin-left: 5px;\n}\r\n", ""]);
 
 // exports
 

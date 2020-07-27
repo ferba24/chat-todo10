@@ -51,4 +51,7 @@ export default {
 p{
     margin: 0px !important;
 }
+.msg>span{
+    margin-left: 5px;
+}
 </style>
