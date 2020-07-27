@@ -549,3 +549,6 @@ background-image: url("data:image/svg+xml,%3Csvg width='12' height='16' viewBox=
 #sidebar-block.card-body{
   min-height: 250px;
 }
+#scroll-messages-content.messages-content span>p{
+  margin-bottom: 2px !important;
+}
