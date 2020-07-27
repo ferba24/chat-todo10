@@ -32,7 +32,7 @@ class ChatController extends Controller{
 	public function getMessages(){
 		$messages = \DB::table('chat')
 					->leftJoin('xenusers', 'chat.user_id', 'xenusers.user_id')
-					->select('xenusers.json as user', 'chat.room_id as room', 'chat.messages as message', 'chat.created_at as date')->get();
+					->select('xenusers.json as user', 'chat.room_id as room', 'chat.messages as message', 'chat.created_at as date')->orderBy('chat.created_at','ASC')->get();
 		return response($messages->toJson());
 	}
 }
