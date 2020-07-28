@@ -58548,7 +58548,8 @@ var app = new Vue({
     current_room: 0,
     login_user: 0,
     sound_active: true,
-    rooms: []
+    rooms: [],
+    csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
   },
   mounted: function mounted() {
     var _this = this;
@@ -58652,6 +58653,7 @@ var app = new Vue({
         $("#showModalLogin").modal("show");
       } else {
         this.checkRoomId();
+        this.checkRoomsUser();
         $("#showModalRooms").modal("show");
       }
     },

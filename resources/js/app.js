@@ -21,6 +21,7 @@ const app = new Vue({
         login_user: 0,
         sound_active: true,
         rooms: [],
+        csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
     },
     mounted() {
         //Escucha los mensajes de Pusher
@@ -112,6 +113,8 @@ const app = new Vue({
                 $("#showModalLogin").modal("show");
             } else {
                 this.checkRoomId();
+
+                this.checkRoomsUser();
 
                 $("#showModalRooms").modal("show");
             }
