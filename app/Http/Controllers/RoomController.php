@@ -6,18 +6,29 @@ use App\RoomUser;
 use App\XenUser;
 
 class RoomController extends Controller{
-	public function selected(Request $req, $room = '') {
+	//Se selecciona un usuario al room indicado por $req
+	public function select(Request $req) {
 		// Add user to room
-		$rooms = RoomUser::where('room_id', $room)->where('user_id', $req->session()->get('user'))->first();
-		if(!$rooms) {
-			$roomUser = new RoomUser();
-			$roomUser->user_id = $req->session()->get('user');
-			$roomUser->room_id = $room;
-			$roomUser->save();
+		if($req->get('room_id')){
+			$rooms = RoomUser::where('room_id', $req->get('room_id'))->where('user_id', $req->session()->get('user'))->first();
+			if(!$rooms) {
+				$roomUser = new RoomUser();
+				$roomUser->user_id = $req->session()->get('user');
+				$roomUser->room_id = $req->get('room_id');
+				$roomUser->save();
+			}
+			$req->session()->put('room', $req->get('room_id'));
+			return response(json_encode([
+				'success' => 'Se ha añadido al usuario al room',
+				'room_id' => $req->get('room_id')
+			]));
+		}else{
+			return response(json_encode([
+				'error' => 'room_id es requerido'
+			]));
 		}
-		$req->session()->put('room', $room);
-		return redirect()->route('home')->with('success', 'Se ha creado satisfactoriamente!');
 	}	
+
 	public function change(Request $req, $room = '') {
 		$room = RoomUser::where("room_id", $room)->where('user_id', $req->session()->get('user'))->first();
 		if($room) {

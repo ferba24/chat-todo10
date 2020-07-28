@@ -83,6 +83,9 @@ const app = new Vue({
         setLoginUser(user) {
             this.login_user = user.user_id;
         },
+        setRoomUser(room) {
+            this.current_room = room.room_id;
+        },
         sounds() {
             let me = this;
             //Reproduce el audio cuando llega un mensaje

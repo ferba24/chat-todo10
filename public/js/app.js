@@ -2341,12 +2341,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['login_user'],
+  props: ['login_user', 'current_room'],
   data: function data() {
     return {
       arrayRooms: [],
       empty: false,
-      term: ""
+      term: "",
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     };
   },
   methods: {
@@ -2354,15 +2355,34 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
 
       if (me.login_user != 0) {
-        axios.get(this.$backendURL + '/room/getRoom').then(function (rooms) {
+        axios.get(me.$backendURL + '/room/getRoom').then(function (rooms) {
           me.arrayRooms = rooms.data;
         })["catch"](function (error) {
-          console.log('Error in RoomsController.vue: ' + error);
+          console.log('Error RoomsController.vue in getRooms(): ' + error);
         });
       }
     },
     selectedRoom: function selectedRoom(id) {
-      location.href = this.$backendURL + '/room/selected/' + id;
+      var _this = this;
+
+      //location.href = this.$backendURL + '/room/selected/' + id;
+      var me = this;
+      axios.post(me.$backendURL + '/api/room/select', {
+        _token: this.csrf,
+        room_id: id
+      }).then(function (response) {
+        if (response.data.success) {
+          _this.$emit('current_roomsent', {
+            room_id: parseInt(response.data.room_id)
+          });
+
+          $('#showModalRooms').modal('hide');
+        } else {
+          console.dir(response.data.error);
+        }
+      })["catch"](function (error) {
+        console.log('Error RoomsController.vue in selectedRoom(): ' + error);
+      });
     },
     emptyRooms: function emptyRooms() {
       this.empty = this.empty ? false : true;
@@ -2376,7 +2396,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     filterRooms: function filterRooms() {
-      var _this = this;
+      var _this2 = this;
 
       var filtered = this.arrayRooms; //Se filtra por rooms vacíos
 
@@ -2389,7 +2409,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.term != "") {
         filtered = filtered.filter(function (m) {
-          return m.room_name.toLowerCase().indexOf(_this.term) > -1;
+          return m.room_name.toLowerCase().indexOf(_this2.term) > -1;
         });
       }
 
@@ -58534,6 +58554,9 @@ var app = new Vue({
     //Establece el ID del usuario logeado
     setLoginUser: function setLoginUser(user) {
       this.login_user = user.user_id;
+    },
+    setRoomUser: function setRoomUser(room) {
+      this.current_room = room.room_id;
     },
     sounds: function sounds() {
       var me = this; //Reproduce el audio cuando llega un mensaje

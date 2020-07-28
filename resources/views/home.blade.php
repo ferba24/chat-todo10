@@ -22,7 +22,7 @@
 		</div><!-- .col-md-3 -->
 	</div><!-- .row.justify-content-center -->
 </div><!-- .container-fluid -->
-<rooms-component :login_user="login_user"></rooms-component>
+<rooms-component :login_user="login_user" :current_room="current_room" v-on:current_roomsent="setRoomUser"></rooms-component>
 <login-user-component v-on:login_usersent="setLoginUser"></login-user-component>
 <!-- <private-component></private-component> -->
 @endsection

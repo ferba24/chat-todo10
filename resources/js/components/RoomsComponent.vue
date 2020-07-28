@@ -80,28 +80,45 @@
 
 <script>
 export default {
-	props: ['login_user'],
+	props: ['login_user', 'current_room'],
 	data(){
 		return{
 			arrayRooms: [],
 			empty: false,
 			term: "",
+			csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
 		}
 	},
 	methods:{
 		getRooms() {
 			let me = this;
 			if(me.login_user != 0){
-				axios.get(this.$backendURL + '/room/getRoom')
+				axios.get(me.$backendURL + '/room/getRoom')
 				.then((rooms) => {
 					me.arrayRooms = rooms.data;
 				}).catch(function (error) {
-					console.log('Error in RoomsController.vue: ' + error);
+					console.log('Error RoomsController.vue in getRooms(): ' + error);
 				});
 			}
 		},
 		selectedRoom(id) {
-			location.href = this.$backendURL + '/room/selected/' + id;
+			//location.href = this.$backendURL + '/room/selected/' + id;
+			let me = this;
+			axios.post(me.$backendURL + '/api/room/select', {
+				_token: this.csrf,
+				room_id: id,
+			}).then((response) => {
+				if(response.data.success){
+					this.$emit('current_roomsent', {
+						room_id: parseInt(response.data.room_id)
+					});
+					$('#showModalRooms').modal('hide');
+				}else{
+					console.dir(response.data.error);
+				}
+			}).catch(function (error) {
+				console.log('Error RoomsController.vue in selectedRoom(): ' + error);
+			});
 		},
 		emptyRooms(){
 			this.empty = (this.empty)?false:true;
