@@ -6,6 +6,15 @@ use App\RoomUser;
 use App\XenUser;
 
 class RoomController extends Controller{
+	// Get all rooms
+	public function getRooms() {
+		$rooms = \DB::table('room')->where('room.id', '!=', 1)
+				->leftJoin('room_user', 'room.id', 'room_user.room_id')
+				->select('room.*', \DB::raw('(SELECT COUNT(*) FROM room_user WHERE room.id = room_user.room_id) as count_room'))
+				->groupBy('room.id')
+				->orderBy('count_room', 'desc')->get();
+		return response($rooms->toJson());
+	}
 	//Se selecciona un usuario al room indicado por $req
 	public function select(Request $req) {
 		// Add user to room
@@ -27,7 +36,17 @@ class RoomController extends Controller{
 				'error' => 'room_id es requerido'
 			]));
 		}
-	}	
+	}
+	//Obtener los rooms de un usuario
+	public function getFromUser(Request $req){
+		$rooms = \DB::table('room_user')
+					->where('room_user.user_id', $req->session()->get('user'))
+					->where('room_user.room_id', '!=', 1)
+					->leftJoin('room', 'room.id', '=', 'room_user.room_id')
+					->select('room.room_name as room_name', 'room_user.id as id')
+					->get();
+		return response($rooms->toJson());
+	}
 
 	public function change(Request $req, $room = '') {
 		$room = RoomUser::where("room_id", $room)->where('user_id', $req->session()->get('user'))->first();
@@ -41,19 +60,6 @@ class RoomController extends Controller{
 		$room = RoomUser::where("room_id", $room)->where('user_id', $req->session()->get('user'))->first();
 		$room->delete();
 		return redirect()->route('home')->with('success', 'Se ha creado satisfactoriamente!');
-	}
-	// Get all rooms
-	public function getRooms() {
-		$rooms = \DB::table('room')->where('room.id', '!=', 1)
-				->leftJoin('room_user', 'room.id', 'room_user.room_id')
-				->select('room.*', \DB::raw('(SELECT COUNT(*) FROM room_user WHERE room.id = room_user.room_id) as count_room'))
-				->groupBy('room.id')
-				->orderBy('count_room', 'desc')->get();
-		return response($rooms->toJson());
-	}
-	// Set room
-	public function setActualRoom(){
-		
 	}
 	public function getRoomsUser($id = null){
 		if(!$id){

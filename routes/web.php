@@ -42,6 +42,7 @@ Route::prefix('api')->group(function(){
             Route::get('getCurrent', 'ApiController@getCurrentUser');
         });
         Route::prefix('room')->group(function(){
+            Route::get('getFromUser', 'RoomController@getFromUser')->name('room.getFromUser');
             Route::post('select', 'RoomController@select')->name('room.select');
         });
     });

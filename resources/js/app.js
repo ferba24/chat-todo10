@@ -20,6 +20,7 @@ const app = new Vue({
         current_room: 0,
         login_user: 0,
         sound_active: true,
+        rooms: [],
     },
     mounted() {
         //Escucha los mensajes de Pusher
@@ -40,6 +41,8 @@ const app = new Vue({
                 this.login_user = response.data;
 
                 this.checkRoomId();
+
+                this.checkRoomsUser();
             } else {
                 $("#showModalLogin").modal("show");
             }
@@ -78,6 +81,13 @@ const app = new Vue({
 
             //TEST
             this.fetchMessages();
+        },
+        checkRoomsUser() {
+            axios.get(this.$backendURL + '/api/room/getFromUser').then(response => {
+                if (response.data && response.data != '') {
+                    this.rooms = response.data;
+                }
+            });
         },
         //Establece el ID del usuario logeado
         setLoginUser(user) {

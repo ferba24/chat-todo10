@@ -6,7 +6,7 @@
         <div class="col-md-9" style="margin-bottom: 20px">
             <div id="card-box-messages" class="card">
                 <div class="card-header">
-					<tabsroom-component></tabsroom-component>
+					<tabsroom-component :rooms="rooms" :current_room="current_room"></tabsroom-component>
 				</div>
 				<div class="alert alert-success text-center" role="alert" style="padding: 5px;">
 					<small>This is a custom notice for this room. Terms and condictions link? Rules link? Whatever</small>
