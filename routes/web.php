@@ -25,7 +25,7 @@ Route::prefix('room')->group(function(){
     Route::get('change/{room}', 'RoomController@change')->name('room.change');
     Route::get('getRoom', 'RoomController@getRooms')->name('room.getRoom');
     Route::get('getRoomsUser/{id}', 'RoomController@getRoomsUser')->name('room.getRoomsUser');
-    Route::get('exitRoom/{room}', 'RoomController@exitRoom')->name('room.exitRoom');
+    //Route::get('exitRoom/{room}', 'RoomController@exitRoom')->name('room.exitRoom');
 });
 
 Route::prefix('chat')->group(function(){
@@ -44,11 +44,9 @@ Route::prefix('api')->group(function(){
         Route::prefix('room')->group(function(){
             Route::get('getFromUser', 'RoomController@getFromUser')->name('room.getFromUser');
             Route::post('select', 'RoomController@select')->name('room.select');
+            Route::post('exitRoom', 'RoomController@exitRoom')->name('room.exitRoom');
         });
     });
-});
-Route::prefix('room')->group(function(){
-    //Route::post('login', 'ApiController@login');
 });
 Route::get('/api/getUser/{room}/{search?}', 'ApiController@getUser')->name('api.getUser');
 Route::get('/api/getUserPrivate', 'ApiController@getUserPrivate')->name('api.getUserPrivate');
