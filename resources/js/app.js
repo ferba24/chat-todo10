@@ -64,7 +64,6 @@ const app = new Vue({
                 message: message.message
             }).then(response => {
                 this.messages.push(response.data); 
-                //console.log(response.data);
             });
         },
         //Cambia estatus de activo o no el sonido
@@ -95,7 +94,21 @@ const app = new Vue({
             this.login_user = user.user_id;
         },
         setRoomUser(room) {
-            this.current_room = room.room_id;
+            let me = this;
+            var exist = false;
+            me.rooms.forEach(function (item, index, object) {
+                if (item.id == room.room_id) {
+                    exist = true;
+                }
+            });
+            if (!exist) {
+                axios.get(me.$backendURL + '/api/room/getRoom/' + room.room_id).then(response => {
+                    if (response.data && response.data != '') {
+                        me.rooms.push(response.data);
+                    }
+                });
+            }
+            me.current_room = room.room_id;
         },
         sounds() {
             let me = this;
@@ -133,13 +146,5 @@ const app = new Vue({
                 $("#showModalRooms").modal("show");
             }
         },
-        messages: function (value) {
-
-        },
-        current_room: function (value) {
-            /*axios.post(this.$backendURL + '/chat/create', message).then(response => {
-                console.log(response.data);
-            });*/
-        }
     }
 });

@@ -60,7 +60,7 @@
 									</td>
 									<td class="text-center" style="width:90px;">{{ room.count_room }}</td>
 									<td class="text-center justify-content-center" style="width:90px;">
-										<a class="btn btn-success btn-block btn-sm active" @click="selectedRoom(`${room.id}`)"  role="button"><i class="fas fa-door-open"></i>Enter</a>
+										<a class="btn btn-success btn-block btn-sm active" @click="selectedRoom(`${room.id}`)"  role="button" href="javascript:void(0)"><i class="fas fa-door-open"></i>Enter</a>
 									</td>
 								</tr>
 							</tbody>
@@ -102,7 +102,6 @@ export default {
 			}
 		},
 		selectedRoom(id) {
-			//location.href = this.$backendURL + '/room/selected/' + id;
 			let me = this;
 			axios.post(me.$backendURL + '/api/room/select', {
 				_token: this.csrf,

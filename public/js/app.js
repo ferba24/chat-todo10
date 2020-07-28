@@ -2364,7 +2364,6 @@ __webpack_require__.r(__webpack_exports__);
     selectedRoom: function selectedRoom(id) {
       var _this = this;
 
-      //location.href = this.$backendURL + '/room/selected/' + id;
       var me = this;
       axios.post(me.$backendURL + '/api/room/select', {
         _token: this.csrf,
@@ -45928,7 +45927,10 @@ var render = function() {
                                   {
                                     staticClass:
                                       "btn btn-success btn-block btn-sm active",
-                                    attrs: { role: "button" },
+                                    attrs: {
+                                      role: "button",
+                                      href: "javascript:void(0)"
+                                    },
                                     on: {
                                       click: function($event) {
                                         return _vm.selectedRoom("" + room.id)
@@ -58602,8 +58604,7 @@ var app = new Vue({
         room: this.current_room,
         message: message.message
       }).then(function (response) {
-        _this4.messages.push(response.data); //console.log(response.data);
-
+        _this4.messages.push(response.data);
       });
     },
     //Cambia estatus de activo o no el sonido
@@ -58637,7 +58638,23 @@ var app = new Vue({
       this.login_user = user.user_id;
     },
     setRoomUser: function setRoomUser(room) {
-      this.current_room = room.room_id;
+      var me = this;
+      var exist = false;
+      me.rooms.forEach(function (item, index, object) {
+        if (item.id == room.room_id) {
+          exist = true;
+        }
+      });
+
+      if (!exist) {
+        axios.get(me.$backendURL + '/api/room/getRoom/' + room.room_id).then(function (response) {
+          if (response.data && response.data != '') {
+            me.rooms.push(response.data);
+          }
+        });
+      }
+
+      me.current_room = room.room_id;
     },
     sounds: function sounds() {
       var me = this; //Reproduce el audio cuando llega un mensaje
@@ -58673,12 +58690,6 @@ var app = new Vue({
         this.checkRoomsUser();
         $("#showModalRooms").modal("show");
       }
-    },
-    messages: function messages(value) {},
-    current_room: function current_room(value) {
-      /*axios.post(this.$backendURL + '/chat/create', message).then(response => {
-          console.log(response.data);
-      });*/
     }
   }
 });

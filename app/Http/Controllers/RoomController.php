@@ -60,6 +60,20 @@ class RoomController extends Controller{
 			'error' => 'No se borró el usuario del room porque no existe esa relación'
 		]));
 	}
+	public function getRoom($id = null){
+		if(is_null($id)){
+			return response(json_encode([
+				'error' => '$id es null'
+			]));
+		}
+		$room = Room::where('id', $id)->first();
+		if(!$room){
+			return response(json_encode([
+				'error' => 'No existe el room'
+			]));
+		}
+		return response($room->toJson());
+	}
 /*
 	public function change(Request $req, $room = '') {
 		$room = RoomUser::where("room_id", $room)->where('user_id', $req->session()->get('user'))->first();

@@ -45,6 +45,7 @@ Route::prefix('api')->group(function(){
             Route::get('getFromUser', 'RoomController@getFromUser')->name('room.getFromUser');
             Route::post('select', 'RoomController@select')->name('room.select');
             Route::post('exitRoom', 'RoomController@exitRoom')->name('room.exitRoom');
+            Route::get('getRoom/{id}', 'RoomController@getRoom')->name('room.getRoom');
         });
     });
 });
