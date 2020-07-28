@@ -43,11 +43,24 @@ class RoomController extends Controller{
 					->where('room_user.user_id', $req->session()->get('user'))
 					->where('room_user.room_id', '!=', 1)
 					->leftJoin('room', 'room.id', '=', 'room_user.room_id')
-					->select('room.room_name as room_name', 'room_user.id as id')
+					->select('room.room_name as room_name', 'room.id as id')
 					->get();
 		return response($rooms->toJson());
 	}
-
+	//Salir de una sala
+	public function exitRoom(Request $req) {
+		$room = RoomUser::where("room_id", $req->get('room_id'))->where('user_id', $req->session()->get('user'))->first();
+		if($room){
+			$room->delete();
+			return response(json_encode([
+				'success' => 'Se ha borrado al usuario del room'
+			]));
+		}
+		return response(json_encode([
+			'error' => 'No se borró el usuario del room porque no existe esa relación'
+		]));
+	}
+/*
 	public function change(Request $req, $room = '') {
 		$room = RoomUser::where("room_id", $room)->where('user_id', $req->session()->get('user'))->first();
 		if($room) {
@@ -68,5 +81,5 @@ class RoomController extends Controller{
 		$rooms = \DB::table('room_user')->where('room_id', '!=', 1)->where('user_id', $id)->get();
 		return response($rooms->toJson());
 	}
-	
+	*/
 }

@@ -2592,17 +2592,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['rooms', 'current_room']
+  props: ['rooms', 'current_room'],
+  data: function data() {
+    return {
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    };
+  },
+  methods: {
+    changeRoom: function changeRoom(id) {
+      this.$emit('current_roomsent', {
+        room_id: parseInt(id)
+      });
+    },
+    exitRoom: function exitRoom(id) {
+      var _this = this;
+
+      axios.post(this.$backendURL + '/api/room/exitRoom', {
+        _token: this.csrf,
+        room_id: id
+      }).then(function (response) {
+        if (response.data.success) {
+          _this.$emit('rooms_sent', {
+            room_id: parseInt(id)
+          });
+        } else {
+          console.dir(response.data.error);
+        }
+      })["catch"](function (error) {
+        console.log('Error TabRoomController.vue: ' + error);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -46285,7 +46306,15 @@ var render = function() {
       _c("li", { staticClass: "nav-item" }, [
         _c(
           "a",
-          { class: { active: _vm.current_room == 1 }, attrs: { href: "#" } },
+          {
+            class: { active: _vm.current_room == 1 },
+            attrs: { href: "javascript:void(0)" },
+            on: {
+              click: function($event) {
+                return _vm.changeRoom(1)
+              }
+            }
+          },
           [_vm._v("General   ")]
         )
       ]),
@@ -46296,34 +46325,37 @@ var render = function() {
             "a",
             {
               class: { active: _vm.current_room == room.id },
-              attrs: { href: "#" }
+              attrs: { href: "javascript:void(0)" },
+              on: {
+                click: function($event) {
+                  return _vm.changeRoom("" + room.id)
+                }
+              }
             },
             [_vm._v("\r\n        " + _vm._s(room.room_name) + "    ")]
           ),
           _vm._v(" "),
-          _vm._m(0, true)
+          _c(
+            "span",
+            {
+              staticClass: "badge",
+              staticStyle: { cursor: "pointer" },
+              attrs: { id: "badge", title: "Exit room" },
+              on: {
+                click: function($event) {
+                  return _vm.exitRoom("" + room.id)
+                }
+              }
+            },
+            [_c("i", { staticClass: "fas fa-times" })]
+          )
         ])
       })
     ],
     2
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      {
-        staticClass: "badge",
-        staticStyle: { cursor: "pointer" },
-        attrs: { id: "badge", title: "Exit room", onclick: "exitRoom(#)" }
-      },
-      [_c("i", { staticClass: "fas fa-times" })]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -58614,6 +58646,22 @@ var app = new Vue({
         var audio = new Audio(me.$backendURL + "/js/sounds/bell_ring.mp3");
         audio.play();
       }
+    },
+    changeCurrentRoom: function changeCurrentRoom(room) {
+      this.current_room = room.room_id;
+    },
+    deleteRoomFromUser: function deleteRoomFromUser(room) {
+      var me = this;
+      me.rooms.forEach(function (item, index, object) {
+        if (item.id == room.room_id) {
+          if (me.current_room == room.room_id) {
+            me.current_room = 1;
+          }
+
+          object.splice(index, 1);
+          return;
+        }
+      });
     }
   },
   watch: {

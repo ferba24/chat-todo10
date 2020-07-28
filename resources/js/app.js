@@ -104,6 +104,21 @@ const app = new Vue({
                 let audio = new Audio(me.$backendURL + "/js/sounds/bell_ring.mp3");
                 audio.play();
             }
+        },
+        changeCurrentRoom(room) {
+            this.current_room = room.room_id;
+        },
+        deleteRoomFromUser(room) {
+            let me = this;
+            me.rooms.forEach(function (item, index, object) {
+                if (item.id == room.room_id) {
+                    if (me.current_room == room.room_id) {
+                        me.current_room = 1;
+                    }
+                    object.splice(index, 1);
+                    return;
+                }
+            });
         }
     },
     watch: {
