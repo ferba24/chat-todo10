@@ -100,11 +100,10 @@ const app = new Vue({
         sounds() {
             let me = this;
             //Reproduce el audio cuando llega un mensaje
-            /*console.log('this.sound_active: ' + (me.sound_active));
             if (me.sound_active) {
                 let audio = new Audio(me.$backendURL + "/js/sounds/bell_ring.mp3");
                 audio.play();
-            }*/
+            }
         }
     },
     watch: {

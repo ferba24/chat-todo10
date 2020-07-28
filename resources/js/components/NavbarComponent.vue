@@ -51,7 +51,6 @@
                     <div id="toggleSound">
                         <input type="checkbox" checked id="toggleSound_input" data-toggle="toggle"/>
                     </div>
-                    {{ sound_active }}
                 </li>
             </ul>
         </div>

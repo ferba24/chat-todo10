@@ -2206,7 +2206,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['login_user', 'sound_active'],
   data: function data() {
@@ -45428,24 +45427,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _vm._m(3),
-              _vm._v(" "),
-              _vm._m(4),
-              _vm._v(" "),
-              _vm._m(5),
-              _vm._v(" "),
-              _c("li", { staticClass: "nav-item" }, [
-                _vm._m(6),
-                _vm._v(
-                  "\r\n                    " +
-                    _vm._s(_vm.sound_active) +
-                    "\r\n                "
-                )
-              ])
-            ])
+            _vm._m(2)
           ]
         )
       ])
@@ -45506,87 +45488,75 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link",
-          staticStyle: { color: "white" },
-          attrs: { href: "<!-- URL CHAT -->" }
-        },
-        [_c("i", { staticClass: "fas fa-home" })]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link",
-          staticStyle: { color: "white" },
-          attrs: {
-            href: "#",
-            "data-toggle": "modal",
-            "data-target": "#showModalRooms"
-          }
-        },
-        [_c("small", [_vm._v("ROOMS LIST")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link",
-          staticStyle: { color: "white" },
-          attrs: {
-            href: "#",
-            "data-toggle": "modal",
-            "data-target": "#showModalPrivate"
-          }
-        },
-        [
-          _c("i", { staticClass: "far fa-comment-dots" }),
+    return _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+      _c("li", { staticClass: "nav-item" }, [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            staticStyle: { color: "white" },
+            attrs: { href: "<!-- URL CHAT -->" }
+          },
+          [_c("i", { staticClass: "fas fa-home" })]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "nav-item" }, [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            staticStyle: { color: "white" },
+            attrs: {
+              href: "#",
+              "data-toggle": "modal",
+              "data-target": "#showModalRooms"
+            }
+          },
+          [_c("small", [_vm._v("ROOMS LIST")])]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "nav-item" }, [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            staticStyle: { color: "white" },
+            attrs: {
+              href: "#",
+              "data-toggle": "modal",
+              "data-target": "#showModalPrivate"
+            }
+          },
+          [
+            _c("i", { staticClass: "far fa-comment-dots" }),
+            _vm._v(" "),
+            _c("small", [_vm._v("PRIVATE MSG")])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "nav-item" }, [
+        _c("a", { staticClass: "nav-link", staticStyle: { color: "white" } }, [
+          _c("i", { staticClass: "fas fa-music" }),
           _vm._v(" "),
-          _c("small", [_vm._v("PRIVATE MSG")])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link", staticStyle: { color: "white" } }, [
-        _c("i", { staticClass: "fas fa-music" }),
-        _vm._v(" "),
-        _c("small", [_vm._v("SOUNDS")])
+          _c("small", [_vm._v("SOUNDS")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "nav-item" }, [
+        _c("div", { attrs: { id: "toggleSound" } }, [
+          _c("input", {
+            attrs: {
+              type: "checkbox",
+              checked: "",
+              id: "toggleSound_input",
+              "data-toggle": "toggle"
+            }
+          })
+        ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "toggleSound" } }, [
-      _c("input", {
-        attrs: {
-          type: "checkbox",
-          checked: "",
-          id: "toggleSound_input",
-          "data-toggle": "toggle"
-        }
-      })
     ])
   }
 ]
@@ -58640,11 +58610,10 @@ var app = new Vue({
     sounds: function sounds() {
       var me = this; //Reproduce el audio cuando llega un mensaje
 
-      /*console.log('this.sound_active: ' + (me.sound_active));
       if (me.sound_active) {
-          let audio = new Audio(me.$backendURL + "/js/sounds/bell_ring.mp3");
-          audio.play();
-      }*/
+        var audio = new Audio(me.$backendURL + "/js/sounds/bell_ring.mp3");
+        audio.play();
+      }
     }
   },
   watch: {
