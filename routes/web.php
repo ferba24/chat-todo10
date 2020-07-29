@@ -26,6 +26,7 @@ Route::post('broadcast', function(Request $req){
         $json = json_decode($x_user->json);
 
         $presence_data = [
+            'user_id' => intval($req->session()->get('user')),
             'name' => $json->username,
             'role' => $json->user_title
         ];
