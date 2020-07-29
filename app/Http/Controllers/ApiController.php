@@ -5,8 +5,8 @@ use Illuminate\Http\Response;
 use App\RoomUser;
 use App\Chat;
 use App\XenUser;
-use App\PrivateChatUser;
-use App\PrivateChatUserChat;
+//use App\PrivateChatUser;
+//use App\PrivateChatUserChat;
 use App\Traits\SessionTrait;
 use Cookie;
 
@@ -55,6 +55,7 @@ class ApiController extends Controller{
 	}*/
 	
 	//
+	/*
 	public function getUserPrivate() {	
 		$user = PrivateChatUser::where('user_id', session('user'))->get();		
 		
@@ -67,9 +68,10 @@ class ApiController extends Controller{
 		}
 		
 		return response()->json($users);
-	}
+	}*/
 	
 	//
+	/*
 	public function getUserPrivateChat($user) {	
 	
 		$user = PrivateChatUserChat::select('private_chat_user_chat.messages', 'private_chat_user_chat.user_id', 'private_chat_user_chat.created_at')->
@@ -77,7 +79,7 @@ class ApiController extends Controller{
 			where('private_chat_user.user_id', session('user'))->get();	
 		
 		return response()->json($user);
-	}
+	}*/
 	
 	//
 	/*public function getMessages($room = '') {
@@ -100,6 +102,7 @@ class ApiController extends Controller{
 	}*/
 	
 	//
+	/*
 	public function saveUsers(Request $request) {
 		
 		$this->validate($request, [
@@ -115,7 +118,7 @@ class ApiController extends Controller{
 			$request->input('password'));
 
         return response()->json($xen_user);
-	}
+	}*/
 	
 	/* 
 	API LOGIN
