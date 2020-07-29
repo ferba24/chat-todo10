@@ -144,7 +144,7 @@ const app = new Vue({
                 cluster: 'us2',
                 encrypted: false,
                 forceTLS: false,
-                authEndpoint: '/broadcast',
+                authEndpoint: this.$backendURL + '/broadcast',
             });
             window.Echo.private('chat').listen('MessageSent', (e) => {
                 this.messages.push({

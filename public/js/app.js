@@ -58772,7 +58772,7 @@ var app = new Vue({
         cluster: 'us2',
         encrypted: false,
         forceTLS: false,
-        authEndpoint: '/broadcast'
+        authEndpoint: this.$backendURL + '/broadcast'
       });
       window.Echo["private"]('chat').listen('MessageSent', function (e) {
         _this6.messages.push({
