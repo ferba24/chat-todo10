@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid fill">
     <div class="row justify-content-center fill">
-        <div class="col-md-9" style="margin-bottom: 20px">
+        <div class="col-md-9">
             <div id="card-box-messages" class="card">
                 <div class="card-header">
 					<tabsroom-component :rooms="rooms" :current_room="current_room" v-on:current_roomsent="changeCurrentRoom" v-on:rooms_sent="deleteRoomFromUser"></tabsroom-component>

@@ -2004,8 +2004,7 @@ __webpack_require__.r(__webpack_exports__);
       setup: function setup(ed) {
         ed.on('load', function (e) {
           //Obtener tamaños y establecer el tamaño del chat
-          var sizeNet = document.getElementById('card-box-navbar').getBoundingClientRect().height + document.getElementById('card-box-form').getBoundingClientRect().height + 20; //20 es para hacer un fix correcto
-
+          var sizeNet = document.getElementById('card-box-navbar').getBoundingClientRect().height + document.getElementById('card-box-form').getBoundingClientRect().height;
           document.getElementById('card-box-messages').style = "max-height: calc( 100vh - " + sizeNet + "px );"; //Borrar estas líneas, ya que es de prueba
 
           var objDiv = document.getElementById("scroll-messages-content");
