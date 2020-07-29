@@ -25,7 +25,21 @@
             </div>
             <div class="card-body" style="overflow-y: auto; background-color: white;">
                 <ul style="list-style: none;" id="users-list">
-                    <div id="users"></div>
+                    <li v-for="user in arrayUsers" :key="user.id" style="padding-bottom: 5px;">
+                        <div id="user-content">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <span class="avatar avatar--m avatar--default avatar--default--dynamic" data-user-id="1" style="background-color: #85a3e0; color: #24478f">
+                                        <span class="avatar-u1-m">{{ user.name | capitalize }}</span> 
+                                    </span>
+                                </div>
+                                <div class="col-md-8">
+                                    {{ user.name }}<br>
+                                    <small><a style="color: white; cursor: pointer;">Private Chat</a></small>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                 </ul>								
             </div>
         </div>
@@ -57,7 +71,7 @@
 </div><!-- .card -->
 </template>
 <script>
-export default{
+export default {
     props: ['login_user'],
     data(){
         return{
@@ -72,37 +86,40 @@ export default{
 		capitalize: function (value){
 			if(!value) return ''
 			return value.toString().substring(0,1).toUpperCase();
-
-		}
+        }
     },
     methods:{
         getRooms() {
 			let me = this;
-			axios.get(this.$backendURL + '/room/getRoom')
+			axios.get(me.$backendURL + '/room/getRoom')
 			.then((rooms) => {
                 me.arrayRooms = rooms.data;
                 me.rooms_count = me.arrayRooms.length;
 			}).catch(function (error) {
-				console.log('Error in RoomsController.vue: ' + error);
+				console.log('Error in SidebarComponent.vue in getRooms: ' + error);
             });
 		},
         selectedRoom(id) {
-			location.href = this.$backendURL + '/room/selected/' + id;
+			//location.href = this.$backendURL + '/room/selected/' + id;
         },
         changeTab(e){
             $('#myTab a[href="' + $(e.target).attr('href') + '"]').tab('show');
+        },
+        echoJoin(){
+            Echo.join('online')
+                .here(users => {
+                    this.users_count = users.length;
+                    this.arrayUsers = users;
+                }).joining(user => {
+                    this.arrayUsers.push(user);
+                }).leaving(user => {
+                    this.arrayUsers = this.arrayUsers.filter(u => (u.user_id !== user.user_id))
+                });
         }
     },
     mounted(){
         if(this.login_user != 0){
-            Echo.join('online')
-                .here(users => {
-                    this.arrayUsers = users
-                }).joining(user => {
-                    this.arrayUsers.push(user)
-                }).leaving(user => {
-                    this.arrayUsers = this.arrayUsers.filter(u => (u.id !== user.id))
-                });
+            this.echoJoin();
 
             this.getRooms();
         }
@@ -131,20 +148,16 @@ export default{
     watch: {
         login_user: function (value) {
             if (value != 0) {
-                Echo.join('online')
-                    .here(users => {
-                        this.arrayUsers = users
-                    }).joining(user => {
-                        this.arrayUsers.push(user)
-                    }).leaving(user => {
-                        this.arrayUsers = this.arrayUsers.filter(u => (u.id !== user.id))
-                    });
+                this.echoJoin();
 
                 this.getRooms();
             }else{
                 this.arrayRooms = [];
             }
         },
+        arrayUsers: function (value){
+            this.users_count = value.length;
+        }
     }
 }
 </script>
