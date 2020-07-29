@@ -11,7 +11,11 @@ Vue.component('chatmessages-component', require('./components/ChatMessagesCompon
 Vue.component('navbar-component', require('./components/NavbarComponent.vue').default);
 Vue.component('tabsroom-component', require('./components/TabsRoomComponent.vue').default);
 
-Vue.prototype.$backendURL = "http://chat2.com-devel";
+if (window.location.origin == 'window.location.origin') {
+    Vue.prototype.$backendURL = "http://chat2.com-devel";
+} else {
+    Vue.prototype.$backendURL = "https://customers.todo10.com/chat/public";
+}
 
 import EchoLibrary from 'laravel-echo';
 window.Pusher = require('pusher-js');

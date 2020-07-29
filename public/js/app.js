@@ -58625,7 +58625,13 @@ Vue.component('groupformchat-component', __webpack_require__(/*! ./components/Gr
 Vue.component('chatmessages-component', __webpack_require__(/*! ./components/ChatMessagesComponent.vue */ "./resources/js/components/ChatMessagesComponent.vue")["default"]);
 Vue.component('navbar-component', __webpack_require__(/*! ./components/NavbarComponent.vue */ "./resources/js/components/NavbarComponent.vue")["default"]);
 Vue.component('tabsroom-component', __webpack_require__(/*! ./components/TabsRoomComponent.vue */ "./resources/js/components/TabsRoomComponent.vue")["default"]);
-Vue.prototype.$backendURL = "http://chat2.com-devel";
+
+if (window.location.origin == 'window.location.origin') {
+  Vue.prototype.$backendURL = "http://chat2.com-devel";
+} else {
+  Vue.prototype.$backendURL = "https://customers.todo10.com/chat/public";
+}
+
 
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 Pusher.logToConsole = true;
