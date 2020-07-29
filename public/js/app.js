@@ -2497,6 +2497,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['login_user'],
   data: function data() {
@@ -2517,33 +2531,36 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     getRooms: function getRooms() {
       var me = this;
-      axios.get(this.$backendURL + '/room/getRoom').then(function (rooms) {
+      axios.get(me.$backendURL + '/room/getRoom').then(function (rooms) {
         me.arrayRooms = rooms.data;
         me.rooms_count = me.arrayRooms.length;
       })["catch"](function (error) {
-        console.log('Error in RoomsController.vue: ' + error);
+        console.log('Error in SidebarComponent.vue in getRooms: ' + error);
       });
     },
-    selectedRoom: function selectedRoom(id) {
-      location.href = this.$backendURL + '/room/selected/' + id;
+    selectedRoom: function selectedRoom(id) {//location.href = this.$backendURL + '/room/selected/' + id;
     },
     changeTab: function changeTab(e) {
       $('#myTab a[href="' + $(e.target).attr('href') + '"]').tab('show');
-    }
-  },
-  mounted: function mounted() {
-    var _this = this;
+    },
+    echoJoin: function echoJoin() {
+      var _this = this;
 
-    if (this.login_user != 0) {
       Echo.join('online').here(function (users) {
+        _this.users_count = users.length;
         _this.arrayUsers = users;
       }).joining(function (user) {
         _this.arrayUsers.push(user);
       }).leaving(function (user) {
         _this.arrayUsers = _this.arrayUsers.filter(function (u) {
-          return u.id !== user.id;
+          return u.user_id !== user.user_id;
         });
       });
+    }
+  },
+  mounted: function mounted() {
+    if (this.login_user != 0) {
+      this.echoJoin();
       this.getRooms();
     }
 
@@ -2569,22 +2586,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     login_user: function login_user(value) {
-      var _this3 = this;
-
       if (value != 0) {
-        Echo.join('online').here(function (users) {
-          _this3.arrayUsers = users;
-        }).joining(function (user) {
-          _this3.arrayUsers.push(user);
-        }).leaving(function (user) {
-          _this3.arrayUsers = _this3.arrayUsers.filter(function (u) {
-            return u.id !== user.id;
-          });
-        });
+        this.echoJoin();
         this.getRooms();
       } else {
         this.arrayRooms = [];
       }
+    },
+    arrayUsers: function arrayUsers(value) {
+      this.users_count = value.length;
     }
   }
 });
@@ -46128,7 +46138,70 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "tab-content" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "tab-pane active", attrs: { id: "users" } }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "card-body",
+            staticStyle: { "overflow-y": "auto", "background-color": "white" }
+          },
+          [
+            _c(
+              "ul",
+              {
+                staticStyle: { "list-style": "none" },
+                attrs: { id: "users-list" }
+              },
+              _vm._l(_vm.arrayUsers, function(user) {
+                return _c(
+                  "li",
+                  { key: user.id, staticStyle: { "padding-bottom": "5px" } },
+                  [
+                    _c("div", { attrs: { id: "user-content" } }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "span",
+                            {
+                              staticClass:
+                                "avatar avatar--m avatar--default avatar--default--dynamic",
+                              staticStyle: {
+                                "background-color": "#85a3e0",
+                                color: "#24478f"
+                              },
+                              attrs: { "data-user-id": "1" }
+                            },
+                            [
+                              _c("span", { staticClass: "avatar-u1-m" }, [
+                                _vm._v(_vm._s(_vm._f("capitalize")(user.name)))
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-8" }, [
+                          _vm._v(
+                            "\r\n                                    " +
+                              _vm._s(user.name)
+                          ),
+                          _c("br"),
+                          _vm._v(" "),
+                          _vm._m(2, true)
+                        ])
+                      ])
+                    ])
+                  ]
+                )
+              }),
+              0
+            )
+          ]
+        )
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "tab-pane fade", attrs: { id: "rooms" } }, [
         _c("div", { attrs: { id: "search-wrapper-rooms" } }, [
@@ -46166,7 +46239,7 @@ var render = function() {
           },
           [
             _c("table", { staticClass: "table table-bordered table-striped" }, [
-              _vm._m(1),
+              _vm._m(3),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -46212,79 +46285,63 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "tab-pane active", attrs: { id: "users" } },
-      [
-        _c("div", { attrs: { id: "search-wrapper" } }, [
-          _c("input", {
-            staticClass: "form form-control remove-rounded",
-            attrs: {
-              type: "text",
-              name: "search",
-              id: "search",
-              placeholder: "Search user ..."
-            }
-          }),
-          _vm._v(" "),
-          _c("i", { staticClass: "fa fa-search" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "container" }, [
-          _c(
-            "div",
-            {
-              staticClass: "row",
-              staticStyle: { "background-color": "#eee", "padding-top": "10px" }
-            },
-            [
-              _c("div", { staticClass: "col-md-12" }, [
-                _c("div", { staticClass: "checkbox" }, [
-                  _c("label", [
-                    _c("input", {
-                      attrs: { type: "checkbox", checked: "true" }
-                    }),
-                    _vm._v(" Admins")
-                  ]),
-                  _vm._v(" \r\n                            "),
-                  _c("label", [
-                    _c("input", {
-                      attrs: { type: "checkbox", checked: "true" }
-                    }),
-                    _vm._v(" Mods")
-                  ]),
-                  _vm._v(" \r\n                            "),
-                  _c("label", [
-                    _c("input", {
-                      attrs: { type: "checkbox", checked: "true" }
-                    }),
-                    _vm._v(" Others")
-                  ])
-                ])
+    return _c("div", { attrs: { id: "search-wrapper" } }, [
+      _c("input", {
+        staticClass: "form form-control remove-rounded",
+        attrs: {
+          type: "text",
+          name: "search",
+          id: "search",
+          placeholder: "Search user ..."
+        }
+      }),
+      _vm._v(" "),
+      _c("i", { staticClass: "fa fa-search" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container" }, [
+      _c(
+        "div",
+        {
+          staticClass: "row",
+          staticStyle: { "background-color": "#eee", "padding-top": "10px" }
+        },
+        [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("div", { staticClass: "checkbox" }, [
+              _c("label", [
+                _c("input", { attrs: { type: "checkbox", checked: "true" } }),
+                _vm._v(" Admins")
+              ]),
+              _vm._v(" \r\n                            "),
+              _c("label", [
+                _c("input", { attrs: { type: "checkbox", checked: "true" } }),
+                _vm._v(" Mods")
+              ]),
+              _vm._v(" \r\n                            "),
+              _c("label", [
+                _c("input", { attrs: { type: "checkbox", checked: "true" } }),
+                _vm._v(" Others")
               ])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "card-body",
-            staticStyle: { "overflow-y": "auto", "background-color": "white" }
-          },
-          [
-            _c(
-              "ul",
-              {
-                staticStyle: { "list-style": "none" },
-                attrs: { id: "users-list" }
-              },
-              [_c("div", { attrs: { id: "users" } })]
-            )
-          ]
-        )
-      ]
-    )
+            ])
+          ])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("small", [
+      _c("a", { staticStyle: { color: "white", cursor: "pointer" } }, [
+        _vm._v("Private Chat")
+      ])
+    ])
   },
   function() {
     var _vm = this
@@ -58584,42 +58641,23 @@ var app = new Vue({
     echoRun: false
   },
   mounted: function mounted() {
-    var _this = this;
-
     //Escucha los mensajes de Pusher
     if (this.login_user != 0) {
-      window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
-        broadcaster: 'pusher',
-        key: '236acea19ee8b3a3672a',
-        cluster: 'us2',
-        encrypted: false,
-        forceTLS: false,
-        authEndpoint: '/broadcast'
-      });
-      window.Echo["private"]('chat').listen('MessageSent', function (e) {
-        _this.messages.push({
-          message: e.message,
-          user: e.user,
-          room: e.room,
-          date: e.date
-        });
-
-        _this.sounds();
-      });
+      this.echoListen();
       this.echoRun = true;
     }
   },
   created: function created() {
-    var _this2 = this;
+    var _this = this;
 
     //Revisa si el usuario está logeado
     axios.get(this.$backendURL + '/api/checkLogin').then(function (response) {
       if (response.data && response.data != '') {
-        _this2.login_user = response.data;
+        _this.login_user = response.data;
 
-        _this2.checkRoomId();
+        _this.checkRoomId();
 
-        _this2.checkRoomsUser();
+        _this.checkRoomsUser();
       } else {
         $("#showModalLogin").modal("show");
       }
@@ -58628,22 +58666,22 @@ var app = new Vue({
   methods: {
     //PRUEBA
     fetchMessages: function fetchMessages() {
-      var _this3 = this;
+      var _this2 = this;
 
       axios.get(this.$backendURL + '/chat/getMessages').then(function (response) {
-        _this3.messages = response.data;
+        _this2.messages = response.data;
       });
     },
     //Añade un mensaje al chat grupal
     addMessage: function addMessage(message) {
-      var _this4 = this;
+      var _this3 = this;
 
       axios.post(this.$backendURL + '/chat/create', {
         user: this.login_user,
         room: this.current_room,
         message: message.message
       }).then(function (response) {
-        _this4.messages.push(response.data);
+        _this3.messages.push(response.data);
       });
     },
     //Cambia estatus de activo o no el sonido
@@ -58651,24 +58689,24 @@ var app = new Vue({
       this.sound_active = obj.sound;
     },
     checkRoomId: function checkRoomId() {
-      var _this5 = this;
+      var _this4 = this;
 
       axios.get(this.$backendURL + '/api/checkRoom').then(function (response) {
         if (response.data && response.data != '') {
-          _this5.current_room = response.data;
+          _this4.current_room = response.data;
         } else {
-          _this5.current_room = 1;
+          _this4.current_room = 1;
         }
       }); //TEST
 
       this.fetchMessages();
     },
     checkRoomsUser: function checkRoomsUser() {
-      var _this6 = this;
+      var _this5 = this;
 
       axios.get(this.$backendURL + '/api/room/getFromUser').then(function (response) {
         if (response.data && response.data != '') {
-          _this6.rooms = response.data;
+          _this5.rooms = response.data;
         }
       });
     },
@@ -58718,34 +58756,37 @@ var app = new Vue({
           return;
         }
       });
+    },
+    echoListen: function echoListen() {
+      var _this6 = this;
+
+      window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
+        broadcaster: 'pusher',
+        key: '236acea19ee8b3a3672a',
+        cluster: 'us2',
+        encrypted: false,
+        forceTLS: false,
+        authEndpoint: '/broadcast'
+      });
+      window.Echo["private"]('chat').listen('MessageSent', function (e) {
+        _this6.messages.push({
+          message: e.message,
+          user: e.user,
+          room: e.room,
+          date: e.date
+        });
+
+        _this6.sounds();
+      });
     }
   },
   watch: {
     login_user: function login_user(value) {
-      var _this7 = this;
-
       if (value == 0) {
         $("#showModalLogin").modal("show");
       } else {
         if (!this.echoRun) {
-          window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
-            broadcaster: 'pusher',
-            key: '236acea19ee8b3a3672a',
-            cluster: 'us2',
-            encrypted: false,
-            forceTLS: false,
-            authEndpoint: '/broadcast'
-          });
-          window.Echo["private"]('chat').listen('MessageSent', function (e) {
-            _this7.messages.push({
-              message: e.message,
-              user: e.user,
-              room: e.room,
-              date: e.date
-            });
-
-            _this7.sounds();
-          });
+          this.echoListen();
           this.echoRun = true;
         }
 

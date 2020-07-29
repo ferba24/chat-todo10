@@ -31,23 +31,7 @@ const app = new Vue({
     mounted() {
         //Escucha los mensajes de Pusher
         if (this.login_user != 0) {
-            window.Echo = new EchoLibrary({
-                broadcaster: 'pusher',
-                key: '236acea19ee8b3a3672a',
-                cluster: 'us2',
-                encrypted: false,
-                forceTLS: false,
-                authEndpoint: '/broadcast',
-            });
-            window.Echo.private('chat').listen('MessageSent', (e) => {
-                this.messages.push({
-                        message: e.message,
-                        user: e.user,
-                        room: e.room,
-                        date: e.date
-                });
-                this.sounds();
-            });
+            this.echoListen();
             this.echoRun = true;
         }
     },
@@ -148,6 +132,25 @@ const app = new Vue({
                     return;
                 }
             });
+        },
+        echoListen() {
+            window.Echo = new EchoLibrary({
+                broadcaster: 'pusher',
+                key: '236acea19ee8b3a3672a',
+                cluster: 'us2',
+                encrypted: false,
+                forceTLS: false,
+                authEndpoint: '/broadcast',
+            });
+            window.Echo.private('chat').listen('MessageSent', (e) => {
+                this.messages.push({
+                        message: e.message,
+                        user: e.user,
+                        room: e.room,
+                        date: e.date
+                });
+                this.sounds();
+            });
         }
     },
     watch: {
@@ -156,23 +159,7 @@ const app = new Vue({
                 $("#showModalLogin").modal("show");
             } else {
                 if (!this.echoRun) {
-                    window.Echo = new EchoLibrary({
-                        broadcaster: 'pusher',
-                        key: '236acea19ee8b3a3672a',
-                        cluster: 'us2',
-                        encrypted: false,
-                        forceTLS: false,
-                        authEndpoint: '/broadcast',
-                    });
-                    window.Echo.private('chat').listen('MessageSent', (e) => {
-                        this.messages.push({
-                                message: e.message,
-                                user: e.user,
-                                room: e.room,
-                                date: e.date
-                        });
-                        this.sounds();
-                    });
+                    this.echoListen();
                     this.echoRun = true;
                 }
                 
