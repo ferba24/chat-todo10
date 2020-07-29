@@ -18,3 +18,7 @@
  - web/routes.php
  - .env
  - js/bootstrap.js
+
+ Notas:
+
+ - Cambiar 'strict' => false en config/database.php en producción
