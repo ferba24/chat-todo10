@@ -17,7 +17,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 //
 
-import EchoLibrary from 'laravel-echo';
+/*import EchoLibrary from 'laravel-echo';
 
 window.Pusher = require('pusher-js');
 
@@ -30,4 +30,4 @@ window.Echo = new EchoLibrary({
     encrypted: false,
     forceTLS: false,
     authEndpoint: '/broadcast',
-});
+});*/

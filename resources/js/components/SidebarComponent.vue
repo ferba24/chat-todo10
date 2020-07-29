@@ -95,6 +95,15 @@ export default{
     },
     mounted(){
         if(this.login_user != 0){
+            Echo.join('online')
+                .here(users => {
+                    this.arrayUsers = users
+                }).joining(user => {
+                    this.arrayUsers.push(user)
+                }).leaving(user => {
+                    this.arrayUsers = this.arrayUsers.filter(u => (u.id !== user.id))
+                });
+
             this.getRooms();
         }
 
@@ -122,6 +131,15 @@ export default{
     watch: {
         login_user: function (value) {
             if (value != 0) {
+                Echo.join('online')
+                    .here(users => {
+                        this.arrayUsers = users
+                    }).joining(user => {
+                        this.arrayUsers.push(user)
+                    }).leaving(user => {
+                        this.arrayUsers = this.arrayUsers.filter(u => (u.id !== user.id))
+                    });
+
                 this.getRooms();
             }else{
                 this.arrayRooms = [];

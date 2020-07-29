@@ -2532,7 +2532,18 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var _this = this;
+
     if (this.login_user != 0) {
+      Echo.join('online').here(function (users) {
+        _this.arrayUsers = users;
+      }).joining(function (user) {
+        _this.arrayUsers.push(user);
+      }).leaving(function (user) {
+        _this.arrayUsers = _this.arrayUsers.filter(function (u) {
+          return u.id !== user.id;
+        });
+      });
       this.getRooms();
     }
 
@@ -2543,13 +2554,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     filterRooms: function filterRooms() {
-      var _this = this;
+      var _this2 = this;
 
       var filtered = this.arrayRooms; //Se filtra por el término buscado
 
       if (this.term_room != "") {
         filtered = filtered.filter(function (m) {
-          return m.room_name.toLowerCase().indexOf(_this.term_room) > -1;
+          return m.room_name.toLowerCase().indexOf(_this2.term_room) > -1;
         });
       }
 
@@ -2558,7 +2569,18 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     login_user: function login_user(value) {
+      var _this3 = this;
+
       if (value != 0) {
+        Echo.join('online').here(function (users) {
+          _this3.arrayUsers = users;
+        }).joining(function (user) {
+          _this3.arrayUsers.push(user);
+        }).leaving(function (user) {
+          _this3.arrayUsers = _this3.arrayUsers.filter(function (u) {
+            return u.id !== user.id;
+          });
+        });
         this.getRooms();
       } else {
         this.arrayRooms = [];
@@ -58529,9 +58551,12 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -58544,6 +58569,9 @@ Vue.component('chatmessages-component', __webpack_require__(/*! ./components/Cha
 Vue.component('navbar-component', __webpack_require__(/*! ./components/NavbarComponent.vue */ "./resources/js/components/NavbarComponent.vue")["default"]);
 Vue.component('tabsroom-component', __webpack_require__(/*! ./components/TabsRoomComponent.vue */ "./resources/js/components/TabsRoomComponent.vue")["default"]);
 Vue.prototype.$backendURL = "http://chat2.com-devel";
+
+window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
+Pusher.logToConsole = true;
 var app = new Vue({
   el: '#app-vue',
   data: {
@@ -58552,22 +58580,34 @@ var app = new Vue({
     login_user: 0,
     sound_active: true,
     rooms: [],
-    csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+    echoRun: false
   },
   mounted: function mounted() {
     var _this = this;
 
     //Escucha los mensajes de Pusher
-    window.Echo["private"]('chat').listen('MessageSent', function (e) {
-      _this.messages.push({
-        message: e.message,
-        user: e.user,
-        room: e.room,
-        date: e.date
+    if (this.login_user != 0) {
+      window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
+        broadcaster: 'pusher',
+        key: '236acea19ee8b3a3672a',
+        cluster: 'us2',
+        encrypted: false,
+        forceTLS: false,
+        authEndpoint: '/broadcast'
       });
+      window.Echo["private"]('chat').listen('MessageSent', function (e) {
+        _this.messages.push({
+          message: e.message,
+          user: e.user,
+          room: e.room,
+          date: e.date
+        });
 
-      _this.sounds();
-    });
+        _this.sounds();
+      });
+      this.echoRun = true;
+    }
   },
   created: function created() {
     var _this2 = this;
@@ -58682,9 +58722,33 @@ var app = new Vue({
   },
   watch: {
     login_user: function login_user(value) {
+      var _this7 = this;
+
       if (value == 0) {
         $("#showModalLogin").modal("show");
       } else {
+        if (!this.echoRun) {
+          window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
+            broadcaster: 'pusher',
+            key: '236acea19ee8b3a3672a',
+            cluster: 'us2',
+            encrypted: false,
+            forceTLS: false,
+            authEndpoint: '/broadcast'
+          });
+          window.Echo["private"]('chat').listen('MessageSent', function (e) {
+            _this7.messages.push({
+              message: e.message,
+              user: e.user,
+              room: e.room,
+              date: e.date
+            });
+
+            _this7.sounds();
+          });
+          this.echoRun = true;
+        }
+
         this.checkRoomId();
         this.checkRoomsUser();
         $("#showModalRooms").modal("show");
@@ -58699,12 +58763,9 @@ var app = new Vue({
 /*!***********************************!*\
   !*** ./resources/js/bootstrap.js ***!
   \***********************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"); //
 
 try {
@@ -58718,17 +58779,20 @@ try {
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'; //
 
+/*import EchoLibrary from 'laravel-echo';
 
-window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
+window.Pusher = require('pusher-js');
+
 Pusher.logToConsole = true;
-window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
-  broadcaster: 'pusher',
-  key: '236acea19ee8b3a3672a',
-  cluster: 'us2',
-  encrypted: false,
-  forceTLS: false,
-  authEndpoint: '/broadcast'
-});
+
+window.Echo = new EchoLibrary({
+    broadcaster: 'pusher',
+    key: '236acea19ee8b3a3672a',
+    cluster: 'us2',
+    encrypted: false,
+    forceTLS: false,
+    authEndpoint: '/broadcast',
+});*/
 
 /***/ }),
 

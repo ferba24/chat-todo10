@@ -17,7 +17,25 @@ Route::post('broadcast', function(Request $req){
                         "aa3d0ed20d984c0b2179", //PUSHER_APP_SECRET
                         "991438" //PUSHER_APP_ID
                     );
-    return $pusher->socket_auth($req->get('channel_name'), $req->get('socket_id'));
+    $exp = explode(" ", $req->get('channel_name'));
+    if($exp[0] == 'private'){
+        $auth = $pusher->socket_auth($req->get('channel_name'), $req->get('socket_id'));
+    }else{ //presence
+        $x_user = new \App\XenUser;
+        $x_user = $x_user->getUserById($req->session()->get('user'));
+        $json = json_decode($x_user->json);
+
+        $presence_data = [
+            'name' => $json->username,
+            'role' => $json->user_title
+        ];
+        $auth = $pusher->presence_auth(
+            $req->get('channel_name'),
+            $req->get('socket_id'),
+            $req->session()->get('user'),
+            $presence_data);
+    }
+    return $auth;
 });
 
 Route::prefix('room')->group(function(){

@@ -13,6 +13,10 @@ Vue.component('tabsroom-component', require('./components/TabsRoomComponent.vue'
 
 Vue.prototype.$backendURL = "http://chat2.com-devel";
 
+import EchoLibrary from 'laravel-echo';
+window.Pusher = require('pusher-js');
+Pusher.logToConsole = true;
+
 const app = new Vue({
     el: '#app-vue',
     data: {
@@ -22,18 +26,30 @@ const app = new Vue({
         sound_active: true,
         rooms: [],
         csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        echoRun: false,
     },
     mounted() {
         //Escucha los mensajes de Pusher
-        window.Echo.private('chat').listen('MessageSent', (e) => {
-            this.messages.push({
-                    message: e.message,
-                    user: e.user,
-                    room: e.room,
-                    date: e.date
+        if (this.login_user != 0) {
+            window.Echo = new EchoLibrary({
+                broadcaster: 'pusher',
+                key: '236acea19ee8b3a3672a',
+                cluster: 'us2',
+                encrypted: false,
+                forceTLS: false,
+                authEndpoint: '/broadcast',
             });
-            this.sounds();
-        });
+            window.Echo.private('chat').listen('MessageSent', (e) => {
+                this.messages.push({
+                        message: e.message,
+                        user: e.user,
+                        room: e.room,
+                        date: e.date
+                });
+                this.sounds();
+            });
+            this.echoRun = true;
+        }
     },
     created() {
         //Revisa si el usuario está logeado
@@ -139,6 +155,27 @@ const app = new Vue({
             if (value == 0) {
                 $("#showModalLogin").modal("show");
             } else {
+                if (!this.echoRun) {
+                    window.Echo = new EchoLibrary({
+                        broadcaster: 'pusher',
+                        key: '236acea19ee8b3a3672a',
+                        cluster: 'us2',
+                        encrypted: false,
+                        forceTLS: false,
+                        authEndpoint: '/broadcast',
+                    });
+                    window.Echo.private('chat').listen('MessageSent', (e) => {
+                        this.messages.push({
+                                message: e.message,
+                                user: e.user,
+                                room: e.room,
+                                date: e.date
+                        });
+                        this.sounds();
+                    });
+                    this.echoRun = true;
+                }
+                
                 this.checkRoomId();
 
                 this.checkRoomsUser();
