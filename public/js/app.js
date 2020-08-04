@@ -2517,7 +2517,8 @@ __webpack_require__.r(__webpack_exports__);
       arrayUsers: [],
       arrayRooms: [],
       term_room: "",
-      term_user: ""
+      term_user: "",
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     };
   },
   filters: {
@@ -2537,21 +2538,38 @@ __webpack_require__.r(__webpack_exports__);
         console.log('Error in SidebarComponent.vue in getRooms: ' + error);
       });
     },
-    selectedRoom: function selectedRoom(id) {//location.href = this.$backendURL + '/room/selected/' + id;
+    selectedRoom: function selectedRoom(id) {
+      var _this = this;
+
+      var me = this;
+      axios.post(me.$backendURL + '/api/room/select', {
+        _token: this.csrf,
+        room_id: id
+      }).then(function (response) {
+        if (response.data.success) {
+          _this.$emit('current_roomsent', {
+            room_id: parseInt(response.data.room_id)
+          });
+        } else {
+          console.dir(response.data.error);
+        }
+      })["catch"](function (error) {
+        console.log('Error SidebarComponent.vue in selectedRoom(): ' + error);
+      });
     },
     changeTab: function changeTab(e) {
       $('#myTab a[href="' + $(e.target).attr('href') + '"]').tab('show');
     },
     echoJoin: function echoJoin() {
-      var _this = this;
+      var _this2 = this;
 
       Echo.join('online').here(function (users) {
-        _this.users_count = users.length;
-        _this.arrayUsers = users;
+        _this2.users_count = users.length;
+        _this2.arrayUsers = users;
       }).joining(function (user) {
-        _this.arrayUsers.push(user);
+        _this2.arrayUsers.push(user);
       }).leaving(function (user) {
-        _this.arrayUsers = _this.arrayUsers.filter(function (u) {
+        _this2.arrayUsers = _this2.arrayUsers.filter(function (u) {
           return u.user_id !== user.user_id;
         });
       });
@@ -2610,26 +2628,26 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     filterRooms: function filterRooms() {
-      var _this2 = this;
+      var _this3 = this;
 
       var filtered = this.arrayRooms; //Se filtra por el término buscado
 
       if (this.term_room != "") {
         filtered = filtered.filter(function (m) {
-          return m.room_name.toLowerCase().indexOf(_this2.term_room) > -1;
+          return m.room_name.toLowerCase().indexOf(_this3.term_room) > -1;
         });
       }
 
       return filtered;
     },
     filterUsers: function filterUsers() {
-      var _this3 = this;
+      var _this4 = this;
 
       var filtered = this.arrayUsers; //Se filtra por el término buscado
 
       if (this.term_user != "") {
         filtered = filtered.filter(function (m) {
-          return m.name.toLowerCase().indexOf(_this3.term_user) > -1;
+          return m.name.toLowerCase().indexOf(_this4.term_user) > -1;
         });
       }
 

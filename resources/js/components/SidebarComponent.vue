@@ -80,6 +80,7 @@ export default {
             arrayRooms: [],
             term_room: "",
             term_user: "",
+            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         }
     },
     filters: {
@@ -101,7 +102,21 @@ export default {
             });
 		},
         selectedRoom(id) {
-			//location.href = this.$backendURL + '/room/selected/' + id;
+			let me = this;
+			axios.post(me.$backendURL + '/api/room/select', {
+				_token: this.csrf,
+				room_id: id,
+			}).then((response) => {
+				if(response.data.success){
+					this.$emit('current_roomsent', {
+						room_id: parseInt(response.data.room_id)
+					});
+				}else{
+					console.dir(response.data.error);
+				}
+			}).catch(function (error) {
+				console.log('Error SidebarComponent.vue in selectedRoom(): ' + error);
+			});
         },
         changeTab(e){
             $('#myTab a[href="' + $(e.target).attr('href') + '"]').tab('show');
