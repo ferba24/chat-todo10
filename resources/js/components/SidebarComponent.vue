@@ -9,33 +9,32 @@
     <div class="tab-content">
         <div id="users" class="tab-pane active">			
             <div id="search-wrapper">
-                <input type="text" class="form form-control remove-rounded" name="search" id="search" placeholder="Search user ..."/>
+                <input type="text" class="form form-control remove-rounded" name="search" id="search" placeholder="Search user ..." v-model="term_user"/>
                 <i class="fa fa-search"></i>
             </div>
             <div class="container">
                 <div class="row" style="background-color: #eee; padding-top: 10px;">
                     <div class="col-md-12">
-                        <div class="checkbox">
-                            <label><input type="checkbox" checked="true">&nbsp;Admins</label>&nbsp;
-                            <label><input type="checkbox" checked="true">&nbsp;Mods</label>&nbsp;
-                            <label><input type="checkbox" checked="true">&nbsp;Others</label>
+                        <div class="row checkbox">
+                            <label class="col-md-4 text-center"><input type="checkbox" checked="true"> Admins</label>
+                            <label class="col-md-4 text-center"><input type="checkbox" checked="true"> Mods</label>
+                            <label class="col-md-4 text-center"><input type="checkbox" checked="true"> Others</label>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card-body" style="overflow-y: auto; background-color: white;">
                 <ul style="list-style: none;" id="users-list">
-                    <li v-for="user in arrayUsers" :key="user.id" style="padding-bottom: 5px;">
+                    <li v-for="user in filterUsers" :key="user.id" style="padding-bottom: 5px;">
                         <div id="user-content">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3 text-center">
                                     <span class="avatar avatar--m avatar--default avatar--default--dynamic" data-user-id="1" style="background-color: #85a3e0; color: #24478f">
                                         <span class="avatar-u1-m">{{ user.name | capitalize }}</span> 
                                     </span>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-9">
                                     {{ user.name }}<br>
-                                    <small><a style="color: white; cursor: pointer;">Private Chat</a></small>
                                 </div>
                             </div>
                         </div>
@@ -80,6 +79,7 @@ export default {
             arrayUsers: [],
             arrayRooms: [],
             term_room: "",
+            term_user: "",
         }
     },
     filters: {
@@ -143,6 +143,16 @@ export default {
                 );
             }
 			return filtered;
+        },
+        filterUsers: function(){
+            let filtered = this.arrayUsers;
+            //Se filtra por el término buscado
+			if(this.term_user != ""){
+                filtered = filtered.filter(
+                    m => m.name.toLowerCase().indexOf(this.term_user) > -1
+                );
+            }
+			return filtered;
         }
     },
     watch: {
@@ -170,5 +180,11 @@ table td{
 }
 #sidebar-block{
     padding-top: 1px;
+}
+.row.checkbox{
+    font-size: 12px;
+}
+#user-content{
+    cursor:pointer;
 }
 </style>
