@@ -2509,7 +2509,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['login_user', 'current_room'],
+  props: ['login_user', 'current_room', 'rooms'],
   data: function data() {
     return {
       users_count: 0,
@@ -2532,6 +2532,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(me.$backendURL + '/api/room/getRooms').then(function (rooms) {
         me.arrayRooms = rooms.data;
         me.rooms_count = me.arrayRooms.length;
+        me.updateCurrentUsersByRooms();
       })["catch"](function (error) {
         console.log('Error in SidebarComponent.vue in getRooms: ' + error);
       });
@@ -2552,6 +2553,46 @@ __webpack_require__.r(__webpack_exports__);
       }).leaving(function (user) {
         _this.arrayUsers = _this.arrayUsers.filter(function (u) {
           return u.user_id !== user.user_id;
+        });
+      });
+    },
+    // Copiar esta función en RoomsComponent.vue revisando que el arrayUsers esté disponible
+    updateCurrentUsersByRooms: function updateCurrentUsersByRooms() {
+      var me = this;
+      var tmp = me.arrayRooms; //Revisamos los usuarios conectados por room
+
+      me.arrayRooms.forEach(function (e) {
+        axios.get(me.$backendURL + '/api/room/getRoomsByUser/' + e.id).then(function (roomsByUser) {
+          if (roomsByUser.data.length == 0) {
+            e.count_room = 0;
+          } else {
+            //Revisar si los usuarios están conectados
+            var count = 0;
+            roomsByUser.data.forEach(function (d) {
+              var result = me.arrayUsers.find(function (user) {
+                return user.user_id === d.user_id;
+              });
+
+              if (result != undefined) {
+                count++;
+              }
+            });
+            e.count_room = count;
+          }
+
+          me.arrayRooms = me.arrayRooms.sort(function (a, b) {
+            if (a.count_room < b.count_room) {
+              return 1;
+            }
+
+            if (a.count_room > b.count_room) {
+              return -1;
+            }
+
+            return 0;
+          });
+        })["catch"](function (error) {
+          console.log('Error in SidebarComponent.vue in watch.current_room: ' + error);
         });
       });
     }
@@ -2606,18 +2647,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     arrayUsers: function arrayUsers(value) {
       this.users_count = value.length;
+      this.updateCurrentUsersByRooms();
     },
     current_room: function current_room(value) {
-      var me = this; //Revisamos los usuarios conectados por room
-
-      me.arrayRooms.forEach(function (e) {
-        axios.get(me.$backendURL + '/api/room/getRooms').then(function (rooms) {
-          me.arrayRooms = rooms.data;
-          me.rooms_count = me.arrayRooms.length;
-        })["catch"](function (error) {
-          console.log('Error in SidebarComponent.vue in getRooms: ' + error);
-        });
-      });
+      this.updateCurrentUsersByRooms();
     }
   }
 });

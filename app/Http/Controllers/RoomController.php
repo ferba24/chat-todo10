@@ -8,11 +8,21 @@ use App\XenUser;
 class RoomController extends Controller{
 	// Get all rooms
 	public function getRooms() {
-		$rooms = \DB::table('room')->where('room.id', '!=', 1)
+		/*$rooms = \DB::table('room')->where('room.id', '!=', 1)
 				->leftJoin('room_user', 'room.id', 'room_user.room_id')
 				->select('room.*', \DB::raw('(SELECT COUNT(*) FROM room_user WHERE room.id = room_user.room_id) as count_room'))
 				->groupBy('room.id')
-				->orderBy('count_room', 'desc')->get();
+				->orderBy('count_room', 'desc')->get();*/
+		$rooms = \DB::table('room')->where('room.id', '!=', 1)
+						//->select('room.*', \DB::raw('0 as count_room'))
+						->orderBy('room.room_name', 'desc')->get();
+		return response($rooms->toJson());
+	}
+	public function getRoomsByUser($room_id = null){
+		if(is_null($room_id)){
+			return null;
+		}
+		$rooms = \DB::table('room_user')->where('room_id', $room_id)->get();
 		return response($rooms->toJson());
 	}
 	//Se selecciona un usuario al room indicado por $req
