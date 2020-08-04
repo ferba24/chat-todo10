@@ -1918,11 +1918,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['messages'],
+  props: ['messages', 'current_room'],
   data: function data() {
-    return {
-      size: 0
-    };
+    return {};
   },
   filters: {
     get_username: function get_username(value) {
@@ -1934,21 +1932,21 @@ __webpack_require__.r(__webpack_exports__);
       return date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
     }
   },
-  watch: {
-    /*messages: function(val){
-        if(this.messages.length != this.size){
-            var objDiv = document.getElementById("scroll-messages-content");
-            objDiv.scrollTop = objDiv.scrollHeight + 101;
-            this.size = this.messages.length;
-        }
-    }*/
-  },
-  mounted: function mounted() {
-    this.size = this.messages.length;
-  },
+  watch: {},
+  mounted: function mounted() {},
   updated: function updated() {
     var objDiv = document.getElementById("scroll-messages-content");
     objDiv.scrollTop = objDiv.scrollHeight;
+  },
+  computed: {
+    filterMessages: function filterMessages() {
+      var me = this; //Se filtra dependiendo del room en el que esté
+
+      var filtered = me.messages.filter(function (m) {
+        return m.room == me.current_room;
+      });
+      return filtered;
+    }
   }
 });
 
@@ -45076,7 +45074,7 @@ var render = function() {
       staticStyle: { "overflow-y": "auto" },
       attrs: { id: "scroll-messages-content" }
     },
-    _vm._l(_vm.messages, function(message) {
+    _vm._l(_vm.filterMessages, function(message) {
       return _c("div", { key: message.id }, [
         _c("p", { staticClass: "msg" }, [
           _vm._v(
@@ -58626,7 +58624,7 @@ Vue.component('chatmessages-component', __webpack_require__(/*! ./components/Cha
 Vue.component('navbar-component', __webpack_require__(/*! ./components/NavbarComponent.vue */ "./resources/js/components/NavbarComponent.vue")["default"]);
 Vue.component('tabsroom-component', __webpack_require__(/*! ./components/TabsRoomComponent.vue */ "./resources/js/components/TabsRoomComponent.vue")["default"]);
 
-if (window.location.origin == 'window.location.origin') {
+if (window.location.origin == 'http://chat2.com-devel') {
   Vue.prototype.$backendURL = "http://chat2.com-devel";
 } else {
   Vue.prototype.$backendURL = "https://customers.todo10.com/chat/public";
@@ -58813,33 +58811,17 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"); //
+window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 try {
   window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
   window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
-} catch (e) {} //
-
+} catch (e) {}
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'; //
-
-/*import EchoLibrary from 'laravel-echo';
-
-window.Pusher = require('pusher-js');
-
-Pusher.logToConsole = true;
-
-window.Echo = new EchoLibrary({
-    broadcaster: 'pusher',
-    key: '236acea19ee8b3a3672a',
-    cluster: 'us2',
-    encrypted: false,
-    forceTLS: false,
-    authEndpoint: '/broadcast',
-});*/
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 

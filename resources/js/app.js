@@ -11,7 +11,7 @@ Vue.component('chatmessages-component', require('./components/ChatMessagesCompon
 Vue.component('navbar-component', require('./components/NavbarComponent.vue').default);
 Vue.component('tabsroom-component', require('./components/TabsRoomComponent.vue').default);
 
-if (window.location.origin == 'window.location.origin') {
+if (window.location.origin == 'http://chat2.com-devel') {
     Vue.prototype.$backendURL = "http://chat2.com-devel";
 } else {
     Vue.prototype.$backendURL = "https://customers.todo10.com/chat/public";
