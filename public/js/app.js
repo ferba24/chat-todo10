@@ -2508,7 +2508,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['login_user'],
   data: function data() {
@@ -2517,7 +2516,8 @@ __webpack_require__.r(__webpack_exports__);
       rooms_count: 0,
       arrayUsers: [],
       arrayRooms: [],
-      term_room: ""
+      term_room: "",
+      term_user: ""
     };
   },
   filters: {
@@ -2576,6 +2576,19 @@ __webpack_require__.r(__webpack_exports__);
       if (this.term_room != "") {
         filtered = filtered.filter(function (m) {
           return m.room_name.toLowerCase().indexOf(_this2.term_room) > -1;
+        });
+      }
+
+      return filtered;
+    },
+    filterUsers: function filterUsers() {
+      var _this3 = this;
+
+      var filtered = this.arrayUsers; //Se filtra por el término buscado
+
+      if (this.term_user != "") {
+        filtered = filtered.filter(function (m) {
+          return m.name.toLowerCase().indexOf(_this3.term_user) > -1;
         });
       }
 
@@ -7237,7 +7250,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ntable td[data-v-54833a28]{\r\n    font-size: 12px;\r\n    line-height: 18px;\r\n    padding: 3px 5px;\n}\n#sidebar-block[data-v-54833a28]{\r\n    padding-top: 1px;\n}\r\n", ""]);
+exports.push([module.i, "\ntable td[data-v-54833a28]{\r\n    font-size: 12px;\r\n    line-height: 18px;\r\n    padding: 3px 5px;\n}\n#sidebar-block[data-v-54833a28]{\r\n    padding-top: 1px;\n}\n.row.checkbox[data-v-54833a28]{\r\n    font-size: 12px;\n}\n#user-content[data-v-54833a28]{\r\n    cursor:pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -45084,7 +45097,8 @@ var render = function() {
               _vm._s(_vm._f("date_format")(message.date)) +
               ": "
           ),
-          _c("span", { domProps: { innerHTML: _vm._s(message.message) } })
+          _c("span", { domProps: { innerHTML: _vm._s(message.message) } }),
+          _vm._v(" [(test)ROOM: " + _vm._s(message.room) + "]")
         ])
       ])
     }),
@@ -46137,9 +46151,38 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "tab-content" }, [
       _c("div", { staticClass: "tab-pane active", attrs: { id: "users" } }, [
-        _vm._m(0),
+        _c("div", { attrs: { id: "search-wrapper" } }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.term_user,
+                expression: "term_user"
+              }
+            ],
+            staticClass: "form form-control remove-rounded",
+            attrs: {
+              type: "text",
+              name: "search",
+              id: "search",
+              placeholder: "Search user ..."
+            },
+            domProps: { value: _vm.term_user },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.term_user = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("i", { staticClass: "fa fa-search" })
+        ]),
         _vm._v(" "),
-        _vm._m(1),
+        _vm._m(0),
         _vm._v(" "),
         _c(
           "div",
@@ -46154,14 +46197,14 @@ var render = function() {
                 staticStyle: { "list-style": "none" },
                 attrs: { id: "users-list" }
               },
-              _vm._l(_vm.arrayUsers, function(user) {
+              _vm._l(_vm.filterUsers, function(user) {
                 return _c(
                   "li",
                   { key: user.id, staticStyle: { "padding-bottom": "5px" } },
                   [
                     _c("div", { attrs: { id: "user-content" } }, [
                       _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-md-4" }, [
+                        _c("div", { staticClass: "col-md-3 text-center" }, [
                           _c(
                             "span",
                             {
@@ -46181,14 +46224,12 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-md-8" }, [
+                        _c("div", { staticClass: "col-md-9" }, [
                           _vm._v(
                             "\r\n                                    " +
                               _vm._s(user.name)
                           ),
-                          _c("br"),
-                          _vm._v(" "),
-                          _vm._m(2, true)
+                          _c("br")
                         ])
                       ])
                     ])
@@ -46237,7 +46278,7 @@ var render = function() {
           },
           [
             _c("table", { staticClass: "table table-bordered table-striped" }, [
-              _vm._m(3),
+              _vm._m(1),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -46283,24 +46324,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "search-wrapper" } }, [
-      _c("input", {
-        staticClass: "form form-control remove-rounded",
-        attrs: {
-          type: "text",
-          name: "search",
-          id: "search",
-          placeholder: "Search user ..."
-        }
-      }),
-      _vm._v(" "),
-      _c("i", { staticClass: "fa fa-search" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container" }, [
       _c(
         "div",
@@ -46310,35 +46333,25 @@ var staticRenderFns = [
         },
         [
           _c("div", { staticClass: "col-md-12" }, [
-            _c("div", { staticClass: "checkbox" }, [
-              _c("label", [
+            _c("div", { staticClass: "row checkbox" }, [
+              _c("label", { staticClass: "col-md-4 text-center" }, [
                 _c("input", { attrs: { type: "checkbox", checked: "true" } }),
-                _vm._v(" Admins")
+                _vm._v(" Admins")
               ]),
-              _vm._v(" \r\n                            "),
-              _c("label", [
+              _vm._v(" "),
+              _c("label", { staticClass: "col-md-4 text-center" }, [
                 _c("input", { attrs: { type: "checkbox", checked: "true" } }),
-                _vm._v(" Mods")
+                _vm._v(" Mods")
               ]),
-              _vm._v(" \r\n                            "),
-              _c("label", [
+              _vm._v(" "),
+              _c("label", { staticClass: "col-md-4 text-center" }, [
                 _c("input", { attrs: { type: "checkbox", checked: "true" } }),
-                _vm._v(" Others")
+                _vm._v(" Others")
               ])
             ])
           ])
         ]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("small", [
-      _c("a", { staticStyle: { color: "white", cursor: "pointer" } }, [
-        _vm._v("Private Chat")
-      ])
     ])
   },
   function() {

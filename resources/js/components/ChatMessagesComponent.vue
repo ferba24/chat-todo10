@@ -1,7 +1,7 @@
 <template>
 <div class="card-body messages-content" style="overflow-y: auto;" id="scroll-messages-content">
-    <div v-for="message in messages" :key="message.id">
-        <p class="msg">[{{ message.user | get_username }}] {{ message.date | date_format }}: <span v-html="message.message"></span></p>
+    <div v-for="message in filterMessages" :key="message.id">
+        <p class="msg">[{{ message.user | get_username }}] {{ message.date | date_format }}: <span v-html="message.message"></span> [(test)ROOM: {{ message.room }}]</p>
     </div>
 </div>
     
@@ -9,10 +9,10 @@
 
 <script>
 export default {
-    props: ['messages'],
+    props: ['messages', 'current_room'],
     data(){
         return{
-            size: 0,
+            
         }
     },
     filters:{
@@ -26,20 +26,24 @@ export default {
         }
     },
     watch: {
-        /*messages: function(val){
-            if(this.messages.length != this.size){
-                var objDiv = document.getElementById("scroll-messages-content");
-                objDiv.scrollTop = objDiv.scrollHeight + 101;
-                this.size = this.messages.length;
-            }
-        }*/
+        
     },
     mounted(){
-        this.size = this.messages.length;
+        
     },
     updated(){
         var objDiv = document.getElementById("scroll-messages-content");
         objDiv.scrollTop = objDiv.scrollHeight;
+    },
+    computed: {
+        filterMessages: function(){
+            let me = this;
+			//Se filtra dependiendo del room en el que esté
+            let filtered = me.messages.filter(
+                m => m.room == me.current_room
+            );
+			return filtered;
+		}
     }
 };
 </script>
