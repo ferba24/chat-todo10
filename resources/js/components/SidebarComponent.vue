@@ -71,7 +71,7 @@
 </template>
 <script>
 export default {
-    props: ['login_user'],
+    props: ['login_user', 'current_room'],
     data(){
         return{
             users_count: 0,
@@ -91,7 +91,7 @@ export default {
     methods:{
         getRooms() {
 			let me = this;
-			axios.get(me.$backendURL + '/room/getRoom')
+			axios.get(me.$backendURL + '/api/room/getRooms')
 			.then((rooms) => {
                 me.arrayRooms = rooms.data;
                 me.rooms_count = me.arrayRooms.length;
@@ -167,6 +167,19 @@ export default {
         },
         arrayUsers: function (value){
             this.users_count = value.length;
+        },
+        current_room: function (value){
+            let me = this;
+            //Revisamos los usuarios conectados por room
+            me.arrayRooms.forEach(e => {
+                axios.get(me.$backendURL + '/api/room/getRooms')
+                .then((rooms) => {
+                    me.arrayRooms = rooms.data;
+                    me.rooms_count = me.arrayRooms.length;
+                }).catch(function (error) {
+                    console.log('Error in SidebarComponent.vue in getRooms: ' + error);
+                });
+            });
         }
     }
 }

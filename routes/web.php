@@ -42,7 +42,7 @@ Route::post('broadcast', function(Request $req){
 Route::prefix('room')->group(function(){
     //Route::post('selected', 'RoomController@selected')->name('room.selected');
     Route::get('change/{room}', 'RoomController@change')->name('room.change');
-    Route::get('getRoom', 'RoomController@getRooms')->name('room.getRoom');
+//    Route::get('getRoom', 'RoomController@getRooms')->name('room.getRoom');
     Route::get('getRoomsUser/{id}', 'RoomController@getRoomsUser')->name('room.getRoomsUser');
     //Route::get('exitRoom/{room}', 'RoomController@exitRoom')->name('room.exitRoom');
 });
@@ -64,7 +64,9 @@ Route::prefix('api')->group(function(){
             Route::get('getFromUser', 'RoomController@getFromUser')->name('room.getFromUser');
             Route::post('select', 'RoomController@select')->name('room.select');
             Route::post('exitRoom', 'RoomController@exitRoom')->name('room.exitRoom');
+            Route::get('getRooms', 'RoomController@getRooms')->name('room.getRooms');
             Route::get('getRoom/{id}', 'RoomController@getRoom')->name('room.getRoom');
+            Route::get('getRoomsByUser/{room_id}', 'RoomController@getRoomsByUser');
         });
     });
 });

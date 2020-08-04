@@ -93,7 +93,7 @@ export default {
 		getRooms() {
 			let me = this;
 			if(me.login_user != 0){
-				axios.get(me.$backendURL + '/room/getRoom')
+				axios.get(me.$backendURL + '/api/room/getRooms')
 				.then((rooms) => {
 					me.arrayRooms = rooms.data;
 				}).catch(function (error) {

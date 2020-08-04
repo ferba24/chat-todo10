@@ -2351,7 +2351,7 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
 
       if (me.login_user != 0) {
-        axios.get(me.$backendURL + '/room/getRoom').then(function (rooms) {
+        axios.get(me.$backendURL + '/api/room/getRooms').then(function (rooms) {
           me.arrayRooms = rooms.data;
         })["catch"](function (error) {
           console.log('Error RoomsController.vue in getRooms(): ' + error);
@@ -2509,7 +2509,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['login_user'],
+  props: ['login_user', 'current_room'],
   data: function data() {
     return {
       users_count: 0,
@@ -2529,7 +2529,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     getRooms: function getRooms() {
       var me = this;
-      axios.get(me.$backendURL + '/room/getRoom').then(function (rooms) {
+      axios.get(me.$backendURL + '/api/room/getRooms').then(function (rooms) {
         me.arrayRooms = rooms.data;
         me.rooms_count = me.arrayRooms.length;
       })["catch"](function (error) {
@@ -2606,6 +2606,18 @@ __webpack_require__.r(__webpack_exports__);
     },
     arrayUsers: function arrayUsers(value) {
       this.users_count = value.length;
+    },
+    current_room: function current_room(value) {
+      var me = this; //Revisamos los usuarios conectados por room
+
+      me.arrayRooms.forEach(function (e) {
+        axios.get(me.$backendURL + '/api/room/getRooms').then(function (rooms) {
+          me.arrayRooms = rooms.data;
+          me.rooms_count = me.arrayRooms.length;
+        })["catch"](function (error) {
+          console.log('Error in SidebarComponent.vue in getRooms: ' + error);
+        });
+      });
     }
   }
 });

@@ -18,7 +18,7 @@
 			</div>
         </div>
         <div class="col-md-3">
-			<sidebar-component :login_user="login_user"></sidebar-component>
+			<sidebar-component :login_user="login_user" :current_room="current_room"></sidebar-component>
 		</div><!-- .col-md-3 -->
 	</div><!-- .row.justify-content-center -->
 </div><!-- .container-fluid -->
