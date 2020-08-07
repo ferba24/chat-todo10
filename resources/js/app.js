@@ -45,7 +45,7 @@ const app = new Vue({
         axios.get(this.$backendURL + '/api/checkLogin').then(response => {
 
             //SI NO ESTA ACTUALIZADO EL JSON DEL USER QUE SE LOGEE DE NUEVO
-            if (response.data && response.data != '') {
+            if (response.data && response.data.user_id && response.data.timezone) {
                 this.login_user = response.data.user_id;
                 this.timezone = response.data.timezone;
 

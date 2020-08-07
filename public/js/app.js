@@ -58746,7 +58746,7 @@ var app = new Vue({
     //Revisa si el usuario está logeado
     axios.get(this.$backendURL + '/api/checkLogin').then(function (response) {
       //SI NO ESTA ACTUALIZADO EL JSON DEL USER QUE SE LOGEE DE NUEVO
-      if (response.data && response.data != '') {
+      if (response.data && response.data.user_id && response.data.timezone) {
         _this.login_user = response.data.user_id;
         _this.timezone = response.data.timezone;
 
