@@ -70,23 +70,25 @@ export default {
 			let url = this.$backendURL + '/api/login';
 			this.errors = {};
 			axios.post(url, this.fields).then(response => {
+				this.send_login = false;
+				document.getElementById('sendButton').removeAttribute("disabled");
+
 				if(response.data.success) {
-					this.send_login = false;
-					document.getElementById('sendButton').removeAttribute("disabled");
 					//Envía el ID del usuario conectado
 					this.$emit('login_usersent', {
 						user_id: response.data.user.user_id
 					});
 					$('#showModalLogin').modal('hide');
-					//location.href = this.$backendURL + '/home/';
-				} 
+				}else if(response.data.errors){
+					this.errors = {"generic": response.data.errors[0].message} || {};
+				}
 			})
 			.catch(error => {
 				if (error.response.status == 422) {
 					this.errors = error.response.data.errors || {};
 				} 
 				if(error.response.status == 500) {
-					this.errors = {"generic": "Incorrect password. Please try again."} || {};
+					this.errors = {"generic": "Error 500."} || {};
 				}
 			});
 		}

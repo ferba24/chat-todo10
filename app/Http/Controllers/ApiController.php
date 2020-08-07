@@ -134,7 +134,11 @@ class ApiController extends Controller{
 			$req->input('username'),
 			$req->input('password')
 		);
-		return response()->json($xen_user)->cookie('xf_user', $xen_user->user->user_id);
+		if(isset($xen_user->user)){
+			return response()->json($xen_user)->cookie('xf_user', $xen_user->user->user_id);
+		}else{
+			return response()->json($xen_user);
+		}
 	}
 	// Check Login
 	public function checkLogin(Request $req){

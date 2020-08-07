@@ -2107,15 +2107,20 @@ __webpack_require__.r(__webpack_exports__);
       var url = this.$backendURL + '/api/login';
       this.errors = {};
       axios.post(url, this.fields).then(function (response) {
-        if (response.data.success) {
-          _this.send_login = false;
-          document.getElementById('sendButton').removeAttribute("disabled"); //Envía el ID del usuario conectado
+        _this.send_login = false;
+        document.getElementById('sendButton').removeAttribute("disabled");
 
+        if (response.data.success) {
+          //Envía el ID del usuario conectado
           _this.$emit('login_usersent', {
             user_id: response.data.user.user_id
           });
 
-          $('#showModalLogin').modal('hide'); //location.href = this.$backendURL + '/home/';
+          $('#showModalLogin').modal('hide');
+        } else if (response.data.errors) {
+          _this.errors = {
+            "generic": response.data.errors[0].message
+          } || {};
         }
       })["catch"](function (error) {
         if (error.response.status == 422) {
@@ -2124,7 +2129,7 @@ __webpack_require__.r(__webpack_exports__);
 
         if (error.response.status == 500) {
           _this.errors = {
-            "generic": "Incorrect password. Please try again."
+            "generic": "Error 500."
           } || {};
         }
       });
