@@ -31,6 +31,7 @@ const app = new Vue({
         rooms: [],
         csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         echoRun: false,
+        timezone: null,
     },
     mounted() {
         //Escucha los mensajes de Pusher
@@ -42,8 +43,11 @@ const app = new Vue({
     created() {
         //Revisa si el usuario está logeado
         axios.get(this.$backendURL + '/api/checkLogin').then(response => {
+
+            //SI NO ESTA ACTUALIZADO EL JSON DEL USER QUE SE LOGEE DE NUEVO
             if (response.data && response.data != '') {
-                this.login_user = response.data;
+                this.login_user = response.data.user_id;
+                this.timezone = response.data.timezone;
 
                 this.checkRoomId();
 
@@ -96,6 +100,7 @@ const app = new Vue({
         //Establece el ID del usuario logeado
         setLoginUser(user) {
             this.login_user = user.user_id;
+            this.timezone = user.timezone;
         },
         setRoomUser(room) {
             let me = this;

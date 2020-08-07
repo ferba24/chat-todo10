@@ -129,20 +129,32 @@ class ApiController extends Controller{
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
-		$xen_user = new XenUser();
+		$xen_user = new XenUser;
 		$xen_user = $xen_user->login(
 			$req->input('username'),
 			$req->input('password')
 		);
 		if(isset($xen_user->user)){
-			return response()->json($xen_user)->cookie('xf_user', $xen_user->user->user_id);
+			$x_user = new XenUser;
+			if($x_user->setUserById($xen_user->user)){
+				return response()->json($xen_user)->cookie('xf_user', $xen_user->user->user_id);
+			}else{
+				return response()->json(json_encode([
+					'error' => 'true'
+				]));
+			}
 		}else{
 			return response()->json($xen_user);
 		}
 	}
 	// Check Login
 	public function checkLogin(Request $req){
-		return $this->getUserFromCookie($req);
+		$user_id = $this->getUserFromCookie($req);
+		$ret = [
+			"user_id" => intval($user_id),
+			"timezone" => $this->getTimeZoneUser($user_id)
+		];
+		return response()->json($ret);
 	}
 	// Check Room
 	public function checkRoom(Request $req){

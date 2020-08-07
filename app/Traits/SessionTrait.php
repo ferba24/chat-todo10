@@ -1,6 +1,7 @@
 <?php
 namespace App\Traits;
 use Illuminate\Http\Request;
+use App\XenUser;
 
 trait SessionTrait {
     /*
@@ -22,7 +23,17 @@ trait SessionTrait {
 			}
 		}
 		return $user;
-    }
+	}
+	public function getTimeZoneUser($user_id = null){
+		if(!$user_id){
+			return "";
+		}else{
+			$xu = new XenUser;
+			$user = $xu->getUserById($user_id);
+			$json = json_decode($user->json);
+			return $json->timezone;
+		}
+	}
     // API GET ROOM BEFORE LOGIN
 	public function getRoomLogin(Request $req){
         return ($req->session()->get('user'))?$req->session()->get('room'):null;

@@ -76,18 +76,25 @@ export default {
 				if(response.data.success) {
 					//Envía el ID del usuario conectado
 					this.$emit('login_usersent', {
-						user_id: response.data.user.user_id
+						user_id: response.data.user.user_id,
+						timezone: response.data.user.timezone
 					});
 					$('#showModalLogin').modal('hide');
 				}else if(response.data.errors){
 					this.errors = {"generic": response.data.errors[0].message} || {};
+				}else{
+					this.errors.generic = "Some error. Contact the webmaster.";
 				}
 			})
 			.catch(error => {
 				if (error.response.status == 422) {
+					this.send_login = false;
+					document.getElementById('sendButton').removeAttribute("disabled");
 					this.errors = error.response.data.errors || {};
 				} 
 				if(error.response.status == 500) {
+					this.send_login = false;
+					document.getElementById('sendButton').removeAttribute("disabled");
 					this.errors = {"generic": "Error 500."} || {};
 				}
 			});

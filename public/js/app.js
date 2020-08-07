@@ -2113,7 +2113,8 @@ __webpack_require__.r(__webpack_exports__);
         if (response.data.success) {
           //Envía el ID del usuario conectado
           _this.$emit('login_usersent', {
-            user_id: response.data.user.user_id
+            user_id: response.data.user.user_id,
+            timezone: response.data.user.timezone
           });
 
           $('#showModalLogin').modal('hide');
@@ -2121,13 +2122,19 @@ __webpack_require__.r(__webpack_exports__);
           _this.errors = {
             "generic": response.data.errors[0].message
           } || {};
+        } else {
+          _this.errors.generic = "Some error. Contact the webmaster.";
         }
       })["catch"](function (error) {
         if (error.response.status == 422) {
+          _this.send_login = false;
+          document.getElementById('sendButton').removeAttribute("disabled");
           _this.errors = error.response.data.errors || {};
         }
 
         if (error.response.status == 500) {
+          _this.send_login = false;
+          document.getElementById('sendButton').removeAttribute("disabled");
           _this.errors = {
             "generic": "Error 500."
           } || {};
@@ -58723,7 +58730,8 @@ var app = new Vue({
     sound_active: true,
     rooms: [],
     csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-    echoRun: false
+    echoRun: false,
+    timezone: null
   },
   mounted: function mounted() {
     //Escucha los mensajes de Pusher
@@ -58737,8 +58745,10 @@ var app = new Vue({
 
     //Revisa si el usuario está logeado
     axios.get(this.$backendURL + '/api/checkLogin').then(function (response) {
+      //SI NO ESTA ACTUALIZADO EL JSON DEL USER QUE SE LOGEE DE NUEVO
       if (response.data && response.data != '') {
-        _this.login_user = response.data;
+        _this.login_user = response.data.user_id;
+        _this.timezone = response.data.timezone;
 
         _this.checkRoomId();
 
@@ -58798,6 +58808,7 @@ var app = new Vue({
     //Establece el ID del usuario logeado
     setLoginUser: function setLoginUser(user) {
       this.login_user = user.user_id;
+      this.timezone = user.timezone;
     },
     setRoomUser: function setRoomUser(room) {
       var me = this;
