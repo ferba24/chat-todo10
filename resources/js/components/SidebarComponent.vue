@@ -16,9 +16,9 @@
                 <div class="row" style="background-color: #eee; padding-top: 10px;">
                     <div class="col-md-12">
                         <div class="row checkbox">
-                            <label class="col-md-4 text-center"><input type="checkbox" checked="true"> Admins</label>
-                            <label class="col-md-4 text-center"><input type="checkbox" checked="true"> Mods</label>
-                            <label class="col-md-4 text-center"><input type="checkbox" checked="true"> Others</label>
+                            <label class="col-md-4 text-center"><input type="checkbox" v-model="show_admins"> Admins</label>
+                            <label class="col-md-4 text-center"><input type="checkbox" v-model="show_mods"> Mods</label>
+                            <label class="col-md-4 text-center"><input type="checkbox" v-model="show_others"> Others</label>
                         </div>
                     </div>
                 </div>
@@ -81,6 +81,9 @@ export default {
             term_room: "",
             term_user: "",
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            show_admins: true,
+            show_mods: true,
+            show_others: true,
         }
     },
     filters: {
@@ -196,14 +199,39 @@ export default {
 			return filtered;
         },
         filterUsers: function(){
-            let filtered = this.arrayUsers;
+            let filtered_tu = [], filtered_sa = [], filtered_sm = [], filtered_so = [];
+            if(this.show_admins && this.show_mods){
+                filtered_sa = this.arrayUsers.filter(
+                    m => m.role.includes(3) || m.role.includes(4)
+                );
+            }else{
+                if(this.show_admins){
+                    filtered_sa = this.arrayUsers.filter(
+                        m => m.role.includes(3)
+                    );
+                }
+                if(this.show_mods){
+                    filtered_sm = this.arrayUsers.filter(
+                        m => m.role.includes(4)
+                    );
+                }
+            }
+            if(this.show_others){
+                filtered_so = this.arrayUsers.filter(
+                    m => m.role.length <= 0
+                );
+            }
+            filtered_tu = filtered_sa.concat(filtered_sm);
+            filtered_tu = filtered_tu.concat(filtered_so);
+
+
             //Se filtra por el término buscado
-			if(this.term_user != ""){
-                filtered = filtered.filter(
+            if(this.term_user != ""){
+                filtered_tu = filtered_tu.filter(
                     m => m.name.toLowerCase().indexOf(this.term_user) > -1
                 );
             }
-			return filtered;
+			return filtered_tu;
         }
     },
     watch: {
@@ -226,7 +254,7 @@ export default {
         },
         current_room: function (value){
             this.updateCurrentUsersByRooms();
-        }
+        },
     }
 }
 </script>

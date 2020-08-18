@@ -28,7 +28,7 @@ Route::post('broadcast', function(Request $req){
         $presence_data = [
             'user_id' => intval($req->session()->get('user')),
             'name' => $json->username,
-            'role' => $json->user_title
+            'role' => $json->secondary_group_ids
         ];
         $auth = $pusher->presence_auth(
             $req->get('channel_name'),

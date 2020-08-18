@@ -2571,7 +2571,10 @@ __webpack_require__.r(__webpack_exports__);
       arrayRooms: [],
       term_room: "",
       term_user: "",
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      show_admins: true,
+      show_mods: true,
+      show_others: true
     };
   },
   filters: {
@@ -2696,15 +2699,45 @@ __webpack_require__.r(__webpack_exports__);
     filterUsers: function filterUsers() {
       var _this4 = this;
 
-      var filtered = this.arrayUsers; //Se filtra por el término buscado
+      var filtered_tu = [],
+          filtered_sa = [],
+          filtered_sm = [],
+          filtered_so = [];
+
+      if (this.show_admins && this.show_mods) {
+        filtered_sa = this.arrayUsers.filter(function (m) {
+          return m.role.includes(3) || m.role.includes(4);
+        });
+      } else {
+        if (this.show_admins) {
+          filtered_sa = this.arrayUsers.filter(function (m) {
+            return m.role.includes(3);
+          });
+        }
+
+        if (this.show_mods) {
+          filtered_sm = this.arrayUsers.filter(function (m) {
+            return m.role.includes(4);
+          });
+        }
+      }
+
+      if (this.show_others) {
+        filtered_so = this.arrayUsers.filter(function (m) {
+          return m.role.length <= 0;
+        });
+      }
+
+      filtered_tu = filtered_sa.concat(filtered_sm);
+      filtered_tu = filtered_tu.concat(filtered_so); //Se filtra por el término buscado
 
       if (this.term_user != "") {
-        filtered = filtered.filter(function (m) {
+        filtered_tu = filtered_tu.filter(function (m) {
           return m.name.toLowerCase().indexOf(_this4.term_user) > -1;
         });
       }
 
-      return filtered;
+      return filtered_tu;
     }
   },
   watch: {
@@ -46299,7 +46332,143 @@ var render = function() {
           _c("i", { staticClass: "fa fa-search" })
         ]),
         _vm._v(" "),
-        _vm._m(0),
+        _c("div", { staticClass: "container" }, [
+          _c(
+            "div",
+            {
+              staticClass: "row",
+              staticStyle: { "background-color": "#eee", "padding-top": "10px" }
+            },
+            [
+              _c("div", { staticClass: "col-md-12" }, [
+                _c("div", { staticClass: "row checkbox" }, [
+                  _c("label", { staticClass: "col-md-4 text-center" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.show_admins,
+                          expression: "show_admins"
+                        }
+                      ],
+                      attrs: { type: "checkbox" },
+                      domProps: {
+                        checked: Array.isArray(_vm.show_admins)
+                          ? _vm._i(_vm.show_admins, null) > -1
+                          : _vm.show_admins
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.show_admins,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.show_admins = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.show_admins = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.show_admins = $$c
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v(" Admins")
+                  ]),
+                  _vm._v(" "),
+                  _c("label", { staticClass: "col-md-4 text-center" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.show_mods,
+                          expression: "show_mods"
+                        }
+                      ],
+                      attrs: { type: "checkbox" },
+                      domProps: {
+                        checked: Array.isArray(_vm.show_mods)
+                          ? _vm._i(_vm.show_mods, null) > -1
+                          : _vm.show_mods
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.show_mods,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.show_mods = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.show_mods = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.show_mods = $$c
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v(" Mods")
+                  ]),
+                  _vm._v(" "),
+                  _c("label", { staticClass: "col-md-4 text-center" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.show_others,
+                          expression: "show_others"
+                        }
+                      ],
+                      attrs: { type: "checkbox" },
+                      domProps: {
+                        checked: Array.isArray(_vm.show_others)
+                          ? _vm._i(_vm.show_others, null) > -1
+                          : _vm.show_others
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.show_others,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.show_others = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.show_others = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.show_others = $$c
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v(" Others")
+                  ])
+                ])
+              ])
+            ]
+          )
+        ]),
         _vm._v(" "),
         _c(
           "div",
@@ -46395,7 +46564,7 @@ var render = function() {
           },
           [
             _c("table", { staticClass: "table table-bordered table-striped" }, [
-              _vm._m(1),
+              _vm._m(0),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -46437,40 +46606,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c(
-        "div",
-        {
-          staticClass: "row",
-          staticStyle: { "background-color": "#eee", "padding-top": "10px" }
-        },
-        [
-          _c("div", { staticClass: "col-md-12" }, [
-            _c("div", { staticClass: "row checkbox" }, [
-              _c("label", { staticClass: "col-md-4 text-center" }, [
-                _c("input", { attrs: { type: "checkbox", checked: "true" } }),
-                _vm._v(" Admins")
-              ]),
-              _vm._v(" "),
-              _c("label", { staticClass: "col-md-4 text-center" }, [
-                _c("input", { attrs: { type: "checkbox", checked: "true" } }),
-                _vm._v(" Mods")
-              ]),
-              _vm._v(" "),
-              _c("label", { staticClass: "col-md-4 text-center" }, [
-                _c("input", { attrs: { type: "checkbox", checked: "true" } }),
-                _vm._v(" Others")
-              ])
-            ])
-          ])
-        ]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
