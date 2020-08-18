@@ -58963,7 +58963,7 @@ var app = new Vue({
         room: this.current_room,
         message: message.message
       }).then(function (response) {
-        _this3.messages.push(response.data);
+        _this3.messages.push(_this3.changeTimeZoneFormat(response.data));
       });
     },
     //Cambia estatus de activo o no el sonido
@@ -59052,11 +59052,13 @@ var app = new Vue({
         authEndpoint: this.$backendURL + '/broadcast'
       });
       window.Echo["private"]('chat').listen('MessageSent', function (e) {
+        var message = _this6.changeTimeZoneFormat(e);
+
         _this6.messages.push({
-          message: e.message,
-          user: e.user,
-          room: e.room,
-          date: e.date
+          message: message.message,
+          user: message.user,
+          room: message.room,
+          date: message.date
         });
 
         _this6.sounds();
@@ -59064,6 +59066,17 @@ var app = new Vue({
     },
     setConnectedUsers: function setConnectedUsers(users) {
       this.connected_users = users.users;
+    },
+    changeTimeZoneFormat: function changeTimeZoneFormat(data) {
+      var date = new Date(Date.parse(data.date));
+
+      if (this.offset_timezone != -1) {
+        date.addHours(this.offset_timezone);
+      }
+
+      date = date.getFullYear() + "-" + (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1) + "-" + (date.getDate() < 10 ? '0' : '') + date.getDate() + " " + (date.getHours() < 10 ? '0' : '') + date.getHours() + ":" + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes() + ":" + (date.getSeconds() < 10 ? '0' : '') + date.getSeconds();
+      data.date = date;
+      return data;
     }
   },
   watch: {
@@ -59099,14 +59112,7 @@ var app = new Vue({
     offset_timezone: function offset_timezone(value) {
       var me = this;
       me.messages.forEach(function (item, index, object) {
-        var date = new Date(Date.parse(item.date));
-
-        if (me.offset_timezone != -1) {
-          date.addHours(me.offset_timezone);
-        }
-
-        date = date.getFullYear() + "-" + (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1) + "-" + (date.getDate() < 10 ? '0' : '') + date.getDate() + " " + (date.getHours() < 10 ? '0' : '') + date.getHours() + ":" + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes() + ":" + (date.getSeconds() < 10 ? '0' : '') + date.getSeconds();
-        item.date = date;
+        item = me.changeTimeZoneFormat(item);
       });
     }
   }

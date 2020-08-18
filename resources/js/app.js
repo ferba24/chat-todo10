@@ -80,7 +80,7 @@ const app = new Vue({
                 room: this.current_room,
                 message: message.message
             }).then(response => {
-                this.messages.push(response.data); 
+                this.messages.push(this.changeTimeZoneFormat(response.data));
             });
         },
         //Cambia estatus de activo o no el sonido
@@ -161,17 +161,32 @@ const app = new Vue({
                 authEndpoint: this.$backendURL + '/broadcast',
             });
             window.Echo.private('chat').listen('MessageSent', (e) => {
+                let message = this.changeTimeZoneFormat(e);
                 this.messages.push({
-                        message: e.message,
-                        user: e.user,
-                        room: e.room,
-                        date: e.date
+                        message: message.message,
+                        user: message.user,
+                        room: message.room,
+                        date: message.date
                 });
                 this.sounds();
             });
         },
         setConnectedUsers(users) {
             this.connected_users = users.users;
+        },
+        changeTimeZoneFormat(data) {
+            var date = new Date(Date.parse(data.date));
+            if (this.offset_timezone != -1) {
+                date.addHours(this.offset_timezone);
+            }
+            date = date.getFullYear() + "-"
+                + ((date.getMonth()+1)<10?'0':'') + (date.getMonth()+1) + "-"
+                + (date.getDate()<10?'0':'') + date.getDate() + " "
+                + (date.getHours()<10?'0':'') + date.getHours() + ":"
+                + (date.getMinutes()<10?'0':'') + date.getMinutes() + ":"
+                + (date.getSeconds()<10?'0':'') + date.getSeconds();
+            data.date = date;
+            return data;
         }
     },
     watch: {
@@ -207,17 +222,7 @@ const app = new Vue({
         offset_timezone: function (value) {
             let me = this;
             me.messages.forEach(function (item, index, object) {
-                var date = new Date(Date.parse(item.date));
-                if (me.offset_timezone != -1) {
-                    date.addHours(me.offset_timezone);
-                }
-                date = date.getFullYear() + "-"
-                    + ((date.getMonth()+1)<10?'0':'') + (date.getMonth()+1) + "-"
-                    + (date.getDate()<10?'0':'') + date.getDate() + " "
-                    + (date.getHours()<10?'0':'') + date.getHours() + ":"
-                    + (date.getMinutes()<10?'0':'') + date.getMinutes() + ":"
-                    + (date.getSeconds()<10?'0':'') + date.getSeconds();
-                item.date = date;
+                item = me.changeTimeZoneFormat(item);
             });
         },
     }
