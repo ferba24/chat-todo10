@@ -69,6 +69,7 @@ Route::prefix('api')->group(function(){
             Route::get('getRoomsByUser/{room_id}', 'RoomController@getRoomsByUser');
         });
     });
+    Route::post('offsetTimezone', 'HomeController@offsetTimezone')->middleware('api_connect');
 });
 Route::get('/api/getUser/{room}/{search?}', 'ApiController@getUser')->name('api.getUser');
 Route::get('/api/getUserPrivate', 'ApiController@getUserPrivate')->name('api.getUserPrivate');

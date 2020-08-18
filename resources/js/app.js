@@ -17,6 +17,13 @@ if (window.location.origin == 'http://chat2.com-devel') {
     Vue.prototype.$backendURL = "https://customers.todo10.com/chat/public";
 }
 
+//Set from config/app.php -> timezone
+Vue.prototype.$serverTimeZone = 'America/Mexico_City';
+Date.prototype.addHours = function(h) {
+    this.setTime(this.getTime() + (h*60*60*1000));
+    return this;
+}
+
 import EchoLibrary from 'laravel-echo';
 window.Pusher = require('pusher-js');
 Pusher.logToConsole = true;
@@ -32,6 +39,7 @@ const app = new Vue({
         csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         echoRun: false,
         timezone: null,
+        offset_timezone: -1,
     },
     mounted() {
         //Escucha los mensajes de Pusher
@@ -178,6 +186,34 @@ const app = new Vue({
 
                 $("#showModalRooms").modal("show");
             }
+        },
+        timezone: function (value) {
+            axios.post(this.$backendURL + '/api/offsetTimezone', {
+                tz1: value,
+                tz2: this.$serverTimeZone,
+            }).then((response) => {
+                if (response.data) {
+                    this.offset_timezone = response.data;
+                } else {
+                    this.offset_timezone = -1;
+                }
+            });
+        },
+        offset_timezone: function (value) {
+            let me = this;
+            me.messages.forEach(function (item, index, object) {
+                var date = new Date(Date.parse(item.date));
+                if (me.offset_timezone != -1) {
+                    date.addHours(me.offset_timezone);
+                }
+                date = date.getFullYear() + "-"
+                    + ((date.getMonth()+1)<10?'0':'') + (date.getMonth()+1) + "-"
+                    + (date.getDate()<10?'0':'') + date.getDate() + " "
+                    + (date.getHours()<10?'0':'') + date.getHours() + ":"
+                    + (date.getMinutes()<10?'0':'') + date.getMinutes() + ":"
+                    + (date.getSeconds()<10?'0':'') + date.getSeconds();
+                item.date = date;
+            });
         },
     }
 });
