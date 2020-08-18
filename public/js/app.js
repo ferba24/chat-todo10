@@ -45210,15 +45210,12 @@ var render = function() {
     _vm._l(_vm.filterMessages, function(message) {
       return _c("div", { key: message.id }, [
         _c("p", { staticClass: "msg" }, [
-          _vm._v(
-            "[" +
-              _vm._s(_vm._f("get_username")(message.user)) +
-              "] " +
-              _vm._s(_vm._f("date_format")(message.date)) +
-              ": "
-          ),
-          _c("span", { domProps: { innerHTML: _vm._s(message.message) } }),
-          _vm._v(" [(test)ROOM: " + _vm._s(message.room) + "]")
+          _vm._v("[" + _vm._s(_vm._f("get_username")(message.user)) + "] "),
+          _c("a", { attrs: { href: "#" } }, [
+            _vm._v(_vm._s(_vm._f("date_format")(message.date)))
+          ]),
+          _vm._v(": "),
+          _c("span", { domProps: { innerHTML: _vm._s(message.message) } })
         ])
       ])
     }),

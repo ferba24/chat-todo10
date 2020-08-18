@@ -1,7 +1,7 @@
 <template>
 <div class="card-body messages-content" style="overflow-y: auto;" id="scroll-messages-content">
     <div v-for="message in filterMessages" :key="message.id">
-        <p class="msg">[{{ message.user | get_username }}] {{ message.date | date_format }}: <span v-html="message.message"></span> [(test)ROOM: {{ message.room }}]</p>
+        <p class="msg">[{{ message.user | get_username }}] <a href="#">{{ message.date | date_format }}</a>: <span v-html="message.message"></span></p>
     </div>
 </div>
     
