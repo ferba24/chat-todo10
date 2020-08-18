@@ -40,6 +40,7 @@ const app = new Vue({
         echoRun: false,
         timezone: null,
         offset_timezone: -1,
+        connected_users: [],
     },
     mounted() {
         //Escucha los mensajes de Pusher
@@ -168,6 +169,9 @@ const app = new Vue({
                 });
                 this.sounds();
             });
+        },
+        setConnectedUsers(users) {
+            this.connected_users = users.users;
         }
     },
     watch: {
@@ -189,6 +193,7 @@ const app = new Vue({
         },
         timezone: function (value) {
             axios.post(this.$backendURL + '/api/offsetTimezone', {
+                _token: this.csrf,
                 tz1: value,
                 tz2: this.$serverTimeZone,
             }).then((response) => {

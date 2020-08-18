@@ -132,7 +132,7 @@ export default {
                     this.arrayUsers = this.arrayUsers.filter(u => (u.user_id !== user.user_id))
                 });
         },
-        // Copiar esta función en RoomsComponent.vue revisando que el arrayUsers esté disponible
+        // Copiar esta función en RoomsComponent.vue si hay algún cambio
         updateCurrentUsersByRooms(){
             let me = this;
             let tmp = me.arrayRooms;
@@ -217,8 +217,12 @@ export default {
             }
         },
         arrayUsers: function (value){
-            this.users_count = value.length;
-            this.updateCurrentUsersByRooms();
+            let me = this;
+            me.users_count = value.length;
+            me.updateCurrentUsersByRooms();
+            me.$emit('connected_userssent', {
+                users: me.arrayUsers
+            });
         },
         current_room: function (value){
             this.updateCurrentUsersByRooms();

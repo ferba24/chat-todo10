@@ -18,11 +18,11 @@
 			</div>
         </div>
         <div class="col-md-3">
-			<sidebar-component :login_user="login_user" :current_room="current_room" :rooms="rooms" v-on:current_roomsent="setRoomUser"></sidebar-component>
+			<sidebar-component :login_user="login_user" :current_room="current_room" :rooms="rooms" v-on:current_roomsent="setRoomUser" v-on:connected_userssent="setConnectedUsers"></sidebar-component>
 		</div><!-- .col-md-3 -->
 	</div><!-- .row.justify-content-center -->
 </div><!-- .container-fluid -->
-<rooms-component :login_user="login_user" :current_room="current_room" v-on:current_roomsent="setRoomUser"></rooms-component>
+<rooms-component :login_user="login_user" :current_room="current_room" v-on:current_roomsent="setRoomUser" :connected_users="connected_users"></rooms-component>
 <login-user-component v-on:login_usersent="setLoginUser"></login-user-component>
 <!-- <private-component></private-component> -->
 @endsection

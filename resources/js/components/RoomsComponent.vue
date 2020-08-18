@@ -80,7 +80,7 @@
 
 <script>
 export default {
-	props: ['login_user', 'current_room'],
+	props: ['login_user', 'current_room', 'connected_users'],
 	data(){
 		return{
 			arrayRooms: [],
@@ -96,6 +96,7 @@ export default {
 				axios.get(me.$backendURL + '/api/room/getRooms')
 				.then((rooms) => {
 					me.arrayRooms = rooms.data;
+					me.updateCurrentUsersByRooms();
 				}).catch(function (error) {
 					console.log('Error RoomsController.vue in getRooms(): ' + error);
 				});
@@ -121,7 +122,42 @@ export default {
 		},
 		emptyRooms(){
 			this.empty = (this.empty)?false:true;
-		}
+		},
+		// Copiar esta función en SidebarComponent.vue si hay algún cambio
+        updateCurrentUsersByRooms(){
+            let me = this;
+            let tmp = me.arrayRooms;
+            //Revisamos los usuarios conectados por room
+            me.arrayRooms.forEach(e => {
+                axios.get(me.$backendURL + '/api/room/getRoomsByUser/' + e.id)
+                .then((roomsByUser) => {
+                    if(roomsByUser.data.length == 0){
+                        e.count_room = 0;
+                    }else{
+                        //Revisar si los usuarios están conectados
+                        var count = 0;
+                        roomsByUser.data.forEach( d => {
+                            var result = me.connected_users.find( user => user.user_id === d.user_id );
+                            if(result != undefined){
+                                count++;
+                            }
+                        });
+                        e.count_room = count;
+                    }
+                    me.arrayRooms = me.arrayRooms.sort(function(a, b){
+                        if (a.count_room < b.count_room) {
+                            return 1;
+                        }
+                        if (a.count_room > b.count_room) {
+                            return -1;
+                        }
+                        return 0;
+                    });
+                }).catch(function (error) {
+                    console.log('Error in RoomsComponent.vue in watch.current_room: ' + error);
+                });
+            });
+        }
 	},
 	filters: {
 		capitalize: function (value){

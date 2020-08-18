@@ -2349,7 +2349,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['login_user', 'current_room'],
+  props: ['login_user', 'current_room', 'connected_users'],
   data: function data() {
     return {
       arrayRooms: [],
@@ -2365,6 +2365,7 @@ __webpack_require__.r(__webpack_exports__);
       if (me.login_user != 0) {
         axios.get(me.$backendURL + '/api/room/getRooms').then(function (rooms) {
           me.arrayRooms = rooms.data;
+          me.updateCurrentUsersByRooms();
         })["catch"](function (error) {
           console.log('Error RoomsController.vue in getRooms(): ' + error);
         });
@@ -2393,6 +2394,46 @@ __webpack_require__.r(__webpack_exports__);
     },
     emptyRooms: function emptyRooms() {
       this.empty = this.empty ? false : true;
+    },
+    // Copiar esta función en SidebarComponent.vue si hay algún cambio
+    updateCurrentUsersByRooms: function updateCurrentUsersByRooms() {
+      var me = this;
+      var tmp = me.arrayRooms; //Revisamos los usuarios conectados por room
+
+      me.arrayRooms.forEach(function (e) {
+        axios.get(me.$backendURL + '/api/room/getRoomsByUser/' + e.id).then(function (roomsByUser) {
+          if (roomsByUser.data.length == 0) {
+            e.count_room = 0;
+          } else {
+            //Revisar si los usuarios están conectados
+            var count = 0;
+            roomsByUser.data.forEach(function (d) {
+              var result = me.connected_users.find(function (user) {
+                return user.user_id === d.user_id;
+              });
+
+              if (result != undefined) {
+                count++;
+              }
+            });
+            e.count_room = count;
+          }
+
+          me.arrayRooms = me.arrayRooms.sort(function (a, b) {
+            if (a.count_room < b.count_room) {
+              return 1;
+            }
+
+            if (a.count_room > b.count_room) {
+              return -1;
+            }
+
+            return 0;
+          });
+        })["catch"](function (error) {
+          console.log('Error in RoomsComponent.vue in watch.current_room: ' + error);
+        });
+      });
     }
   },
   filters: {
@@ -2586,7 +2627,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    // Copiar esta función en RoomsComponent.vue revisando que el arrayUsers esté disponible
+    // Copiar esta función en RoomsComponent.vue si hay algún cambio
     updateCurrentUsersByRooms: function updateCurrentUsersByRooms() {
       var me = this;
       var tmp = me.arrayRooms; //Revisamos los usuarios conectados por room
@@ -2676,8 +2717,12 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     arrayUsers: function arrayUsers(value) {
-      this.users_count = value.length;
-      this.updateCurrentUsersByRooms();
+      var me = this;
+      me.users_count = value.length;
+      me.updateCurrentUsersByRooms();
+      me.$emit('connected_userssent', {
+        users: me.arrayUsers
+      });
     },
     current_room: function current_room(value) {
       this.updateCurrentUsersByRooms();
@@ -58740,7 +58785,8 @@ var app = new Vue({
     csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
     echoRun: false,
     timezone: null,
-    offset_timezone: -1
+    offset_timezone: -1,
+    connected_users: []
   },
   mounted: function mounted() {
     //Escucha los mensajes de Pusher
@@ -58883,6 +58929,9 @@ var app = new Vue({
 
         _this6.sounds();
       });
+    },
+    setConnectedUsers: function setConnectedUsers(users) {
+      this.connected_users = users.users;
     }
   },
   watch: {
@@ -58904,6 +58953,7 @@ var app = new Vue({
       var _this7 = this;
 
       axios.post(this.$backendURL + '/api/offsetTimezone', {
+        _token: this.csrf,
         tz1: value,
         tz2: this.$serverTimeZone
       }).then(function (response) {
