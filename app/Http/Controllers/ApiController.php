@@ -152,7 +152,8 @@ class ApiController extends Controller{
 		$user_id = $this->getUserFromCookie($req);
 		$ret = [
 			"user_id" => intval($user_id),
-			"timezone" => $this->getTimeZoneUser($user_id)
+			"timezone" => $this->getTimeZoneUser($user_id),
+			"user_roles" => $this->getUserRoles($user_id)
 		];
 		return response()->json($ret);
 	}

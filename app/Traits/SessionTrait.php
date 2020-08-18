@@ -34,6 +34,16 @@ trait SessionTrait {
 			return $json->timezone;
 		}
 	}
+	public function getUserRoles($user_id = null){
+		if(!$user_id){
+			return [];
+		}else{
+			$xu = new XenUser;
+			$user = $xu->getUserById($user_id);
+			$json = json_decode($user->json);
+			return $json->secondary_group_ids;
+		}
+	}
     // API GET ROOM BEFORE LOGIN
 	public function getRoomLogin(Request $req){
         return ($req->session()->get('user'))?$req->session()->get('room'):null;

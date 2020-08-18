@@ -77,7 +77,8 @@ export default {
 					//Envía el ID del usuario conectado
 					this.$emit('login_usersent', {
 						user_id: response.data.user.user_id,
-						timezone: response.data.user.timezone
+						timezone: response.data.user.timezone,
+						user_roles: response.data.user.secondary_group_ids,
 					});
 					$('#showModalLogin').modal('hide');
 				}else if(response.data.errors){

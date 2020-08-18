@@ -34,6 +34,7 @@ const app = new Vue({
         messages: [],
         current_room: 0,
         login_user: 0,
+        login_user_roles: [],
         sound_active: true,
         rooms: [],
         csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -54,9 +55,10 @@ const app = new Vue({
         axios.get(this.$backendURL + '/api/checkLogin').then(response => {
 
             //SI NO ESTA ACTUALIZADO EL JSON DEL USER QUE SE LOGEE DE NUEVO
-            if (response.data && response.data.user_id && response.data.timezone) {
+            if (response.data && response.data.user_id && response.data.timezone && response.data.user_roles) {
                 this.login_user = response.data.user_id;
                 this.timezone = response.data.timezone;
+                this.login_user_roles = response.data.user_roles;
 
                 this.checkRoomId();
 
@@ -110,6 +112,7 @@ const app = new Vue({
         setLoginUser(user) {
             this.login_user = user.user_id;
             this.timezone = user.timezone;
+            this.login_user_roles = user.user_roles;
         },
         setRoomUser(room) {
             let me = this;

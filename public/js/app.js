@@ -2114,7 +2114,8 @@ __webpack_require__.r(__webpack_exports__);
           //Envía el ID del usuario conectado
           _this.$emit('login_usersent', {
             user_id: response.data.user.user_id,
-            timezone: response.data.user.timezone
+            timezone: response.data.user.timezone,
+            user_roles: response.data.user.secondary_group_ids
           });
 
           $('#showModalLogin').modal('hide');
@@ -58912,6 +58913,7 @@ var app = new Vue({
     messages: [],
     current_room: 0,
     login_user: 0,
+    login_user_roles: [],
     sound_active: true,
     rooms: [],
     csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -58933,9 +58935,10 @@ var app = new Vue({
     //Revisa si el usuario está logeado
     axios.get(this.$backendURL + '/api/checkLogin').then(function (response) {
       //SI NO ESTA ACTUALIZADO EL JSON DEL USER QUE SE LOGEE DE NUEVO
-      if (response.data && response.data.user_id && response.data.timezone) {
+      if (response.data && response.data.user_id && response.data.timezone && response.data.user_roles) {
         _this.login_user = response.data.user_id;
         _this.timezone = response.data.timezone;
+        _this.login_user_roles = response.data.user_roles;
 
         _this.checkRoomId();
 
@@ -58996,6 +58999,7 @@ var app = new Vue({
     setLoginUser: function setLoginUser(user) {
       this.login_user = user.user_id;
       this.timezone = user.timezone;
+      this.login_user_roles = user.user_roles;
     },
     setRoomUser: function setRoomUser(room) {
       var me = this;
