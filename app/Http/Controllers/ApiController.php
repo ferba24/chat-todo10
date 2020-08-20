@@ -137,7 +137,9 @@ class ApiController extends Controller{
 		if(isset($xen_user->user)){
 			$x_user = new XenUser;
 			if($x_user->setUserById($xen_user->user)){
-				return response()->json($xen_user)->cookie('xf_user', $xen_user->user->user_id);
+				return response()
+						->json($xen_user)
+						->cookie('xf_user', $xen_user->user->user_id, 30); //el número es minutos de vida de la cookie
 			}else{
 				return response()->json(json_encode([
 					'error' => 'true'
