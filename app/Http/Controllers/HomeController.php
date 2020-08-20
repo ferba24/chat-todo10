@@ -70,10 +70,7 @@ class HomeController extends Controller{
 			$xen_user = $user;
 			return view('home', compact('xen_user', 'rooms', 'sessionRoom'));
 		}else{*/
-			$rooms = null;
-			$xen_user  = null;
-			$sessionRoom = null;
-			return view('home', compact('xen_user', 'rooms', 'sessionRoom'));
+			return view('home');
 		//}
     }
 	public function logout() {
