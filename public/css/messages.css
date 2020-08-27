@@ -173,9 +173,14 @@
 
 
 #badge{
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: red;
-	color: white;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+	color: black;
+}
+#badge:hover{
+  color: red;
+}
+#badge i{
+  font-size: 13px;
 }

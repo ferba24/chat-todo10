@@ -2002,10 +2002,16 @@ __webpack_require__.r(__webpack_exports__);
           document.getElementById('mceu_9-body').style.display = "none"; //Obtener tamaños y establecer el tamaño del chat
 
           var sizeNet = document.getElementById('card-box-navbar').getBoundingClientRect().height + document.getElementById('card-box-form').getBoundingClientRect().height;
-          document.getElementById('card-box-messages').style = "max-height: calc( 100vh - " + sizeNet + "px );"; //Borrar estas líneas, ya que es de prueba
-          //var objDiv = document.getElementById("scroll-messages-content");
-          //objDiv.scrollTop = objDiv.scrollHeight;
 
+          if (sizeNet >= 200) {
+            document.getElementById('card-box-messages').style = "max-height: calc( 100vh - 200px ); height: 100%;";
+          } else {
+            document.getElementById('card-box-messages').style = "max-height: calc( 100vh - " + sizeNet + "px ); height: 100%;";
+          } //Borrar estas líneas, ya que es de prueba
+
+
+          var objDiv = document.getElementById("scroll-messages-content");
+          objDiv.scrollTop = objDiv.scrollHeight;
           /** */
         }); // Se puso el setup para evitar el enter en el chat
 
@@ -2770,6 +2776,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -45572,7 +45580,7 @@ var render = function() {
     "nav",
     {
       staticClass:
-        "navbar navbar-expand-md navbar-light bg-white shadow-lg navbar-custom",
+        "navbar navbar-expand-md navbar-light bg-white shadow-lg navbar-custom pr-0 pl-0",
       attrs: { id: "card-box-navbar" }
     },
     [
@@ -45675,7 +45683,7 @@ var staticRenderFns = [
           {
             staticClass: "nav-link",
             attrs: {
-              href: "#",
+              href: "javascript:void(0);",
               "data-toggle": "modal",
               "data-target": "#showModalRooms"
             }
@@ -45687,7 +45695,7 @@ var staticRenderFns = [
       _c("li", [
         _c(
           "a",
-          { staticClass: "nav-link", attrs: { href: "<!-- LOGOUT ROUTE -->" } },
+          { staticClass: "nav-link", attrs: { href: "javascript:void(0);" } },
           [_c("small", [_vm._v("LOGOUT")])]
         )
       ])
@@ -45701,11 +45709,7 @@ var staticRenderFns = [
       _c("li", { staticClass: "nav-item" }, [
         _c(
           "a",
-          {
-            staticClass: "nav-link",
-            staticStyle: { color: "white" },
-            attrs: { href: "<!-- URL CHAT -->" }
-          },
+          { staticClass: "nav-link", attrs: { href: "<!-- URL CHAT -->" } },
           [_c("i", { staticClass: "fas fa-home" })]
         )
       ]),
@@ -45715,9 +45719,8 @@ var staticRenderFns = [
           "a",
           {
             staticClass: "nav-link",
-            staticStyle: { color: "white" },
             attrs: {
-              href: "#",
+              href: "javascript:void(0);",
               "data-toggle": "modal",
               "data-target": "#showModalRooms"
             }
@@ -45731,9 +45734,8 @@ var staticRenderFns = [
           "a",
           {
             staticClass: "nav-link",
-            staticStyle: { color: "white" },
             attrs: {
-              href: "#",
+              href: "javascript:void(0);",
               "data-toggle": "modal",
               "data-target": "#showModalPrivate"
             }
@@ -45747,7 +45749,7 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("li", { staticClass: "nav-item" }, [
-        _c("a", { staticClass: "nav-link", staticStyle: { color: "white" } }, [
+        _c("a", { staticClass: "nav-link" }, [
           _c("i", { staticClass: "fas fa-music" }),
           _vm._v(" "),
           _c("small", [_vm._v("SOUNDS")])
@@ -46666,22 +46668,25 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("\r\n        " + _vm._s(room.room_name) + "    ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass: "badge",
-              staticStyle: { cursor: "pointer" },
-              attrs: { id: "badge", title: "Exit room" },
-              on: {
-                click: function($event) {
-                  return _vm.exitRoom("" + room.id)
-                }
-              }
-            },
-            [_c("i", { staticClass: "fas fa-times" })]
+            [
+              _vm._v(
+                "\r\n        " + _vm._s(room.room_name) + "    \r\n        "
+              ),
+              _c(
+                "span",
+                {
+                  staticClass: "badge badge-light",
+                  staticStyle: { cursor: "pointer" },
+                  attrs: { id: "badge", title: "Exit room" },
+                  on: {
+                    click: function($event) {
+                      return _vm.exitRoom("" + room.id)
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-times" })]
+              )
+            ]
           )
         ])
       })

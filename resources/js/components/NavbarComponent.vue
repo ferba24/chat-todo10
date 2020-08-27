@@ -1,5 +1,5 @@
 <template>
-<nav id="card-box-navbar" class="navbar navbar-expand-md navbar-light bg-white shadow-lg navbar-custom" >
+<nav id="card-box-navbar" class="navbar navbar-expand-md navbar-light bg-white shadow-lg navbar-custom pr-0 pl-0" >
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -17,8 +17,8 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="nav-link" data-toggle="modal" data-target="#showModalRooms"><small>ROOMS</small></a></li>
-                        <li><a href="<!-- LOGOUT ROUTE -->" class="nav-link"><small>LOGOUT</small></a></li>
+                        <li><a href="javascript:void(0);" class="nav-link" data-toggle="modal" data-target="#showModalRooms"><small>ROOMS</small></a></li>
+                        <li><a href="javascript:void(0);" class="nav-link"><small>LOGOUT</small></a></li>
                     </ul>
                 </li>
             </ul>
@@ -26,23 +26,23 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
                 <li class="nav-item">
-                    <a class="nav-link" href="<!-- URL CHAT -->" style="color: white">
+                    <a class="nav-link" href="<!-- URL CHAT -->">
                         <i class="fas fa-home"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#showModalRooms" style="color: white">
+                    <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#showModalRooms">
                         <small>ROOMS LIST</small>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#showModalPrivate" style="color: white">
+                    <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#showModalPrivate">
                         <i class="far fa-comment-dots"></i>
                         <small>PRIVATE MSG</small>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style="color: white">
+                    <a class="nav-link">
                         <i class="fas fa-music"></i>
                         <small>SOUNDS</small>
                     </a>

@@ -42,11 +42,15 @@ export default{
                     //Obtener tamaños y establecer el tamaño del chat
                     let sizeNet = document.getElementById('card-box-navbar').getBoundingClientRect().height
                         + document.getElementById('card-box-form').getBoundingClientRect().height;
-                    document.getElementById('card-box-messages').style = "max-height: calc( 100vh - " + sizeNet + "px );";
+                    if(sizeNet >= 200){
+                        document.getElementById('card-box-messages').style = "max-height: calc( 100vh - 200px ); height: 100%;";
+                    }else{
+                        document.getElementById('card-box-messages').style = "max-height: calc( 100vh - " + sizeNet + "px ); height: 100%;";
+                    }
 
                     //Borrar estas líneas, ya que es de prueba
-                    //var objDiv = document.getElementById("scroll-messages-content");
-                    //objDiv.scrollTop = objDiv.scrollHeight;
+                    var objDiv = document.getElementById("scroll-messages-content");
+                    objDiv.scrollTop = objDiv.scrollHeight;
                     /** */
                 });
 				// Se puso el setup para evitar el enter en el chat
