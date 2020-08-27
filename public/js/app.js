@@ -2557,10 +2557,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['login_user', 'current_room', 'rooms'],
   data: function data() {
@@ -7403,7 +7399,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ntable td[data-v-54833a28]{\r\n    font-size: 12px;\r\n    line-height: 18px;\r\n    padding: 3px 5px;\n}\n#sidebar-block[data-v-54833a28]{\r\n    padding-top: 1px;\n}\n.row.checkbox[data-v-54833a28]{\r\n    font-size: 12px;\n}\n#user-content[data-v-54833a28]{\r\n    cursor:pointer;\n}\r\n", ""]);
+exports.push([module.i, "\ntable td[data-v-54833a28]{\r\n    font-size: 12px;\r\n    line-height: 18px;\r\n    padding: 3px 5px;\n}\n#sidebar-block[data-v-54833a28]{\r\n    padding-top: 1px;\n}\n.row.checkbox[data-v-54833a28]{\r\n    font-size: 12px;\r\n    background-color: #eee; \r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\n}\n.row.checkbox label[data-v-54833a28]{\r\n    margin-bottom: 0px !important;\n}\n.row.checkbox label input[data-v-54833a28]{\r\n    vertical-align: middle;\n}\n#user-content[data-v-54833a28]{\r\n    cursor:pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -46333,141 +46329,130 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "container" }, [
-          _c(
-            "div",
-            {
-              staticClass: "row",
-              staticStyle: { "background-color": "#eee", "padding-top": "10px" }
-            },
-            [
-              _c("div", { staticClass: "col-md-12" }, [
-                _c("div", { staticClass: "row checkbox" }, [
-                  _c("label", { staticClass: "col-md-4 text-center" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.show_admins,
-                          expression: "show_admins"
-                        }
-                      ],
-                      attrs: { type: "checkbox" },
-                      domProps: {
-                        checked: Array.isArray(_vm.show_admins)
-                          ? _vm._i(_vm.show_admins, null) > -1
-                          : _vm.show_admins
-                      },
-                      on: {
-                        change: function($event) {
-                          var $$a = _vm.show_admins,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = null,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 && (_vm.show_admins = $$a.concat([$$v]))
-                            } else {
-                              $$i > -1 &&
-                                (_vm.show_admins = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
-                            }
-                          } else {
-                            _vm.show_admins = $$c
-                          }
-                        }
+          _c("div", { staticClass: "row checkbox" }, [
+            _c("label", { staticClass: "col-md-4 text-center" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.show_admins,
+                    expression: "show_admins"
+                  }
+                ],
+                attrs: { type: "checkbox" },
+                domProps: {
+                  checked: Array.isArray(_vm.show_admins)
+                    ? _vm._i(_vm.show_admins, null) > -1
+                    : _vm.show_admins
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.show_admins,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.show_admins = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.show_admins = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
                       }
-                    }),
-                    _vm._v(" Admins")
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "col-md-4 text-center" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.show_mods,
-                          expression: "show_mods"
-                        }
-                      ],
-                      attrs: { type: "checkbox" },
-                      domProps: {
-                        checked: Array.isArray(_vm.show_mods)
-                          ? _vm._i(_vm.show_mods, null) > -1
-                          : _vm.show_mods
-                      },
-                      on: {
-                        change: function($event) {
-                          var $$a = _vm.show_mods,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = null,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 && (_vm.show_mods = $$a.concat([$$v]))
-                            } else {
-                              $$i > -1 &&
-                                (_vm.show_mods = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
-                            }
-                          } else {
-                            _vm.show_mods = $$c
-                          }
-                        }
+                    } else {
+                      _vm.show_admins = $$c
+                    }
+                  }
+                }
+              }),
+              _vm._v(" Admins")
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "col-md-4 text-center" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.show_mods,
+                    expression: "show_mods"
+                  }
+                ],
+                attrs: { type: "checkbox" },
+                domProps: {
+                  checked: Array.isArray(_vm.show_mods)
+                    ? _vm._i(_vm.show_mods, null) > -1
+                    : _vm.show_mods
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.show_mods,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.show_mods = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.show_mods = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
                       }
-                    }),
-                    _vm._v(" Mods")
-                  ]),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "col-md-4 text-center" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.show_others,
-                          expression: "show_others"
-                        }
-                      ],
-                      attrs: { type: "checkbox" },
-                      domProps: {
-                        checked: Array.isArray(_vm.show_others)
-                          ? _vm._i(_vm.show_others, null) > -1
-                          : _vm.show_others
-                      },
-                      on: {
-                        change: function($event) {
-                          var $$a = _vm.show_others,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = null,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 && (_vm.show_others = $$a.concat([$$v]))
-                            } else {
-                              $$i > -1 &&
-                                (_vm.show_others = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
-                            }
-                          } else {
-                            _vm.show_others = $$c
-                          }
-                        }
+                    } else {
+                      _vm.show_mods = $$c
+                    }
+                  }
+                }
+              }),
+              _vm._v(" Mods")
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "col-md-4 text-center" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.show_others,
+                    expression: "show_others"
+                  }
+                ],
+                attrs: { type: "checkbox" },
+                domProps: {
+                  checked: Array.isArray(_vm.show_others)
+                    ? _vm._i(_vm.show_others, null) > -1
+                    : _vm.show_others
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.show_others,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.show_others = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.show_others = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
                       }
-                    }),
-                    _vm._v(" Others")
-                  ])
-                ])
-              ])
-            ]
-          )
+                    } else {
+                      _vm.show_others = $$c
+                    }
+                  }
+                }
+              }),
+              _vm._v(" Others")
+            ])
+          ])
         ]),
         _vm._v(" "),
         _c(
@@ -46490,32 +46475,38 @@ var render = function() {
                   [
                     _c("div", { attrs: { id: "user-content" } }, [
                       _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-md-3 text-center" }, [
-                          _c(
-                            "span",
-                            {
-                              staticClass:
-                                "avatar avatar--m avatar--default avatar--default--dynamic",
-                              staticStyle: {
-                                "background-color": "#85a3e0",
-                                color: "#24478f"
+                        _c(
+                          "div",
+                          { staticClass: "col-md-2 text-center pr-0 pl-0" },
+                          [
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "avatar avatar--m avatar--default avatar--default--dynamic",
+                                staticStyle: {
+                                  "background-color": "#85a3e0",
+                                  color: "#24478f"
+                                },
+                                attrs: { "data-user-id": "1" }
                               },
-                              attrs: { "data-user-id": "1" }
-                            },
-                            [
-                              _c("span", { staticClass: "avatar-u1-m" }, [
-                                _vm._v(_vm._s(_vm._f("capitalize")(user.name)))
-                              ])
-                            ]
-                          )
-                        ]),
+                              [
+                                _c("span", { staticClass: "avatar-u1-m" }, [
+                                  _vm._v(
+                                    _vm._s(_vm._f("capitalize")(user.name))
+                                  )
+                                ])
+                              ]
+                            )
+                          ]
+                        ),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-md-9" }, [
+                        _c("div", { staticClass: "col-md-10 pr-0 pl-0" }, [
                           _vm._v(
                             "\r\n                                    " +
-                              _vm._s(user.name)
-                          ),
-                          _c("br")
+                              _vm._s(user.name) +
+                              "\r\n                                "
+                          )
                         ])
                       ])
                     ])

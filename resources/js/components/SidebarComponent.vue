@@ -13,14 +13,10 @@
                 <i class="fa fa-search"></i>
             </div>
             <div class="container">
-                <div class="row" style="background-color: #eee; padding-top: 10px;">
-                    <div class="col-md-12">
-                        <div class="row checkbox">
-                            <label class="col-md-4 text-center"><input type="checkbox" v-model="show_admins"> Admins</label>
-                            <label class="col-md-4 text-center"><input type="checkbox" v-model="show_mods"> Mods</label>
-                            <label class="col-md-4 text-center"><input type="checkbox" v-model="show_others"> Others</label>
-                        </div>
-                    </div>
+                <div class="row checkbox">
+                    <label class="col-md-4 text-center"><input type="checkbox" v-model="show_admins"> Admins</label>
+                    <label class="col-md-4 text-center"><input type="checkbox" v-model="show_mods"> Mods</label>
+                    <label class="col-md-4 text-center"><input type="checkbox" v-model="show_others"> Others</label>
                 </div>
             </div>
             <div class="card-body" style="overflow-y: auto; background-color: white;">
@@ -28,13 +24,13 @@
                     <li v-for="user in filterUsers" :key="user.id" style="padding-bottom: 5px;">
                         <div id="user-content">
                             <div class="row">
-                                <div class="col-md-3 text-center">
+                                <div class="col-md-2 text-center pr-0 pl-0">
                                     <span class="avatar avatar--m avatar--default avatar--default--dynamic" data-user-id="1" style="background-color: #85a3e0; color: #24478f">
                                         <span class="avatar-u1-m">{{ user.name | capitalize }}</span> 
                                     </span>
                                 </div>
-                                <div class="col-md-9">
-                                    {{ user.name }}<br>
+                                <div class="col-md-10 pr-0 pl-0">
+                                    {{ user.name }}
                                 </div>
                             </div>
                         </div>
@@ -270,6 +266,15 @@ table td{
 }
 .row.checkbox{
     font-size: 12px;
+    background-color: #eee; 
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.row.checkbox label{
+    margin-bottom: 0px !important;
+}
+.row.checkbox label input{
+    vertical-align: middle;
 }
 #user-content{
     cursor:pointer;
