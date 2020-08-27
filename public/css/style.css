@@ -1,3 +1,15 @@
+/* Scrollbar */
+* {
+  scrollbar-width: thin;
+}
+*::-webkit-scrollbar {
+  width: 5px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 20px;
+}
+/* - - */
 body {
 	background-color: #ffffff !important;
 }
@@ -92,7 +104,7 @@ body {
 .nav > li > a {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  padding: 5px 15px;
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
@@ -519,8 +531,13 @@ body {
 }
 
 .navbar-custom {
-    background-color: #185886 !important;
-	color: white !important;
+  background-color: white !important;
+	color: #464646 !important;
+}
+.navbar-custom a{
+  color: #464646 !important;
+  letter-spacing: 1.14px;
+  font-size: 14px;
 }
 
 /*
@@ -535,6 +552,7 @@ body {
 .nav.nav-pills.nav-stacked li a.active{
   opacity: 1 !important;
   font-weight: bold;
+  border: 1px solid #ddd;
 }
 /* GENERAL */
 .fill{
