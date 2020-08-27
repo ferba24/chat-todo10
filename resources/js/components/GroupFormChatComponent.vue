@@ -1,15 +1,12 @@
 <template>
-<form>
-    <!--<input type="hidden" name="_token" value="{{ csrf_token() }}"/>-->
-    <div class="row">
-        <div class="col-md-10">
+    <div class="row mr-0 ml-0">
+        <div class="col-md-11 pr-0 pl-0">
             <textarea class="content" name="text" id="text" placeholder="Messages" autofocus></textarea>
         </div>
-        <div class="col-md-2 justify-content-center align-self-center">
+        <div class="col-md-1 justify-content-center align-self-end pr-1 pl-1">
             <button type="button" class="btn btn-primary form-control" name="sendMessage" id="sendMessage" @click="sendMessage">Send</button>
         </div>
     </div>
-</form>
 </template>
 <script>
 export default{
@@ -39,14 +36,17 @@ export default{
 			toolbar: 'bold italic underline',
 			setup: function (ed) {
                 ed.on('load', function(e) {
+                    //Ocultar el copyright de tinymce
+                    document.getElementById('mceu_9-body').style.display="none";
+
                     //Obtener tamaños y establecer el tamaño del chat
                     let sizeNet = document.getElementById('card-box-navbar').getBoundingClientRect().height
                         + document.getElementById('card-box-form').getBoundingClientRect().height;
                     document.getElementById('card-box-messages').style = "max-height: calc( 100vh - " + sizeNet + "px );";
 
                     //Borrar estas líneas, ya que es de prueba
-                    var objDiv = document.getElementById("scroll-messages-content");
-                    objDiv.scrollTop = objDiv.scrollHeight;
+                    //var objDiv = document.getElementById("scroll-messages-content");
+                    //objDiv.scrollTop = objDiv.scrollHeight;
                     /** */
                 });
 				// Se puso el setup para evitar el enter en el chat

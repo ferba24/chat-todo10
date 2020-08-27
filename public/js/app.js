@@ -1971,9 +1971,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2001,12 +1998,14 @@ __webpack_require__.r(__webpack_exports__);
       toolbar: 'bold italic underline',
       setup: function setup(ed) {
         ed.on('load', function (e) {
-          //Obtener tamaños y establecer el tamaño del chat
+          //Ocultar el copyright de tinymce
+          document.getElementById('mceu_9-body').style.display = "none"; //Obtener tamaños y establecer el tamaño del chat
+
           var sizeNet = document.getElementById('card-box-navbar').getBoundingClientRect().height + document.getElementById('card-box-form').getBoundingClientRect().height;
           document.getElementById('card-box-messages').style = "max-height: calc( 100vh - " + sizeNet + "px );"; //Borrar estas líneas, ya que es de prueba
+          //var objDiv = document.getElementById("scroll-messages-content");
+          //objDiv.scrollTop = objDiv.scrollHeight;
 
-          var objDiv = document.getElementById("scroll-messages-content");
-          objDiv.scrollTop = objDiv.scrollHeight;
           /** */
         }); // Se puso el setup para evitar el enter en el chat
 
@@ -45278,26 +45277,26 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("form", [
-    _c("div", { staticClass: "row" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-2 justify-content-center align-self-center" },
-        [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary form-control",
-              attrs: { type: "button", name: "sendMessage", id: "sendMessage" },
-              on: { click: _vm.sendMessage }
-            },
-            [_vm._v("Send")]
-          )
-        ]
-      )
-    ])
+  return _c("div", { staticClass: "row mr-0 ml-0" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "col-md-1 justify-content-center align-self-end pr-1 pl-1"
+      },
+      [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary form-control",
+            attrs: { type: "button", name: "sendMessage", id: "sendMessage" },
+            on: { click: _vm.sendMessage }
+          },
+          [_vm._v("Send")]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -45305,7 +45304,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-10" }, [
+    return _c("div", { staticClass: "col-md-11 pr-0 pl-0" }, [
       _c("textarea", {
         staticClass: "content",
         attrs: {
@@ -46264,7 +46263,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
+  return _c("div", { staticClass: "card border-0" }, [
     _c("div", { staticClass: "card-header", attrs: { id: "sidebar-header" } }, [
       _c(
         "ul",

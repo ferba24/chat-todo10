@@ -1,5 +1,5 @@
 <template>
-<div class="card">
+<div class="card border-0">
     <div id="sidebar-header" class="card-header">
         <ul class="nav nav-pills nav-stacked" id="myTab">
             <li><a href="#users" data-toggle="tab"  class="active">Users &nbsp;<span class="badge badge-pill badge-dark"><div id="users-count">{{ users_count }}</div></span></a></li>
