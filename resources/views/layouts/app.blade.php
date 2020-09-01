@@ -16,13 +16,15 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,600;0,700;1,400&display=swap" rel="stylesheet"> 
 	
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 	
 	<link href="{{ asset('fontawesome/css/all.min.css') }}" rel="stylesheet"/>
-	<link href="{{ asset('fontawesome/css/solid.min.css') }}" rel="stylesheet"/>	
 	<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 	<link href="{{ asset('css/style.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/messages.css') }}" rel="stylesheet">

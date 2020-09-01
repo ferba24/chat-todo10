@@ -30,23 +30,24 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12">
-							<button id="sendButton" type="submit" class="btn btn-primary">
-							<span v-if="!send_login">
-								Log in
-							</span>
-							<span v-if="send_login">
-								<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-								Loading...
-							</span>
+						<div class="col-md-12 text-right">
+							<a href="https://customers.todo10.com/xenforojose/" class="btn btn-secondary">Close</a>
+							<a href="https://customers.todo10.com/xenforojose/index.php?register/" class="btn btn btn-danger"><i class="fa fa-plus" aria-hidden="true"></i> Register Now</a>
+							<button id="sendButton" type="submit" class="btn btn-primary"> 
+								<span v-if="!send_login">
+									<i class="fas fa-sign-in-alt"></i> Log in
+								</span>
+								<span v-if="send_login">
+									<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+									Loading...
+								</span>
 							</button>
 						</div>
 					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<a href="https://customers.todo10.com/xenforojose/index.php?register/" class="btn btn btn-secondary">Register Now</a>
-				<a href="https://customers.todo10.com/xenforojose/" class="btn btn-secondary">Close</a>
+				<!-- -->
 			</div>
 		</div>
 	</div>

@@ -2095,6 +2095,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -45474,7 +45475,20 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-12" }, [
+                  _c("div", { staticClass: "col-md-12 text-right" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: {
+                          href: "https://customers.todo10.com/xenforojose/"
+                        }
+                      },
+                      [_vm._v("Close")]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(1),
+                    _vm._v(" "),
                     _c(
                       "button",
                       {
@@ -45484,7 +45498,8 @@ var render = function() {
                       [
                         !_vm.send_login
                           ? _c("span", [
-                              _vm._v("\n\t\t\t\t\t\t\t\tLog in\n\t\t\t\t\t\t\t")
+                              _c("i", { staticClass: "fas fa-sign-in-alt" }),
+                              _vm._v(" Log in\n\t\t\t\t\t\t\t\t")
                             ])
                           : _vm._e(),
                         _vm._v(" "),
@@ -45495,7 +45510,7 @@ var render = function() {
                                 attrs: { role: "status", "aria-hidden": "true" }
                               }),
                               _vm._v(
-                                "\n\t\t\t\t\t\t\t\tLoading...\n\t\t\t\t\t\t\t"
+                                "\n\t\t\t\t\t\t\t\t\tLoading...\n\t\t\t\t\t\t\t\t"
                               )
                             ])
                           : _vm._e()
@@ -45507,7 +45522,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", { staticClass: "modal-footer" })
         ])
       ])
     ]
@@ -45532,27 +45547,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn btn-secondary",
-          attrs: {
-            href: "https://customers.todo10.com/xenforojose/index.php?register/"
-          }
-        },
-        [_vm._v("Register Now")]
-      ),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { href: "https://customers.todo10.com/xenforojose/" }
-        },
-        [_vm._v("Close")]
-      )
-    ])
+    return _c(
+      "a",
+      {
+        staticClass: "btn btn btn-danger",
+        attrs: {
+          href: "https://customers.todo10.com/xenforojose/index.php?register/"
+        }
+      },
+      [
+        _c("i", {
+          staticClass: "fa fa-plus",
+          attrs: { "aria-hidden": "true" }
+        }),
+        _vm._v(" Register Now")
+      ]
+    )
   }
 ]
 render._withStripped = true
