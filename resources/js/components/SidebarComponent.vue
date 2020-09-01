@@ -2,8 +2,12 @@
 <div class="card border-0">
     <div id="sidebar-header" class="card-header">
         <ul class="nav nav-pills nav-stacked" id="myTab">
-            <li><a href="#users" data-toggle="tab"  class="active">Users &nbsp;<span class="badge badge-pill badge-dark"><div id="users-count">{{ users_count }}</div></span></a></li>
-            <li><a href="#rooms" data-toggle="tab" >Rooms &nbsp;<span class="badge badge-pill badge-dark">{{ rooms_count }}</span></a></li>
+            <li class="text-center">
+                <a href="#users" data-toggle="tab"  class="active pt-2 pb-2" style="font-size:10px;"><i class="fas fa-users"></i> Users &nbsp;<span class="badge badge-pill badge-dark"><div id="users-count">{{ users_count }}</div></span></a>
+            </li>
+            <li class="text-center">
+                <a href="#rooms" data-toggle="tab" class="pt-2 pb-2" style="font-size:10px;"><i class="fas fa-home"></i> Rooms &nbsp;<span class="badge badge-pill badge-dark">{{ rooms_count }}</span></a>
+            </li>
         </ul>
     </div>			
     <div class="tab-content">
@@ -256,6 +260,12 @@ export default {
 </script>
 
 <style scoped>
+.btn-success {
+    background-color: #51ce86 !important;
+    border: 1px solid #51ce86 !important;
+	color: #fff !important;
+	min-height: 0px !important;
+}
 table td{
     font-size: 12px;
     line-height: 18px;
@@ -278,5 +288,8 @@ table td{
 }
 #user-content{
     cursor:pointer;
+}
+.nav-pills li{
+    width: 50%;
 }
 </style>

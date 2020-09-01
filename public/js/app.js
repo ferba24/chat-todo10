@@ -2556,6 +2556,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['login_user', 'current_room', 'rooms'],
   data: function data() {
@@ -7400,7 +7404,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ntable td[data-v-54833a28]{\r\n    font-size: 12px;\r\n    line-height: 18px;\r\n    padding: 3px 5px;\n}\n#sidebar-block[data-v-54833a28]{\r\n    padding-top: 1px;\n}\n.row.checkbox[data-v-54833a28]{\r\n    font-size: 12px;\r\n    background-color: #eee; \r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\n}\n.row.checkbox label[data-v-54833a28]{\r\n    margin-bottom: 0px !important;\n}\n.row.checkbox label input[data-v-54833a28]{\r\n    vertical-align: middle;\n}\n#user-content[data-v-54833a28]{\r\n    cursor:pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.btn-success[data-v-54833a28] {\r\n    background-color: #51ce86 !important;\r\n    border: 1px solid #51ce86 !important;\r\n\tcolor: #fff !important;\r\n\tmin-height: 0px !important;\n}\ntable td[data-v-54833a28]{\r\n    font-size: 12px;\r\n    line-height: 18px;\r\n    padding: 3px 5px;\n}\n#sidebar-block[data-v-54833a28]{\r\n    padding-top: 1px;\n}\n.row.checkbox[data-v-54833a28]{\r\n    font-size: 12px;\r\n    background-color: #eee; \r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\n}\n.row.checkbox label[data-v-54833a28]{\r\n    margin-bottom: 0px !important;\n}\n.row.checkbox label input[data-v-54833a28]{\r\n    vertical-align: middle;\n}\n#user-content[data-v-54833a28]{\r\n    cursor:pointer;\n}\n.nav-pills li[data-v-54833a28]{\r\n    width: 50%;\n}\r\n", ""]);
 
 // exports
 
@@ -46294,15 +46298,17 @@ var render = function() {
         "ul",
         { staticClass: "nav nav-pills nav-stacked", attrs: { id: "myTab" } },
         [
-          _c("li", [
+          _c("li", { staticClass: "text-center" }, [
             _c(
               "a",
               {
-                staticClass: "active",
+                staticClass: "active pt-2 pb-2",
+                staticStyle: { "font-size": "10px" },
                 attrs: { href: "#users", "data-toggle": "tab" }
               },
               [
-                _vm._v("Users  "),
+                _c("i", { staticClass: "fas fa-users" }),
+                _vm._v(" Users  "),
                 _c("span", { staticClass: "badge badge-pill badge-dark" }, [
                   _c("div", { attrs: { id: "users-count" } }, [
                     _vm._v(_vm._s(_vm.users_count))
@@ -46312,13 +46318,22 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("li", [
-            _c("a", { attrs: { href: "#rooms", "data-toggle": "tab" } }, [
-              _vm._v("Rooms  "),
-              _c("span", { staticClass: "badge badge-pill badge-dark" }, [
-                _vm._v(_vm._s(_vm.rooms_count))
-              ])
-            ])
+          _c("li", { staticClass: "text-center" }, [
+            _c(
+              "a",
+              {
+                staticClass: "pt-2 pb-2",
+                staticStyle: { "font-size": "10px" },
+                attrs: { href: "#rooms", "data-toggle": "tab" }
+              },
+              [
+                _c("i", { staticClass: "fas fa-home" }),
+                _vm._v(" Rooms  "),
+                _c("span", { staticClass: "badge badge-pill badge-dark" }, [
+                  _vm._v(_vm._s(_vm.rooms_count))
+                ])
+              ]
+            )
           ])
         ]
       )
