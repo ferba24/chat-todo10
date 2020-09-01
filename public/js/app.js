@@ -2215,13 +2215,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['login_user', 'sound_active'],
   data: function data() {
@@ -45640,9 +45633,14 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _c("small", { staticStyle: { "padding-left": "5px" } }, [
-                        _vm._v(_vm._s(_vm.user.username))
-                      ]),
+                      _c(
+                        "small",
+                        {
+                          staticClass: "font-weight-bold",
+                          staticStyle: { "padding-left": "5px" }
+                        },
+                        [_vm._v(_vm._s(_vm.user.username))]
+                      ),
                       _vm._v(" "),
                       _c("span", { staticClass: "caret" })
                     ]
@@ -45697,7 +45695,12 @@ var staticRenderFns = [
               "data-target": "#showModalRooms"
             }
           },
-          [_c("small", [_vm._v("ROOMS")])]
+          [
+            _c("small", [
+              _c("i", { staticClass: "fas fa-home" }),
+              _vm._v(" ROOMS")
+            ])
+          ]
         )
       ]),
       _vm._v(" "),
@@ -45705,7 +45708,12 @@ var staticRenderFns = [
         _c(
           "a",
           { staticClass: "nav-link", attrs: { href: "javascript:void(0);" } },
-          [_c("small", [_vm._v("LOGOUT")])]
+          [
+            _c("small", [
+              _c("i", { staticClass: "fas fa-sign-out-alt" }),
+              _vm._v(" LOGOUT")
+            ])
+          ]
         )
       ])
     ])
@@ -45714,15 +45722,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-      _c("li", { staticClass: "nav-item" }, [
-        _c(
-          "a",
-          { staticClass: "nav-link", attrs: { href: "<!-- URL CHAT -->" } },
-          [_c("i", { staticClass: "fas fa-home" })]
-        )
-      ]),
-      _vm._v(" "),
+    return _c("ul", { staticClass: "navbar-nav ml-auto primary-menu" }, [
       _c("li", { staticClass: "nav-item" }, [
         _c(
           "a",
@@ -45734,7 +45734,12 @@ var staticRenderFns = [
               "data-target": "#showModalRooms"
             }
           },
-          [_c("small", [_vm._v("ROOMS LIST")])]
+          [
+            _c("small", [
+              _c("i", { staticClass: "fas fa-home" }),
+              _vm._v(" ROOMS LIST")
+            ])
+          ]
         )
       ]),
       _vm._v(" "),
@@ -45750,18 +45755,20 @@ var staticRenderFns = [
             }
           },
           [
-            _c("i", { staticClass: "far fa-comment-dots" }),
-            _vm._v(" "),
-            _c("small", [_vm._v("PRIVATE MSG")])
+            _c("small", [
+              _c("i", { staticClass: "far fa-comment-dots" }),
+              _vm._v(" PRIVATE MSG")
+            ])
           ]
         )
       ]),
       _vm._v(" "),
-      _c("li", { staticClass: "nav-item" }, [
+      _c("li", { staticClass: "nav-item pr-0 mr-0" }, [
         _c("a", { staticClass: "nav-link" }, [
-          _c("i", { staticClass: "fas fa-music" }),
-          _vm._v(" "),
-          _c("small", [_vm._v("SOUNDS")])
+          _c("small", [
+            _c("i", { staticClass: "fas fa-music" }),
+            _vm._v(" SOUNDS")
+          ])
         ])
       ]),
       _vm._v(" "),

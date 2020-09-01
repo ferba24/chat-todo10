@@ -13,38 +13,31 @@
                             {{ user.username | capitalize }}
                         </span> 
                     </span>
-                        <small style="padding-left: 5px">{{ user.username }}</small>
+                        <small class="font-weight-bold" style="padding-left: 5px">{{ user.username }}</small>
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="javascript:void(0);" class="nav-link" data-toggle="modal" data-target="#showModalRooms"><small>ROOMS</small></a></li>
-                        <li><a href="javascript:void(0);" class="nav-link"><small>LOGOUT</small></a></li>
+                        <li><a href="javascript:void(0);" class="nav-link" data-toggle="modal" data-target="#showModalRooms"><small><i class="fas fa-home"></i> ROOMS</small></a></li>
+                        <li><a href="javascript:void(0);" class="nav-link"><small><i class="fas fa-sign-out-alt"></i> LOGOUT</small></a></li>
                     </ul>
                 </li>
             </ul>
             <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto primary-menu">
                 <!-- Authentication Links -->
                 <li class="nav-item">
-                    <a class="nav-link" href="<!-- URL CHAT -->">
-                        <i class="fas fa-home"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#showModalRooms">
-                        <small>ROOMS LIST</small>
+                        <small><i class="fas fa-home"></i> ROOMS LIST</small>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#showModalPrivate">
-                        <i class="far fa-comment-dots"></i>
-                        <small>PRIVATE MSG</small>
+                        <small><i class="far fa-comment-dots"></i> PRIVATE MSG</small>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item pr-0 mr-0">
                     <a class="nav-link">
-                        <i class="fas fa-music"></i>
-                        <small>SOUNDS</small>
+                        <small><i class="fas fa-music"></i> SOUNDS</small>
                     </a>
                 </li>
                 <li class="nav-item">
