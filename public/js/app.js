@@ -46292,353 +46292,368 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card border-0" }, [
-    _c("div", { staticClass: "card-header", attrs: { id: "sidebar-header" } }, [
+  return _c(
+    "div",
+    { staticClass: "card border-0", attrs: { id: "sidebarGroup" } },
+    [
       _c(
-        "ul",
-        { staticClass: "nav nav-pills nav-stacked", attrs: { id: "myTab" } },
+        "div",
+        { staticClass: "card-header", attrs: { id: "sidebar-header" } },
         [
-          _c("li", { staticClass: "text-center" }, [
-            _c(
-              "a",
-              {
-                staticClass: "active pt-2 pb-2",
-                staticStyle: { "font-size": "10px" },
-                attrs: { href: "#users", "data-toggle": "tab" }
-              },
-              [
-                _c("i", { staticClass: "fas fa-users" }),
-                _vm._v(" Users  "),
-                _c("span", { staticClass: "badge badge-pill badge-dark" }, [
-                  _c("div", { attrs: { id: "users-count" } }, [
-                    _vm._v(_vm._s(_vm.users_count))
-                  ])
-                ])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "text-center" }, [
-            _c(
-              "a",
-              {
-                staticClass: "pt-2 pb-2",
-                staticStyle: { "font-size": "10px" },
-                attrs: { href: "#rooms", "data-toggle": "tab" }
-              },
-              [
-                _c("i", { staticClass: "fas fa-home" }),
-                _vm._v(" Rooms  "),
-                _c("span", { staticClass: "badge badge-pill badge-dark" }, [
-                  _vm._v(_vm._s(_vm.rooms_count))
-                ])
-              ]
-            )
-          ])
-        ]
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "tab-content" }, [
-      _c("div", { staticClass: "tab-pane active", attrs: { id: "users" } }, [
-        _c("div", { attrs: { id: "search-wrapper" } }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.term_user,
-                expression: "term_user"
-              }
-            ],
-            staticClass: "form form-control remove-rounded",
-            attrs: {
-              type: "text",
-              name: "search",
-              id: "search",
-              placeholder: "Search user ..."
+          _c(
+            "ul",
+            {
+              staticClass: "nav nav-pills nav-stacked",
+              attrs: { id: "myTab" }
             },
-            domProps: { value: _vm.term_user },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.term_user = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("i", { staticClass: "fa fa-search" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row checkbox" }, [
-            _c("label", { staticClass: "col-md-4 text-center" }, [
-              _c("input", {
-                directives: [
+            [
+              _c("li", { staticClass: "text-center" }, [
+                _c(
+                  "a",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.show_admins,
-                    expression: "show_admins"
-                  }
-                ],
-                attrs: { type: "checkbox" },
-                domProps: {
-                  checked: Array.isArray(_vm.show_admins)
-                    ? _vm._i(_vm.show_admins, null) > -1
-                    : _vm.show_admins
-                },
-                on: {
-                  change: function($event) {
-                    var $$a = _vm.show_admins,
-                      $$el = $event.target,
-                      $$c = $$el.checked ? true : false
-                    if (Array.isArray($$a)) {
-                      var $$v = null,
-                        $$i = _vm._i($$a, $$v)
-                      if ($$el.checked) {
-                        $$i < 0 && (_vm.show_admins = $$a.concat([$$v]))
-                      } else {
-                        $$i > -1 &&
-                          (_vm.show_admins = $$a
-                            .slice(0, $$i)
-                            .concat($$a.slice($$i + 1)))
-                      }
-                    } else {
-                      _vm.show_admins = $$c
-                    }
-                  }
-                }
-              }),
-              _vm._v(" Admins")
-            ]),
-            _vm._v(" "),
-            _c("label", { staticClass: "col-md-4 text-center" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.show_mods,
-                    expression: "show_mods"
-                  }
-                ],
-                attrs: { type: "checkbox" },
-                domProps: {
-                  checked: Array.isArray(_vm.show_mods)
-                    ? _vm._i(_vm.show_mods, null) > -1
-                    : _vm.show_mods
-                },
-                on: {
-                  change: function($event) {
-                    var $$a = _vm.show_mods,
-                      $$el = $event.target,
-                      $$c = $$el.checked ? true : false
-                    if (Array.isArray($$a)) {
-                      var $$v = null,
-                        $$i = _vm._i($$a, $$v)
-                      if ($$el.checked) {
-                        $$i < 0 && (_vm.show_mods = $$a.concat([$$v]))
-                      } else {
-                        $$i > -1 &&
-                          (_vm.show_mods = $$a
-                            .slice(0, $$i)
-                            .concat($$a.slice($$i + 1)))
-                      }
-                    } else {
-                      _vm.show_mods = $$c
-                    }
-                  }
-                }
-              }),
-              _vm._v(" Mods")
-            ]),
-            _vm._v(" "),
-            _c("label", { staticClass: "col-md-4 text-center" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.show_others,
-                    expression: "show_others"
-                  }
-                ],
-                attrs: { type: "checkbox" },
-                domProps: {
-                  checked: Array.isArray(_vm.show_others)
-                    ? _vm._i(_vm.show_others, null) > -1
-                    : _vm.show_others
-                },
-                on: {
-                  change: function($event) {
-                    var $$a = _vm.show_others,
-                      $$el = $event.target,
-                      $$c = $$el.checked ? true : false
-                    if (Array.isArray($$a)) {
-                      var $$v = null,
-                        $$i = _vm._i($$a, $$v)
-                      if ($$el.checked) {
-                        $$i < 0 && (_vm.show_others = $$a.concat([$$v]))
-                      } else {
-                        $$i > -1 &&
-                          (_vm.show_others = $$a
-                            .slice(0, $$i)
-                            .concat($$a.slice($$i + 1)))
-                      }
-                    } else {
-                      _vm.show_others = $$c
-                    }
-                  }
-                }
-              }),
-              _vm._v(" Others")
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "card-body",
-            staticStyle: { "overflow-y": "auto", "background-color": "white" }
-          },
-          [
-            _c(
-              "ul",
-              {
-                staticStyle: { "list-style": "none" },
-                attrs: { id: "users-list" }
-              },
-              _vm._l(_vm.filterUsers, function(user) {
-                return _c(
-                  "li",
-                  { key: user.id, staticStyle: { "padding-bottom": "5px" } },
+                    staticClass: "active pt-2 pb-2",
+                    staticStyle: { "font-size": "10px" },
+                    attrs: { href: "#users", "data-toggle": "tab" }
+                  },
                   [
-                    _c("div", { attrs: { id: "user-content" } }, [
-                      _c("div", { staticClass: "row" }, [
-                        _c(
-                          "div",
-                          { staticClass: "col-md-2 text-center pr-0 pl-0" },
-                          [
-                            _c(
-                              "span",
-                              {
-                                staticClass:
-                                  "avatar avatar--m avatar--default avatar--default--dynamic",
-                                staticStyle: {
-                                  "background-color": "#85a3e0",
-                                  color: "#24478f"
-                                },
-                                attrs: { "data-user-id": "1" }
-                              },
-                              [
-                                _c("span", { staticClass: "avatar-u1-m" }, [
-                                  _vm._v(
-                                    _vm._s(_vm._f("capitalize")(user.name))
-                                  )
-                                ])
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-10 pr-0 pl-0" }, [
-                          _vm._v(
-                            "\r\n                                    " +
-                              _vm._s(user.name) +
-                              "\r\n                                "
-                          )
-                        ])
+                    _c("i", { staticClass: "fas fa-users" }),
+                    _vm._v(" Users  "),
+                    _c("span", { staticClass: "badge badge-pill badge-dark" }, [
+                      _c("div", { attrs: { id: "users-count" } }, [
+                        _vm._v(_vm._s(_vm.users_count))
                       ])
                     ])
                   ]
                 )
-              }),
-              0
-            )
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "tab-pane fade", attrs: { id: "rooms" } }, [
-        _c("div", { attrs: { id: "search-wrapper-rooms" } }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.term_room,
-                expression: "term_room"
-              }
-            ],
-            staticClass: "form form-control remove-rounded",
-            attrs: { type: "text", placeholder: "Search room ..." },
-            domProps: { value: _vm.term_room },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.term_room = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("i", { staticClass: "fa fa-search" })
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "card-body",
-            staticStyle: { "overflow-y": "auto" },
-            attrs: { id: "sidebar-block" }
-          },
-          [
-            _c("table", { staticClass: "table table-bordered table-striped" }, [
-              _vm._m(0),
+              ]),
               _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.filterRooms, function(room) {
-                  return _c("tr", { key: room.id }, [
-                    _c("td", [_vm._v(_vm._s(room.room_name))]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-center" }, [
-                      _vm._v(_vm._s(room.count_room))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-center" }, [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-success btn-sm active",
-                          attrs: { role: "button" },
-                          on: {
-                            click: function($event) {
-                              return _vm.selectedRoom("" + room.id)
-                            }
-                          }
-                        },
-                        [
-                          _c("i", { staticClass: "fas fa-door-open" }),
-                          _vm._v(" Enter")
-                        ]
-                      )
+              _c("li", { staticClass: "text-center" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "pt-2 pb-2",
+                    staticStyle: { "font-size": "10px" },
+                    attrs: { href: "#rooms", "data-toggle": "tab" }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-home" }),
+                    _vm._v(" Rooms  "),
+                    _c("span", { staticClass: "badge badge-pill badge-dark" }, [
+                      _vm._v(_vm._s(_vm.rooms_count))
                     ])
-                  ])
+                  ]
+                )
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "tab-content" }, [
+        _c("div", { staticClass: "tab-pane active", attrs: { id: "users" } }, [
+          _c("div", { attrs: { id: "search-wrapper" } }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.term_user,
+                  expression: "term_user"
+                }
+              ],
+              staticClass: "form form-control remove-rounded",
+              attrs: {
+                type: "text",
+                name: "search",
+                id: "search",
+                placeholder: "Search user ..."
+              },
+              domProps: { value: _vm.term_user },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.term_user = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("i", { staticClass: "fa fa-search" })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "container" }, [
+            _c("div", { staticClass: "row checkbox" }, [
+              _c("label", { staticClass: "col-md-4 text-center" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.show_admins,
+                      expression: "show_admins"
+                    }
+                  ],
+                  attrs: { type: "checkbox" },
+                  domProps: {
+                    checked: Array.isArray(_vm.show_admins)
+                      ? _vm._i(_vm.show_admins, null) > -1
+                      : _vm.show_admins
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.show_admins,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 && (_vm.show_admins = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.show_admins = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
+                      } else {
+                        _vm.show_admins = $$c
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" Admins")
+              ]),
+              _vm._v(" "),
+              _c("label", { staticClass: "col-md-4 text-center" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.show_mods,
+                      expression: "show_mods"
+                    }
+                  ],
+                  attrs: { type: "checkbox" },
+                  domProps: {
+                    checked: Array.isArray(_vm.show_mods)
+                      ? _vm._i(_vm.show_mods, null) > -1
+                      : _vm.show_mods
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.show_mods,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 && (_vm.show_mods = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.show_mods = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
+                      } else {
+                        _vm.show_mods = $$c
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" Mods")
+              ]),
+              _vm._v(" "),
+              _c("label", { staticClass: "col-md-4 text-center" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.show_others,
+                      expression: "show_others"
+                    }
+                  ],
+                  attrs: { type: "checkbox" },
+                  domProps: {
+                    checked: Array.isArray(_vm.show_others)
+                      ? _vm._i(_vm.show_others, null) > -1
+                      : _vm.show_others
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.show_others,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 && (_vm.show_others = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.show_others = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
+                      } else {
+                        _vm.show_others = $$c
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" Others")
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "card-body",
+              staticStyle: { "overflow-y": "auto", "background-color": "white" }
+            },
+            [
+              _c(
+                "ul",
+                {
+                  staticStyle: { "list-style": "none" },
+                  attrs: { id: "users-list" }
+                },
+                _vm._l(_vm.filterUsers, function(user) {
+                  return _c(
+                    "li",
+                    { key: user.id, staticStyle: { "padding-bottom": "5px" } },
+                    [
+                      _c("div", { attrs: { id: "user-content" } }, [
+                        _c("div", { staticClass: "row" }, [
+                          _c(
+                            "div",
+                            { staticClass: "col-md-2 text-center pr-0 pl-0" },
+                            [
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "avatar avatar--m avatar--default avatar--default--dynamic",
+                                  staticStyle: {
+                                    "background-color": "#85a3e0",
+                                    color: "#24478f"
+                                  },
+                                  attrs: { "data-user-id": "1" }
+                                },
+                                [
+                                  _c("span", { staticClass: "avatar-u1-m" }, [
+                                    _vm._v(
+                                      _vm._s(_vm._f("capitalize")(user.name))
+                                    )
+                                  ])
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-10 pr-0 pl-0" }, [
+                            _vm._v(
+                              "\r\n                                    " +
+                                _vm._s(user.name) +
+                                "\r\n                                "
+                            )
+                          ])
+                        ])
+                      ])
+                    ]
+                  )
                 }),
                 0
               )
-            ])
-          ]
-        )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "tab-pane fade", attrs: { id: "rooms" } }, [
+          _c("div", { attrs: { id: "search-wrapper-rooms" } }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.term_room,
+                  expression: "term_room"
+                }
+              ],
+              staticClass: "form form-control remove-rounded",
+              attrs: { type: "text", placeholder: "Search room ..." },
+              domProps: { value: _vm.term_room },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.term_room = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("i", { staticClass: "fa fa-search" })
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "card-body",
+              staticStyle: { "overflow-y": "auto" },
+              attrs: { id: "sidebar-block" }
+            },
+            [
+              _c(
+                "table",
+                { staticClass: "table table-bordered table-striped" },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.filterRooms, function(room) {
+                      return _c("tr", { key: room.id }, [
+                        _c("td", [_vm._v(_vm._s(room.room_name))]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-center" }, [
+                          _vm._v(_vm._s(room.count_room))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-center" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-success btn-sm active",
+                              attrs: { role: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.selectedRoom("" + room.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-door-open" }),
+                              _vm._v(" Enter")
+                            ]
+                          )
+                        ])
+                      ])
+                    }),
+                    0
+                  )
+                ]
+              )
+            ]
+          )
+        ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {

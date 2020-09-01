@@ -1,5 +1,5 @@
 <template>
-<div class="card border-0">
+<div id="sidebarGroup" class="card border-0">
     <div id="sidebar-header" class="card-header">
         <ul class="nav nav-pills nav-stacked" id="myTab">
             <li class="text-center">
