@@ -565,7 +565,7 @@ body {
   box-shadow: 0 0 0 0 #00000030;
   border: 1px solid #4c8ec7;
 }
-.btn-danger, .btn-primary, .btn-success, .dark-blue-btn, .btn-secondary {
+.btn-danger, .btn-primary, .btn-success, .dark-blue-btn, .btn-secondary, .btn-light {
   border-radius: 25px;
   min-height: 35px !important;
   line-height: 20px !important;
@@ -588,4 +588,13 @@ body {
 }
 #showModalLogin .btn{
   font-size: .8em;
+}
+/* Modal rooms */
+#toggleRooms .btn-primary{
+  border: none !important;
+}
+#toggleRooms .btn-primary label.btn-primary {
+  background-color: #51ce86;
+  border: 1px solid #51ce86 !important;
+  color: #fff !important;
 }

@@ -2354,7 +2354,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['login_user', 'current_room', 'connected_users'],
   data: function data() {
@@ -7389,7 +7388,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ntable>thead>tr td[data-v-743e2ce0]{\n\tpadding-top: 5px;\n\tpadding-bottom: 5px;\n}\ntable>tbody>tr td[data-v-743e2ce0] {\n\tpadding: 3px 8px !important;\n}\n.row[data-v-743e2ce0]{\n\tmargin-left: 0px;\n\tmargin-right: 0px;\n}\n.avatar.avatar--m[data-v-743e2ce0] {\n    width: 40px;\n    height: 40px;\n    font-size: 30px;\n}\nsmall[data-v-743e2ce0]{\n\tfont-size: 9px !important;\n}\n@media (min-width:768px) {\n.modal-dialog[data-v-743e2ce0] {\n\t\tmax-width:600px;\n\t\tmargin:30px auto\n}\n}\n", ""]);
+exports.push([module.i, "\n.btn-success[data-v-743e2ce0] {\n    background-color: #51ce86 !important;\n    border: 1px solid #51ce86 !important;\n\tcolor: #fff !important;\n\tmin-height: 0px !important;\n}\ntable>thead>tr td[data-v-743e2ce0]{\n\tpadding-top: 5px;\n\tpadding-bottom: 5px;\n}\ntable>tbody>tr td[data-v-743e2ce0] {\n\tpadding: 3px 8px !important;\n}\n.row[data-v-743e2ce0]{\n\tmargin-left: 0px;\n\tmargin-right: 0px;\n}\n.avatar.avatar--m[data-v-743e2ce0] {\n    width: 40px;\n    height: 40px;\n    font-size: 30px;\n}\nsmall[data-v-743e2ce0]{\n\tfont-size: 9px !important;\n}\n@media (min-width:768px) {\n.modal-dialog[data-v-743e2ce0] {\n\t\tmax-width:600px;\n\t\tmargin:30px auto\n}\n}\n", ""]);
 
 // exports
 
@@ -46142,7 +46141,7 @@ var render = function() {
                                     _c("i", {
                                       staticClass: "fas fa-door-open"
                                     }),
-                                    _vm._v("Enter")
+                                    _vm._v(" Enter")
                                   ]
                                 )
                               ]
@@ -46183,19 +46182,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-1 hidden-md hidden-sm" }, [
-      _c(
-        "span",
-        { staticStyle: { "margin-left": "-15px", "font-size": "10px" } },
-        [_c("b", [_vm._v("EMPTY")])]
-      ),
-      _vm._v(" "),
-      _c(
-        "span",
-        { staticStyle: { "margin-left": "-15px", "font-size": "10px" } },
-        [_c("b", [_vm._v("ROOMS")])]
-      )
-    ])
+    return _c(
+      "div",
+      {
+        staticClass: "col-md-1 hidden-md hidden-sm pl-0 pr-0",
+        staticStyle: { "line-height": "14px" }
+      },
+      [
+        _c("span", { staticStyle: { "font-size": "12px" } }, [
+          _vm._v("EMPTY ROOMS")
+        ])
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -46224,11 +46222,23 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("td", { staticClass: "text-center" }, [_vm._v("Room Name")]),
+        _c(
+          "td",
+          { staticClass: "text-center", staticStyle: { "font-size": "11px" } },
+          [_vm._v("Room Name")]
+        ),
         _vm._v(" "),
-        _c("td", { staticClass: "text-center" }, [_vm._v("Users")]),
+        _c(
+          "td",
+          { staticClass: "text-center", staticStyle: { "font-size": "11px" } },
+          [_vm._v("Users")]
+        ),
         _vm._v(" "),
-        _c("td", { staticClass: "text-center" }, [_vm._v("Action")])
+        _c(
+          "td",
+          { staticClass: "text-center", staticStyle: { "font-size": "11px" } },
+          [_vm._v("Action")]
+        )
       ])
     ])
   },

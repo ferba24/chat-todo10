@@ -14,9 +14,8 @@
 							<small id="searchx" class="form-text text-muted">Find your preferred room in this field.</small>
 						</div>
 					</div>
-					<div class="col-md-1 hidden-md hidden-sm">
-						<span style="margin-left: -15px; font-size: 10px;"><b>EMPTY</b></span>
-						<span style="margin-left: -15px; font-size: 10px;"><b>ROOMS</b></span>
+					<div class="col-md-1 hidden-md hidden-sm pl-0 pr-0" style="line-height: 14px;">
+						<span style="font-size: 12px;">EMPTY ROOMS</span>
 					</div>
 					<div class="col-md-2 hidden-md hidden-sm" id="toggleRooms">
 						<input type="checkbox" id="toggleRooms_input" data-toggle="toggle"/>
@@ -27,9 +26,9 @@
 						<table class="table table-bordered table-striped" id="searchy">
 							<thead>
 								<tr>
-									<td class="text-center">Room Name</td>
-									<td class="text-center">Users</td>
-									<td class="text-center">Action</td>
+									<td class="text-center" style="font-size:11px;">Room Name</td>
+									<td class="text-center" style="font-size:11px;">Users</td>
+									<td class="text-center" style="font-size:11px;">Action</td>
 								</tr>
 							</thead>
 							<tbody>
@@ -60,7 +59,7 @@
 									</td>
 									<td class="text-center" style="width:90px;">{{ room.count_room }}</td>
 									<td class="text-center justify-content-center" style="width:90px;">
-										<a class="btn btn-success btn-block btn-sm active" @click="selectedRoom(`${room.id}`)"  role="button" href="javascript:void(0)"><i class="fas fa-door-open"></i>Enter</a>
+										<a class="btn btn-success btn-block btn-sm active" @click="selectedRoom(`${room.id}`)"  role="button" href="javascript:void(0)"><i class="fas fa-door-open"></i> Enter</a>
 									</td>
 								</tr>
 							</tbody>
@@ -201,6 +200,12 @@ export default {
 </script>
 
 <style scoped>
+.btn-success {
+    background-color: #51ce86 !important;
+    border: 1px solid #51ce86 !important;
+	color: #fff !important;
+	min-height: 0px !important;
+}
 table>thead>tr td{
 	padding-top: 5px;
 	padding-bottom: 5px;
