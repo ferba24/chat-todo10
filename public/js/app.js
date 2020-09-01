@@ -2796,19 +2796,30 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     changeRoom: function changeRoom(id) {
-      this.$emit('current_roomsent', {
-        room_id: parseInt(id)
-      });
-    },
-    exitRoom: function exitRoom(id) {
-      var _this = this;
-
-      axios.post(this.$backendURL + '/api/room/exitRoom', {
-        _token: this.csrf,
+      var me = this;
+      axios.post(me.$backendURL + '/api/room/select', {
+        _token: me.csrf,
         room_id: id
       }).then(function (response) {
         if (response.data.success) {
-          _this.$emit('rooms_sent', {
+          me.$emit('current_roomsent', {
+            room_id: parseInt(id)
+          });
+        } else {
+          console.dir(response.data.error);
+        }
+      })["catch"](function (error) {
+        console.log('Error TabsRoomComponent.vue in selectedRoom(): ' + error);
+      });
+    },
+    exitRoom: function exitRoom(id) {
+      var me = this;
+      axios.post(me.$backendURL + '/api/room/exitRoom', {
+        _token: me.csrf,
+        room_id: id
+      }).then(function (response) {
+        if (response.data.success) {
+          me.$emit('rooms_sent', {
             room_id: parseInt(id)
           });
         } else {
