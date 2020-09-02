@@ -576,7 +576,7 @@ body {
 #toggleSound .btn-primary{
   border: none;
 }
-#toggleSound .btn-primary label.btn-primary {
+#toggleSound .btn label.btn-primary {
   background-color: #51ce86;
   border: 1px solid #51ce86 !important;
   color: #fff !important;
@@ -607,7 +607,7 @@ body {
 #toggleRooms .btn-primary{
   border: none !important;
 }
-#toggleRooms .btn-primary label.btn-primary {
+#toggleRooms .btn label.btn-primary {
   background-color: #51ce86;
   border: 1px solid #51ce86 !important;
   color: #fff !important;
