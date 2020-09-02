@@ -1979,7 +1979,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     sendMessage: function sendMessage() {
-      if (this.current_room != 0 && this.login_user != 0) {
+      this.newMessage = tinyMCE.activeEditor.getContent();
+
+      if (this.current_room != 0 && this.login_user != 0 && this.newMessage != "") {
         this.$emit('messagesent', {
           message: this.newMessage
         });
@@ -2021,9 +2023,12 @@ __webpack_require__.r(__webpack_exports__);
             e.preventDefault();
           }
         });
-        ed.on("keyup", function () {
-          me.newMessage = tinyMCE.activeEditor.getContent();
+        /*ed.on("keyup", function(){
+            me.newMessage = tinyMCE.activeEditor.getContent();
         });
+        ed.on('click', function(e) {
+            me.newMessage = tinyMCE.activeEditor.getContent();
+        });*/
       }
     });
   }

@@ -17,7 +17,8 @@ export default{
     },
     methods: {
         sendMessage() {
-            if(this.current_room != 0 && this.login_user != 0){
+            this.newMessage = tinyMCE.activeEditor.getContent();
+            if(this.current_room != 0 && this.login_user != 0 && this.newMessage != ""){
                 this.$emit('messagesent', {
                     message: this.newMessage
                 });
@@ -60,9 +61,12 @@ export default{
 						e.preventDefault();
 					}
                 });
-                ed.on("keyup", function(){
+                /*ed.on("keyup", function(){
                     me.newMessage = tinyMCE.activeEditor.getContent();
                 });
+                ed.on('click', function(e) {
+                    me.newMessage = tinyMCE.activeEditor.getContent();
+                });*/
 			}
 		});
     }
