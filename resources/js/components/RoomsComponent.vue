@@ -194,6 +194,9 @@ export default {
 			if(value != 0){
 				this.getRooms();
 			}
+		},
+		connected_users: function(value){
+			this.updateCurrentUsersByRooms();
 		}
 	}
 }

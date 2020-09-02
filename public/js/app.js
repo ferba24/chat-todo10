@@ -2477,6 +2477,9 @@ __webpack_require__.r(__webpack_exports__);
       if (value != 0) {
         this.getRooms();
       }
+    },
+    connected_users: function connected_users(value) {
+      this.updateCurrentUsersByRooms();
     }
   }
 });
