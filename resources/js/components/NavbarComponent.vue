@@ -18,7 +18,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="javascript:void(0);" class="nav-link" data-toggle="modal" data-target="#showModalRooms"><small><i class="fas fa-home"></i> ROOMS</small></a></li>
-                        <li><a href="javascript:void(0);" class="nav-link"><small><i class="fas fa-sign-out-alt"></i> LOGOUT</small></a></li>
+                        <li><a href="javascript:void(0);" class="nav-link" v-on:click="logout"><small><i class="fas fa-sign-out-alt"></i> LOGOUT</small></a></li>
                     </ul>
                 </li>
             </ul>
@@ -73,6 +73,9 @@ export default {
             this.$emit('sound_activesent',{
                 sound: (this.sound_active)?false:true
             });
+        },
+        logout(){
+            window.location.href = this.$backendURL + "/home/logout";
         }
     },
     filters: {

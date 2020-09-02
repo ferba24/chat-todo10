@@ -2235,6 +2235,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('sound_activesent', {
         sound: this.sound_active ? false : true
       });
+    },
+    logout: function logout() {
+      window.location.href = this.$backendURL + "/home/logout";
     }
   },
   filters: {
@@ -45661,12 +45664,26 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(1)
+                  _c("ul", { staticClass: "dropdown-menu" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "nav-link",
+                          attrs: { href: "javascript:void(0);" },
+                          on: { click: _vm.logout }
+                        },
+                        [_vm._m(2)]
+                      )
+                    ])
+                  ])
                 ]
               )
             ]),
             _vm._v(" "),
-            _vm._m(2)
+            _vm._m(3)
           ]
         )
       ])
@@ -45698,39 +45715,33 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "dropdown-menu" }, [
-      _c("li", [
-        _c(
-          "a",
-          {
-            staticClass: "nav-link",
-            attrs: {
-              href: "javascript:void(0);",
-              "data-toggle": "modal",
-              "data-target": "#showModalRooms"
-            }
-          },
-          [
-            _c("small", [
-              _c("i", { staticClass: "fas fa-home" }),
-              _vm._v(" ROOMS")
-            ])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("li", [
-        _c(
-          "a",
-          { staticClass: "nav-link", attrs: { href: "javascript:void(0);" } },
-          [
-            _c("small", [
-              _c("i", { staticClass: "fas fa-sign-out-alt" }),
-              _vm._v(" LOGOUT")
-            ])
-          ]
-        )
-      ])
+    return _c("li", [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link",
+          attrs: {
+            href: "javascript:void(0);",
+            "data-toggle": "modal",
+            "data-target": "#showModalRooms"
+          }
+        },
+        [
+          _c("small", [
+            _c("i", { staticClass: "fas fa-home" }),
+            _vm._v(" ROOMS")
+          ])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("small", [
+      _c("i", { staticClass: "fas fa-sign-out-alt" }),
+      _vm._v(" LOGOUT")
     ])
   },
   function() {
