@@ -595,6 +595,7 @@ body {
 }
 #scroll-messages-content.messages-content span>p{
   margin-bottom: 2px !important;
+  display: inline;
 }
 /* Login */
 #showModalLogin label{

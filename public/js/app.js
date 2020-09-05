@@ -1917,10 +1917,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['messages', 'current_room'],
+  props: ['messages', 'current_room', 'login_user_roles'],
   data: function data() {
-    return {};
+    return {
+      is_mod: false
+    };
   },
   filters: {
     get_username: function get_username(value) {
@@ -1932,8 +1941,19 @@ __webpack_require__.r(__webpack_exports__);
       return date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
     }
   },
-  watch: {},
+  watch: {
+    login_user_roles: function login_user_roles(value) {
+      this.checkIsMod();
+    }
+  },
   mounted: function mounted() {},
+  methods: {
+    checkIsMod: function checkIsMod() {
+      if (this.login_user_roles.includes(3) || this.login_user_roles.includes(4)) {
+        this.is_mod = true;
+      }
+    }
+  },
   updated: function updated() {
     var objDiv = document.getElementById("scroll-messages-content");
     objDiv.scrollTop = objDiv.scrollHeight;
@@ -7392,7 +7412,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#scroll-messages-content .msg[data-v-423cfa84]{\r\n    display: flex;\n}\np[data-v-423cfa84]{\r\n    margin: 0px !important;\n}\n.msg>span[data-v-423cfa84]{\r\n    margin-left: 5px;\n}\r\n", ""]);
+exports.push([module.i, "\n#scroll-messages-content .msg[data-v-423cfa84]{\r\n    display: inline;\n}\np[data-v-423cfa84]{\r\n    margin: 0px !important;\n}\n#scroll-messages-content span[data-v-423cfa84]{\r\n    margin-left: 5px;\r\n    display: inline;\n}\n#scroll-messages-content .date[data-v-423cfa84]{\r\n    display: inline;\n}\r\n", ""]);
 
 // exports
 
@@ -45270,13 +45290,29 @@ var render = function() {
     _vm._l(_vm.filterMessages, function(message) {
       return _c("div", { key: message.id }, [
         _c("p", { staticClass: "msg" }, [
-          _vm._v("[" + _vm._s(_vm._f("get_username")(message.user)) + "] "),
-          _c("a", { attrs: { href: "#" } }, [
-            _vm._v(_vm._s(_vm._f("date_format")(message.date)))
-          ]),
-          _vm._v(": "),
-          _c("span", { domProps: { innerHTML: _vm._s(message.message) } })
-        ])
+          _vm._v("[" + _vm._s(_vm._f("get_username")(message.user)) + "]")
+        ]),
+        _vm._v(" "),
+        _vm.is_mod
+          ? _c("div", { staticClass: "date" }, [
+              _c("a", { attrs: { href: "#" } }, [
+                _vm._v(_vm._s(_vm._f("date_format")(message.date)))
+              ]),
+              _vm._v(" :\r\n        ")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        !_vm.is_mod
+          ? _c("div", { staticClass: "date" }, [
+              _vm._v(
+                "\r\n            " +
+                  _vm._s(_vm._f("date_format")(message.date)) +
+                  " :\r\n        "
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("span", { domProps: { innerHTML: _vm._s(message.message) } })
       ])
     }),
     0

@@ -1,7 +1,14 @@
 <template>
 <div class="card-body messages-content" style="overflow-y: auto;" id="scroll-messages-content">
     <div v-for="message in filterMessages" :key="message.id">
-        <p class="msg">[{{ message.user | get_username }}] <a href="#">{{ message.date | date_format }}</a>: <span v-html="message.message"></span></p>
+        <p class="msg">[{{ message.user | get_username }}]</p>
+        <div class="date" v-if="is_mod">
+            <a href="#">{{ message.date | date_format }}</a> :
+        </div>
+        <div class="date" v-if="!is_mod">
+            {{ message.date | date_format }} :
+        </div>
+        <span v-html="message.message"></span>
     </div>
 </div>
     
@@ -9,13 +16,13 @@
 
 <script>
 export default {
-    props: ['messages', 'current_room'],
-    data(){
+    props: ['messages', 'current_room', 'login_user_roles'],
+    data() {
         return{
-            
+            is_mod: false
         }
     },
-    filters:{
+    filters: {
         get_username: function(value){
             let parse = JSON.parse(value);
             return parse.username;
@@ -26,12 +33,21 @@ export default {
         }
     },
     watch: {
-        
+        login_user_roles: function(value){
+            this.checkIsMod();
+        }
     },
-    mounted(){
-        
+    mounted() {
+
     },
-    updated(){
+    methods: {
+        checkIsMod(){
+            if(this.login_user_roles.includes(3) || this.login_user_roles.includes(4)){
+                this.is_mod = true;
+            }
+        }
+    },
+    updated() {
         var objDiv = document.getElementById("scroll-messages-content");
         objDiv.scrollTop = objDiv.scrollHeight;
     },
@@ -50,12 +66,16 @@ export default {
 
 <style scoped>
 #scroll-messages-content .msg{
-    display: flex;
+    display: inline;
 }
 p{
     margin: 0px !important;
 }
-.msg>span{
+#scroll-messages-content span{
     margin-left: 5px;
+    display: inline;
+}
+#scroll-messages-content .date{
+    display: inline;
 }
 </style>

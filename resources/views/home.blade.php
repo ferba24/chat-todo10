@@ -11,7 +11,7 @@
 				<!--<div class="alert alert-success text-center" role="alert" style="padding: 5px;">
 					<small>This is a custom notice for this room. Terms and condictions link? Rules link? Whatever</small>
 				</div>-->
-				<chatmessages-component :messages="messages" :current_room="current_room"></chatmessages-component>
+				<chatmessages-component :messages="messages" :current_room="current_room" :login_user_roles="login_user_roles"></chatmessages-component>
 			</div>
 			<div id="card-box-form">
 				<groupformchat-component v-on:messagesent="addMessage"></groupformchat-component>
