@@ -32,6 +32,9 @@
 								</tr>
 							</thead>
 							<tbody>
+								<tr v-if="filterRooms.length <= 0">
+									<td>Loading...</td>
+								</tr>
 								<tr v-for="room in filterRooms" :key="room.id">
 									<td>							
 										<div class="row">

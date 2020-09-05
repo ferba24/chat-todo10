@@ -2375,6 +2375,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['login_user', 'current_room', 'connected_users'],
   data: function data() {
@@ -2524,6 +2527,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -46090,146 +46096,161 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "tbody",
-                        _vm._l(_vm.filterRooms, function(room) {
-                          return _c("tr", { key: room.id }, [
-                            _c("td", [
-                              _c("div", { staticClass: "row" }, [
-                                room.room_photo == null
-                                  ? _c("div", { staticClass: "col-md-4 p-0" }, [
-                                      _c(
-                                        "span",
-                                        {
-                                          staticClass:
-                                            "avatar avatar--m avatar--default avatar--default--dynamic",
-                                          staticStyle: {
-                                            "background-color": "#85a3e0",
-                                            color: "#24478f"
-                                          },
-                                          attrs: { "data-user-id": "1" }
-                                        },
+                        [
+                          _vm.filterRooms.length <= 0
+                            ? _c("tr", [_c("td", [_vm._v("Loading...")])])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm._l(_vm.filterRooms, function(room) {
+                            return _c("tr", { key: room.id }, [
+                              _c("td", [
+                                _c("div", { staticClass: "row" }, [
+                                  room.room_photo == null
+                                    ? _c(
+                                        "div",
+                                        { staticClass: "col-md-4 p-0" },
                                         [
                                           _c(
                                             "span",
-                                            { staticClass: "avatar-u1-m" },
+                                            {
+                                              staticClass:
+                                                "avatar avatar--m avatar--default avatar--default--dynamic",
+                                              staticStyle: {
+                                                "background-color": "#85a3e0",
+                                                color: "#24478f"
+                                              },
+                                              attrs: { "data-user-id": "1" }
+                                            },
                                             [
-                                              _vm._v(
-                                                "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t" +
-                                                  _vm._s(
-                                                    _vm._f("capitalize")(
-                                                      room.room_name
-                                                    )
-                                                  ) +
-                                                  " \n\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                                              _c(
+                                                "span",
+                                                { staticClass: "avatar-u1-m" },
+                                                [
+                                                  _vm._v(
+                                                    "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t" +
+                                                      _vm._s(
+                                                        _vm._f("capitalize")(
+                                                          room.room_name
+                                                        )
+                                                      ) +
+                                                      " \n\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                                                  )
+                                                ]
                                               )
                                             ]
                                           )
                                         ]
                                       )
-                                    ])
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                room.room_photo !== null
-                                  ? _c("div", { staticClass: "col-md-4 p-0" }, [
-                                      _c(
-                                        "span",
-                                        {
-                                          staticClass:
-                                            "avatar avatar--m avatar--default avatar--default--dynamic",
-                                          staticStyle: {
-                                            "background-color": "#85a3e0",
-                                            color: "#24478f"
-                                          },
-                                          attrs: { "data-user-id": "1" }
-                                        },
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  room.room_photo !== null
+                                    ? _c(
+                                        "div",
+                                        { staticClass: "col-md-4 p-0" },
                                         [
-                                          _c("img", {
-                                            staticClass:
-                                              "avatar-u1-o js-croppedAvatar cropImage",
-                                            staticStyle: {
-                                              left: "-9px",
-                                              top: "0px",
-                                              "touch-action": "none",
-                                              "user-select": "none",
-                                              "-webkit-user-drag": "none",
-                                              "-webkit-tap-highlight-color":
-                                                "rgba(0, 0, 0, 0)",
-                                              width: "115px"
+                                          _c(
+                                            "span",
+                                            {
+                                              staticClass:
+                                                "avatar avatar--m avatar--default avatar--default--dynamic",
+                                              staticStyle: {
+                                                "background-color": "#85a3e0",
+                                                color: "#24478f"
+                                              },
+                                              attrs: { "data-user-id": "1" }
                                             },
-                                            attrs: {
-                                              src: "/room/" + room.room_photo,
-                                              alt: _vm._f("capitalize")(
-                                                room.room_name
-                                              ),
-                                              draggable: "false"
-                                            }
-                                          })
+                                            [
+                                              _c("img", {
+                                                staticClass:
+                                                  "avatar-u1-o js-croppedAvatar cropImage",
+                                                staticStyle: {
+                                                  left: "-9px",
+                                                  top: "0px",
+                                                  "touch-action": "none",
+                                                  "user-select": "none",
+                                                  "-webkit-user-drag": "none",
+                                                  "-webkit-tap-highlight-color":
+                                                    "rgba(0, 0, 0, 0)",
+                                                  width: "115px"
+                                                },
+                                                attrs: {
+                                                  src:
+                                                    "/room/" + room.room_photo,
+                                                  alt: _vm._f("capitalize")(
+                                                    room.room_name
+                                                  ),
+                                                  draggable: "false"
+                                                }
+                                              })
+                                            ]
+                                          )
                                         ]
                                       )
-                                    ])
-                                  : _vm._e(),
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-md-8 p-0" }, [
+                                    _vm._v(
+                                      "\n\t\t\t\t\t\t\t\t\t\t\t\t" +
+                                        _vm._s(room.room_name) +
+                                        "\n\t\t\t\t\t\t\t\t\t\t\t"
+                                    )
+                                  ])
+                                ]),
                                 _vm._v(" "),
-                                _c("div", { staticClass: "col-md-8 p-0" }, [
-                                  _vm._v(
-                                    "\n\t\t\t\t\t\t\t\t\t\t\t\t" +
-                                      _vm._s(room.room_name) +
-                                      "\n\t\t\t\t\t\t\t\t\t\t\t"
-                                  )
+                                _c("div", { staticClass: "row" }, [
+                                  _c("div", { staticClass: "col-md-12 p-0" }, [
+                                    _c("small", [
+                                      _vm._v(_vm._s(room.room_description))
+                                    ])
+                                  ])
                                 ])
                               ]),
                               _vm._v(" "),
-                              _c("div", { staticClass: "row" }, [
-                                _c("div", { staticClass: "col-md-12 p-0" }, [
-                                  _c("small", [
-                                    _vm._v(_vm._s(room.room_description))
-                                  ])
-                                ])
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              {
-                                staticClass: "text-center",
-                                staticStyle: { width: "90px" }
-                              },
-                              [_vm._v(_vm._s(room.count_room))]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              {
-                                staticClass:
-                                  "text-center justify-content-center",
-                                staticStyle: { width: "90px" }
-                              },
-                              [
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass:
-                                      "btn btn-success btn-block btn-sm active",
-                                    attrs: {
-                                      role: "button",
-                                      href: "javascript:void(0)"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.selectedRoom("" + room.id)
+                              _c(
+                                "td",
+                                {
+                                  staticClass: "text-center",
+                                  staticStyle: { width: "90px" }
+                                },
+                                [_vm._v(_vm._s(room.count_room))]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticClass:
+                                    "text-center justify-content-center",
+                                  staticStyle: { width: "90px" }
+                                },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "btn btn-success btn-block btn-sm active",
+                                      attrs: {
+                                        role: "button",
+                                        href: "javascript:void(0)"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.selectedRoom("" + room.id)
+                                        }
                                       }
-                                    }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fas fa-door-open"
-                                    }),
-                                    _vm._v(" Enter")
-                                  ]
-                                )
-                              ]
-                            )
-                          ])
-                        }),
-                        0
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-door-open"
+                                      }),
+                                      _vm._v(" Enter")
+                                    ]
+                                  )
+                                ]
+                              )
+                            ])
+                          })
+                        ],
+                        2
                       )
                     ]
                   )
@@ -46593,52 +46614,65 @@ var render = function() {
                   staticStyle: { "list-style": "none" },
                   attrs: { id: "users-list" }
                 },
-                _vm._l(_vm.filterUsers, function(user) {
-                  return _c(
-                    "li",
-                    { key: user.id, staticStyle: { "padding-bottom": "5px" } },
-                    [
-                      _c("div", { attrs: { id: "user-content" } }, [
-                        _c("div", { staticClass: "row" }, [
-                          _c(
-                            "div",
-                            { staticClass: "col-md-2 text-center pr-0 pl-0" },
-                            [
-                              _c(
-                                "span",
-                                {
-                                  staticClass:
-                                    "avatar avatar--m avatar--default avatar--default--dynamic",
-                                  staticStyle: {
-                                    "background-color": "#85a3e0",
-                                    color: "#24478f"
+                [
+                  _vm.filterUsers.length <= 0
+                    ? _c("li", [
+                        _vm._v(
+                          "\r\n                        Loading...\r\n                    "
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm._l(_vm.filterUsers, function(user) {
+                    return _c(
+                      "li",
+                      {
+                        key: user.id,
+                        staticStyle: { "padding-bottom": "5px" }
+                      },
+                      [
+                        _c("div", { attrs: { id: "user-content" } }, [
+                          _c("div", { staticClass: "row" }, [
+                            _c(
+                              "div",
+                              { staticClass: "col-md-2 text-center pr-0 pl-0" },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass:
+                                      "avatar avatar--m avatar--default avatar--default--dynamic",
+                                    staticStyle: {
+                                      "background-color": "#85a3e0",
+                                      color: "#24478f"
+                                    },
+                                    attrs: { "data-user-id": "1" }
                                   },
-                                  attrs: { "data-user-id": "1" }
-                                },
-                                [
-                                  _c("span", { staticClass: "avatar-u1-m" }, [
-                                    _vm._v(
-                                      _vm._s(_vm._f("capitalize")(user.name))
-                                    )
-                                  ])
-                                ]
+                                  [
+                                    _c("span", { staticClass: "avatar-u1-m" }, [
+                                      _vm._v(
+                                        _vm._s(_vm._f("capitalize")(user.name))
+                                      )
+                                    ])
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-10 pr-0 pl-0" }, [
+                              _vm._v(
+                                "\r\n                                    " +
+                                  _vm._s(user.name) +
+                                  "\r\n                                "
                               )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-md-10 pr-0 pl-0" }, [
-                            _vm._v(
-                              "\r\n                                    " +
-                                _vm._s(user.name) +
-                                "\r\n                                "
-                            )
+                            ])
                           ])
                         ])
-                      ])
-                    ]
-                  )
-                }),
-                0
+                      ]
+                    )
+                  })
+                ],
+                2
               )
             ]
           )

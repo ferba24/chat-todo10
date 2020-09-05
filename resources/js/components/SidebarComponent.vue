@@ -25,6 +25,9 @@
             </div>
             <div class="card-body" style="overflow-y: auto; background-color: white;">
                 <ul style="list-style: none;" id="users-list">
+                    <li v-if="filterUsers.length <= 0">
+                        Loading...
+                    </li>
                     <li v-for="user in filterUsers" :key="user.id" style="padding-bottom: 5px;">
                         <div id="user-content">
                             <div class="row">
