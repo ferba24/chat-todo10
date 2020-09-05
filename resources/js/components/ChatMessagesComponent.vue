@@ -1,6 +1,6 @@
 <template>
 <div class="card-body messages-content" style="overflow-y: auto;" id="scroll-messages-content">
-    <div v-for="message in filterMessages" :key="message.id">
+    <div class="message_block" v-for="message in filterMessages" :key="message.id">
         <p class="msg">[{{ message.user | get_username }}]</p>
         <div class="date" v-if="is_mod">
             <a href="#">{{ message.date | date_format }}</a> :
@@ -9,6 +9,9 @@
             {{ message.date | date_format }} :
         </div>
         <span v-html="message.message"></span>
+        <div class="report" v-if="!is_mod">
+            <a href="#"><i class="fas fa-flag"></i></a>
+        </div>
     </div>
 </div>
     
@@ -77,5 +80,13 @@ p{
 }
 #scroll-messages-content .date{
     display: inline;
+}
+#scroll-messages-content .report{
+    opacity: 0;
+    float: right;
+    margin-right: 15px;
+}
+#scroll-messages-content .message_block:hover .report{
+    opacity: 0.5;
 }
 </style>

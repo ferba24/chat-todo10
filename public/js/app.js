@@ -1924,6 +1924,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['messages', 'current_room', 'login_user_roles'],
   data: function data() {
@@ -7418,7 +7421,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#scroll-messages-content .msg[data-v-423cfa84]{\r\n    display: inline;\n}\np[data-v-423cfa84]{\r\n    margin: 0px !important;\n}\n#scroll-messages-content span[data-v-423cfa84]{\r\n    margin-left: 5px;\r\n    display: inline;\n}\n#scroll-messages-content .date[data-v-423cfa84]{\r\n    display: inline;\n}\r\n", ""]);
+exports.push([module.i, "\n#scroll-messages-content .msg[data-v-423cfa84]{\r\n    display: inline;\n}\np[data-v-423cfa84]{\r\n    margin: 0px !important;\n}\n#scroll-messages-content span[data-v-423cfa84]{\r\n    margin-left: 5px;\r\n    display: inline;\n}\n#scroll-messages-content .date[data-v-423cfa84]{\r\n    display: inline;\n}\n#scroll-messages-content .report[data-v-423cfa84]{\r\n    opacity: 0;\r\n    float: right;\r\n    margin-right: 15px;\n}\n#scroll-messages-content .message_block:hover .report[data-v-423cfa84]{\r\n    opacity: 0.5;\n}\r\n", ""]);
 
 // exports
 
@@ -45294,7 +45297,7 @@ var render = function() {
       attrs: { id: "scroll-messages-content" }
     },
     _vm._l(_vm.filterMessages, function(message) {
-      return _c("div", { key: message.id }, [
+      return _c("div", { key: message.id, staticClass: "message_block" }, [
         _c("p", { staticClass: "msg" }, [
           _vm._v("[" + _vm._s(_vm._f("get_username")(message.user)) + "]")
         ]),
@@ -45318,13 +45321,26 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _c("span", { domProps: { innerHTML: _vm._s(message.message) } })
+        _c("span", { domProps: { innerHTML: _vm._s(message.message) } }),
+        _vm._v(" "),
+        !_vm.is_mod
+          ? _c("div", { staticClass: "report" }, [_vm._m(0, true)])
+          : _vm._e()
       ])
     }),
     0
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fas fa-flag" })
+    ])
+  }
+]
 render._withStripped = true
 
 
