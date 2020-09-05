@@ -17,7 +17,7 @@
 					<div class="col-md-1 hidden-md hidden-sm pl-0 pr-0" style="line-height: 14px;">
 						<span style="font-size: 12px;">EMPTY ROOMS</span>
 					</div>
-					<div class="col-md-2 hidden-md hidden-sm" id="toggleRooms">
+					<div class="col-md-2 hidden-md hidden-sm" id="toggleRooms" style="height: 40px;">
 						<input type="checkbox" id="toggleRooms_input" data-toggle="toggle"/>
 					</div>
 				</div>
@@ -172,6 +172,10 @@ export default {
 			if(this.empty){
 				filtered = this.arrayRooms.filter(
                     m => m.count_room <= 0
+                );
+			}else{
+				filtered = this.arrayRooms.filter(
+                    m => m.count_room >= 1
                 );
 			}
 			//Se filtra por el término buscado

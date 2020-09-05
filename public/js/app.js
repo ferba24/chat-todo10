@@ -2459,6 +2459,10 @@ __webpack_require__.r(__webpack_exports__);
         filtered = this.arrayRooms.filter(function (m) {
           return m.count_room <= 0;
         });
+      } else {
+        filtered = this.arrayRooms.filter(function (m) {
+          return m.count_room >= 1;
+        });
       } //Se filtra por el término buscado
 
 
@@ -46244,6 +46248,7 @@ var staticRenderFns = [
       "div",
       {
         staticClass: "col-md-2 hidden-md hidden-sm",
+        staticStyle: { height: "40px" },
         attrs: { id: "toggleRooms" }
       },
       [
