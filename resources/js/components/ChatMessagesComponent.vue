@@ -66,27 +66,3 @@ export default {
     }
 };
 </script>
-
-<style scoped>
-#scroll-messages-content .msg{
-    display: inline;
-}
-p{
-    margin: 0px !important;
-}
-#scroll-messages-content span{
-    margin-left: 5px;
-    display: inline;
-}
-#scroll-messages-content .date{
-    display: inline;
-}
-#scroll-messages-content .report{
-    opacity: 0;
-    float: right;
-    margin-right: 15px;
-}
-#scroll-messages-content .message_block:hover .report{
-    opacity: 0.5;
-}
-</style>

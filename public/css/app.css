@@ -11330,12 +11330,7 @@ body {
   min-height: 250px;
 }
 
-#scroll-messages-content.messages-content span > p {
-  margin-bottom: 2px !important;
-  display: inline;
-}
-
-/* LoginUserComponent */
+/* LoginUserComponent.vue */
 
 #showModalLogin label {
   font-weight: 600 !important;
@@ -11345,7 +11340,7 @@ body {
   font-size: 0.8em;
 }
 
-/* RoomsComponent */
+/* RoomsComponent.vue */
 
 #showModalRooms .btn-success {
   background-color: #51ce86;
@@ -11406,6 +11401,37 @@ body {
   background-color: #51ce86;
   border: 1px solid #51ce86 !important;
   color: #fff !important;
+}
+
+/* ChatMessagesComponent.vue */
+
+#scroll-messages-content .msg {
+  display: inline;
+}
+
+#scroll-messages-content span {
+  margin-left: 5px;
+  display: inline;
+}
+
+#scroll-messages-content span > p {
+  margin: 0px !important;
+  margin-bottom: 2px !important;
+  display: inline;
+}
+
+#scroll-messages-content .date {
+  display: inline;
+}
+
+#scroll-messages-content .report {
+  opacity: 0;
+  float: right;
+  margin-right: 15px;
+}
+
+#scroll-messages-content .message_block:hover .report {
+  opacity: 0.5;
 }
 
 /* slide_block */
