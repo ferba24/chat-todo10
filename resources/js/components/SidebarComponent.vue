@@ -12,18 +12,18 @@
     </div>			
     <div class="tab-content">
         <div id="users" class="tab-pane active">			
-            <div id="search-wrapper">
+            <div id="search-wrapper" class="bg-white">
                 <input type="text" class="form form-control remove-rounded" name="search" id="search" placeholder="Search user ..." v-model="term_user"/>
                 <i class="fa fa-search"></i>
             </div>
             <div class="container">
-                <div class="row checkbox">
+                <div class="row checkbox bg-white">
                     <label class="col-md-4 text-center"><input type="checkbox" v-model="show_admins"> Admins</label>
                     <label class="col-md-4 text-center"><input type="checkbox" v-model="show_mods"> Mods</label>
                     <label class="col-md-4 text-center"><input type="checkbox" v-model="show_others"> Others</label>
                 </div>
             </div>
-            <div class="card-body" style="overflow-y: auto; background-color: white;">
+            <div class="card-body bg-white" style="overflow-y: auto;">
                 <ul style="list-style: none;" id="users-list">
                     <li v-if="filterUsers.length <= 0">
                         Loading...
@@ -46,12 +46,12 @@
             </div>
         </div>
         <div id="rooms" class="tab-pane fade">
-            <div id="search-wrapper-rooms">
+            <div id="search-wrapper-rooms" class="bg-white">
                 <input type="text" class="form form-control remove-rounded" placeholder="Search room ..." v-model="term_room"/>
                 <i class="fa fa-search"></i>
             </div>
-            <div id="sidebar-block" class="card-body" style="overflow-y: auto;">	
-                <table class="table table-bordered table-striped">
+            <div id="sidebar-block" class="card-body bg-white" style="overflow-y: auto;">	
+                <table class="table">
                     <thead>
                         <tr>
                             <td class="text-center">Name</td>
@@ -263,11 +263,20 @@ export default {
 </script>
 
 <style scoped>
+table{
+    background: white;
+}
 .btn-success {
     background-color: #51ce86 !important;
     border: 1px solid #51ce86 !important;
 	color: #fff !important;
-	min-height: 0px !important;
+    min-height: 0px !important;
+    width: 100%;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+table thead{
+    font-weight: bold;
 }
 table td{
     font-size: 12px;
@@ -294,5 +303,9 @@ table td{
 }
 .nav-pills li{
     width: 50%;
+}
+#search-wrapper-rooms input, #search-wrapper input,
+#search-wrapper-rooms i, #search-wrapper i{
+    border: 0px !important;
 }
 </style>

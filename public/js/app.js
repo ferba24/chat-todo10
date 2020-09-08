@@ -7459,7 +7459,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn-success[data-v-54833a28] {\r\n    background-color: #51ce86 !important;\r\n    border: 1px solid #51ce86 !important;\r\n\tcolor: #fff !important;\r\n\tmin-height: 0px !important;\n}\ntable td[data-v-54833a28]{\r\n    font-size: 12px;\r\n    line-height: 18px;\r\n    padding: 3px 5px;\n}\n#sidebar-block[data-v-54833a28]{\r\n    padding-top: 1px;\n}\n.row.checkbox[data-v-54833a28]{\r\n    font-size: 12px;\r\n    background-color: #eee; \r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\n}\n.row.checkbox label[data-v-54833a28]{\r\n    margin-bottom: 0px !important;\n}\n.row.checkbox label input[data-v-54833a28]{\r\n    vertical-align: middle;\n}\n#user-content[data-v-54833a28]{\r\n    cursor:pointer;\n}\n.nav-pills li[data-v-54833a28]{\r\n    width: 50%;\n}\r\n", ""]);
+exports.push([module.i, "\ntable[data-v-54833a28]{\r\n    background: white;\n}\n.btn-success[data-v-54833a28] {\r\n    background-color: #51ce86 !important;\r\n    border: 1px solid #51ce86 !important;\r\n\tcolor: #fff !important;\r\n    min-height: 0px !important;\r\n    width: 100%;\r\n    border-radius: 4px;\r\n    text-transform: uppercase;\n}\ntable thead[data-v-54833a28]{\r\n    font-weight: bold;\n}\ntable td[data-v-54833a28]{\r\n    font-size: 12px;\r\n    line-height: 18px;\r\n    padding: 3px 5px;\n}\n#sidebar-block[data-v-54833a28]{\r\n    padding-top: 1px;\n}\n.row.checkbox[data-v-54833a28]{\r\n    font-size: 12px;\r\n    background-color: #eee; \r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\n}\n.row.checkbox label[data-v-54833a28]{\r\n    margin-bottom: 0px !important;\n}\n.row.checkbox label input[data-v-54833a28]{\r\n    vertical-align: middle;\n}\n#user-content[data-v-54833a28]{\r\n    cursor:pointer;\n}\n.nav-pills li[data-v-54833a28]{\r\n    width: 50%;\n}\n#search-wrapper-rooms input[data-v-54833a28], #search-wrapper input[data-v-54833a28],\r\n#search-wrapper-rooms i[data-v-54833a28], #search-wrapper i[data-v-54833a28]{\r\n    border: 0px !important;\n}\r\n", ""]);
 
 // exports
 
@@ -46448,39 +46448,43 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "tab-content" }, [
         _c("div", { staticClass: "tab-pane active", attrs: { id: "users" } }, [
-          _c("div", { attrs: { id: "search-wrapper" } }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.term_user,
-                  expression: "term_user"
-                }
-              ],
-              staticClass: "form form-control remove-rounded",
-              attrs: {
-                type: "text",
-                name: "search",
-                id: "search",
-                placeholder: "Search user ..."
-              },
-              domProps: { value: _vm.term_user },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+          _c(
+            "div",
+            { staticClass: "bg-white", attrs: { id: "search-wrapper" } },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.term_user,
+                    expression: "term_user"
                   }
-                  _vm.term_user = $event.target.value
+                ],
+                staticClass: "form form-control remove-rounded",
+                attrs: {
+                  type: "text",
+                  name: "search",
+                  id: "search",
+                  placeholder: "Search user ..."
+                },
+                domProps: { value: _vm.term_user },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.term_user = $event.target.value
+                  }
                 }
-              }
-            }),
-            _vm._v(" "),
-            _c("i", { staticClass: "fa fa-search" })
-          ]),
+              }),
+              _vm._v(" "),
+              _c("i", { staticClass: "fa fa-search" })
+            ]
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "container" }, [
-            _c("div", { staticClass: "row checkbox" }, [
+            _c("div", { staticClass: "row checkbox bg-white" }, [
               _c("label", { staticClass: "col-md-4 text-center" }, [
                 _c("input", {
                   directives: [
@@ -46609,8 +46613,8 @@ var render = function() {
           _c(
             "div",
             {
-              staticClass: "card-body",
-              staticStyle: { "overflow-y": "auto", "background-color": "white" }
+              staticClass: "card-body bg-white",
+              staticStyle: { "overflow-y": "auto" }
             },
             [
               _c(
@@ -46684,80 +46688,80 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "tab-pane fade", attrs: { id: "rooms" } }, [
-          _c("div", { attrs: { id: "search-wrapper-rooms" } }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.term_room,
-                  expression: "term_room"
-                }
-              ],
-              staticClass: "form form-control remove-rounded",
-              attrs: { type: "text", placeholder: "Search room ..." },
-              domProps: { value: _vm.term_room },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+          _c(
+            "div",
+            { staticClass: "bg-white", attrs: { id: "search-wrapper-rooms" } },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.term_room,
+                    expression: "term_room"
                   }
-                  _vm.term_room = $event.target.value
+                ],
+                staticClass: "form form-control remove-rounded",
+                attrs: { type: "text", placeholder: "Search room ..." },
+                domProps: { value: _vm.term_room },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.term_room = $event.target.value
+                  }
                 }
-              }
-            }),
-            _vm._v(" "),
-            _c("i", { staticClass: "fa fa-search" })
-          ]),
+              }),
+              _vm._v(" "),
+              _c("i", { staticClass: "fa fa-search" })
+            ]
+          ),
           _vm._v(" "),
           _c(
             "div",
             {
-              staticClass: "card-body",
+              staticClass: "card-body bg-white",
               staticStyle: { "overflow-y": "auto" },
               attrs: { id: "sidebar-block" }
             },
             [
-              _c(
-                "table",
-                { staticClass: "table table-bordered table-striped" },
-                [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.filterRooms, function(room) {
-                      return _c("tr", { key: room.id }, [
-                        _c("td", [_vm._v(_vm._s(room.room_name))]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-center" }, [
-                          _vm._v(_vm._s(room.count_room))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-center" }, [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "btn btn-success btn-sm active",
-                              attrs: { role: "button" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.selectedRoom("" + room.id)
-                                }
+              _c("table", { staticClass: "table" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.filterRooms, function(room) {
+                    return _c("tr", { key: room.id }, [
+                      _c("td", [_vm._v(_vm._s(room.room_name))]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center" }, [
+                        _vm._v(_vm._s(room.count_room))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-success btn-sm active",
+                            attrs: { role: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.selectedRoom("" + room.id)
                               }
-                            },
-                            [
-                              _c("i", { staticClass: "fas fa-door-open" }),
-                              _vm._v(" Enter")
-                            ]
-                          )
-                        ])
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-door-open" }),
+                            _vm._v(" Enter")
+                          ]
+                        )
                       ])
-                    }),
-                    0
-                  )
-                ]
-              )
+                    ])
+                  }),
+                  0
+                )
+              ])
             ]
           )
         ])
