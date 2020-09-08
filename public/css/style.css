@@ -1,5 +1,5 @@
 /* Scrollbar */
-* {
+/** {
   scrollbar-width: thin;
 }
 *::-webkit-scrollbar {
@@ -8,7 +8,7 @@
 *::-webkit-scrollbar-thumb {
   background-color: gray;
   border-radius: 20px;
-}
+}*/
 /* - - */
 body {
   background-color: #ffffff !important;
