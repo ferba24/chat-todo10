@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid fill">
-    <div class="row justify-content-center fill">
+    <div class="row justify-content-center fill vh100-55px">
         <div id="chatGroup" class="col-md-9 pr-0 pl-0">
             <div id="card-box-messages" class="card border-0">
                 <div class="card-header">
