@@ -4,7 +4,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">Login</h5>
-				<small>Login by users</small>
+				<span>Login by users</span>
 			</div>
 			<div class="modal-body">
 				<form @submit.prevent="login">
@@ -31,8 +31,8 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12 text-right">
-							<a href="https://customers.todo10.com/xenforojose/" class="btn btn-secondary">Close</a>
-							<a href="https://customers.todo10.com/xenforojose/index.php?register/" class="btn btn btn-danger"><i class="fa fa-plus" aria-hidden="true"></i> Register Now</a>
+							<a href="https://customers.todo10.com/xenforojose/" class="btn btn-secondary">Return to the forum</a>
+							<a href="https://customers.todo10.com/xenforojose/index.php?register/" class="btn btn btn-danger"><i class="fa fa-plus" aria-hidden="true"></i> Create Account</a>
 							<button id="sendButton" type="submit" class="btn btn-primary"> 
 								<span v-if="!send_login">
 									<i class="fas fa-sign-in-alt"></i> Log in

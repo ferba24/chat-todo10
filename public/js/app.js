@@ -45564,7 +45564,7 @@ var render = function() {
                           href: "https://customers.todo10.com/xenforojose/"
                         }
                       },
-                      [_vm._v("Close")]
+                      [_vm._v("Return to the forum")]
                     ),
                     _vm._v(" "),
                     _vm._m(1),
@@ -45620,7 +45620,7 @@ var staticRenderFns = [
         [_vm._v("Login")]
       ),
       _vm._v(" "),
-      _c("small", [_vm._v("Login by users")])
+      _c("span", [_vm._v("Login by users")])
     ])
   },
   function() {
@@ -45640,7 +45640,7 @@ var staticRenderFns = [
           staticClass: "fa fa-plus",
           attrs: { "aria-hidden": "true" }
         }),
-        _vm._v(" Register Now")
+        _vm._v(" Create Account")
       ]
     )
   }
