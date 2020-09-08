@@ -398,7 +398,7 @@ body {
     margin-bottom: 2px !important;
     display: inline;
 }
-/* Login */
+/* LoginUserComponent */
 #showModalLogin {
     label{
         font-weight: 600 !important;
@@ -407,15 +407,59 @@ body {
         font-size: .8em;
     }
 }
-/* Modal rooms */
-#toggleRooms{
-    .btn-primary{
-        border: none !important;
-    }
-    .btn label.btn-primary {
+/* RoomsComponent */
+#showModalRooms{
+    .btn-success {
         background-color: $green-c;
-        border: 1px solid $green-c !important;
-        color: #fff !important;
+        border: 1px solid $green-c;
+        color: $white;
+        min-height: 0px !important;
+        width: 100%;
+        border-radius: 4px;
+    }
+    small{
+        font-size: 9px !important;
+    }
+    .modal-header span, #searchx, #smallText{
+        font-size: 12px;
+    }
+    .row{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .avatar.avatar--m {
+        width: 40px;
+        height: 40px;
+        font-size: 30px;
+    }
+    table{
+        > thead > tr td{
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-weight: bold;
+        }
+        > tbody > tr td {
+            padding: 3px 8px !important;
+        }
+    }
+    .table-striped tbody tr:nth-of-type(2n+1){
+        background-color: $white;
+    }
+    .modal-dialog {
+        @media (min-width:$medium) {
+            max-width:600px;
+            margin:30px auto;
+        }
+    }
+    #toggleRooms{
+        .btn-primary{
+            border: none !important;
+        }
+        .btn label.btn-primary {
+            background-color: $green-c;
+            border: 1px solid $green-c !important;
+            color: #fff !important;
+        }
     }
 }
 /* slide_block */

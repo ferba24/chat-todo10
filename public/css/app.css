@@ -11335,7 +11335,7 @@ body {
   display: inline;
 }
 
-/* Login */
+/* LoginUserComponent */
 
 #showModalLogin label {
   font-weight: 600 !important;
@@ -11345,13 +11345,64 @@ body {
   font-size: 0.8em;
 }
 
-/* Modal rooms */
+/* RoomsComponent */
 
-#toggleRooms .btn-primary {
+#showModalRooms .btn-success {
+  background-color: #51ce86;
+  border: 1px solid #51ce86;
+  color: #FFFFFF;
+  min-height: 0px !important;
+  width: 100%;
+  border-radius: 4px;
+}
+
+#showModalRooms small {
+  font-size: 9px !important;
+}
+
+#showModalRooms .modal-header span,
+#showModalRooms #searchx,
+#showModalRooms #smallText {
+  font-size: 12px;
+}
+
+#showModalRooms .row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+#showModalRooms .avatar.avatar--m {
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+}
+
+#showModalRooms table > thead > tr td {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: bold;
+}
+
+#showModalRooms table > tbody > tr td {
+  padding: 3px 8px !important;
+}
+
+#showModalRooms .table-striped tbody tr:nth-of-type(2n+1) {
+  background-color: #FFFFFF;
+}
+
+@media (min-width: 768px) {
+  #showModalRooms .modal-dialog {
+    max-width: 600px;
+    margin: 30px auto;
+  }
+}
+
+#showModalRooms #toggleRooms .btn-primary {
   border: none !important;
 }
 
-#toggleRooms .btn label.btn-primary {
+#showModalRooms #toggleRooms .btn label.btn-primary {
   background-color: #51ce86;
   border: 1px solid #51ce86 !important;
   color: #fff !important;
