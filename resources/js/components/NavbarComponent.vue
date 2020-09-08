@@ -13,12 +13,12 @@
                             {{ user.username | capitalize }}
                         </span> 
                     </span>
-                        <small class="font-weight-bold" style="padding-left: 5px">{{ user.username }}</small>
+                        <span class="font-weight-bold" style="padding-left: 5px">{{ user.username }}</span>
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="javascript:void(0);" class="nav-link" data-toggle="modal" data-target="#showModalRooms"><small><i class="fas fa-home"></i> ROOMS</small></a></li>
-                        <li><a href="javascript:void(0);" class="nav-link" v-on:click="logout"><small><i class="fas fa-sign-out-alt"></i> LOGOUT</small></a></li>
+                        <li><a href="javascript:void(0);" class="nav-link" data-toggle="modal" data-target="#showModalRooms"><i class="fas fa-home"></i> ROOMS</a></li>
+                        <li><a href="javascript:void(0);" class="nav-link" v-on:click="logout"><i class="fas fa-sign-out-alt"></i> LOGOUT</a></li>
                     </ul>
                 </li>
             </ul>
@@ -27,17 +27,17 @@
                 <!-- Authentication Links -->
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#showModalRooms">
-                        <small><i class="fas fa-home"></i> ROOMS LIST</small>
+                        <span><i class="fas fa-home"></i> ROOMS LIST</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#showModalPrivate">
-                        <small><i class="far fa-comment-dots"></i> PRIVATE MSG</small>
+                        <span><i class="far fa-comment-dots"></i> PRIVATE MSG</span>
                     </a>
                 </li>
                 <li class="nav-item pr-0 mr-0">
                     <a class="nav-link">
-                        <small><i class="fas fa-music"></i> SOUNDS</small>
+                        <span><i class="fas fa-music"></i> SOUNDS</span>
                     </a>
                 </li>
                 <li class="nav-item">

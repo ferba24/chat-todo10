@@ -4,14 +4,14 @@
     	<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">Rooms</h5>
-				<small>Choose a room to start chatting</small>
+				<span>Choose a room to start chatting</span>
 			</div>
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-md-9">
 						<div class="form-group">
 							<input type="text" class="form-control" v-model="term" placeholder="Search room" />
-							<small id="searchx" class="form-text text-muted">Find your preferred room in this field.</small>
+							<span id="searchx" class="form-text text-muted">Find your preferred room in this field.</span>
 						</div>
 					</div>
 					<div class="col-md-1 hidden-md hidden-sm pl-0 pr-0" style="line-height: 14px;">
@@ -56,7 +56,7 @@
 										</div>
 										<div class="row">
 											<div class="col-md-12 p-0">
-												<small>{{ room.room_description }}</small>
+												<span id="smallText">{{ room.room_description }}</span>
 											</div>
 										</div>
 									</td>
@@ -210,6 +210,9 @@ export default {
 </script>
 
 <style scoped>
+.modal-header span, #searchx, #smallText{
+	font-size: 12px;
+}
 .btn-success {
     background-color: #51ce86 !important;
     border: 1px solid #51ce86 !important;

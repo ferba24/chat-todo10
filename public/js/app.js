@@ -7440,7 +7440,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn-success[data-v-743e2ce0] {\n    background-color: #51ce86 !important;\n    border: 1px solid #51ce86 !important;\n\tcolor: #fff !important;\n\tmin-height: 0px !important;\n}\ntable>thead>tr td[data-v-743e2ce0]{\n\tpadding-top: 5px;\n\tpadding-bottom: 5px;\n}\ntable>tbody>tr td[data-v-743e2ce0] {\n\tpadding: 3px 8px !important;\n}\n.row[data-v-743e2ce0]{\n\tmargin-left: 0px;\n\tmargin-right: 0px;\n}\n.avatar.avatar--m[data-v-743e2ce0] {\n    width: 40px;\n    height: 40px;\n    font-size: 30px;\n}\nsmall[data-v-743e2ce0]{\n\tfont-size: 9px !important;\n}\n@media (min-width:768px) {\n.modal-dialog[data-v-743e2ce0] {\n\t\tmax-width:600px;\n\t\tmargin:30px auto\n}\n}\n", ""]);
+exports.push([module.i, "\n.modal-header span[data-v-743e2ce0], #searchx[data-v-743e2ce0], #smallText[data-v-743e2ce0]{\n\tfont-size: 12px;\n}\n.btn-success[data-v-743e2ce0] {\n    background-color: #51ce86 !important;\n    border: 1px solid #51ce86 !important;\n\tcolor: #fff !important;\n\tmin-height: 0px !important;\n}\ntable>thead>tr td[data-v-743e2ce0]{\n\tpadding-top: 5px;\n\tpadding-bottom: 5px;\n}\ntable>tbody>tr td[data-v-743e2ce0] {\n\tpadding: 3px 8px !important;\n}\n.row[data-v-743e2ce0]{\n\tmargin-left: 0px;\n\tmargin-right: 0px;\n}\n.avatar.avatar--m[data-v-743e2ce0] {\n    width: 40px;\n    height: 40px;\n    font-size: 30px;\n}\nsmall[data-v-743e2ce0]{\n\tfont-size: 9px !important;\n}\n@media (min-width:768px) {\n.modal-dialog[data-v-743e2ce0] {\n\t\tmax-width:600px;\n\t\tmargin:30px auto\n}\n}\n", ""]);
 
 // exports
 
@@ -45722,7 +45722,7 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c(
-                        "small",
+                        "span",
                         {
                           staticClass: "font-weight-bold",
                           staticStyle: { "padding-left": "5px" }
@@ -45745,7 +45745,10 @@ var render = function() {
                           attrs: { href: "javascript:void(0);" },
                           on: { click: _vm.logout }
                         },
-                        [_vm._m(2)]
+                        [
+                          _c("i", { staticClass: "fas fa-sign-out-alt" }),
+                          _vm._v(" LOGOUT")
+                        ]
                       )
                     ])
                   ])
@@ -45753,7 +45756,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(3)
+            _vm._m(2)
           ]
         )
       ])
@@ -45796,22 +45799,8 @@ var staticRenderFns = [
             "data-target": "#showModalRooms"
           }
         },
-        [
-          _c("small", [
-            _c("i", { staticClass: "fas fa-home" }),
-            _vm._v(" ROOMS")
-          ])
-        ]
+        [_c("i", { staticClass: "fas fa-home" }), _vm._v(" ROOMS")]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("small", [
-      _c("i", { staticClass: "fas fa-sign-out-alt" }),
-      _vm._v(" LOGOUT")
     ])
   },
   function() {
@@ -45831,7 +45820,7 @@ var staticRenderFns = [
             }
           },
           [
-            _c("small", [
+            _c("span", [
               _c("i", { staticClass: "fas fa-home" }),
               _vm._v(" ROOMS LIST")
             ])
@@ -45851,7 +45840,7 @@ var staticRenderFns = [
             }
           },
           [
-            _c("small", [
+            _c("span", [
               _c("i", { staticClass: "far fa-comment-dots" }),
               _vm._v(" PRIVATE MSG")
             ])
@@ -45861,7 +45850,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("li", { staticClass: "nav-item pr-0 mr-0" }, [
         _c("a", { staticClass: "nav-link" }, [
-          _c("small", [
+          _c("span", [
             _c("i", { staticClass: "fas fa-music" }),
             _vm._v(" SOUNDS")
           ])
@@ -46078,7 +46067,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c(
-                    "small",
+                    "span",
                     {
                       staticClass: "form-text text-muted",
                       attrs: { id: "searchx" }
@@ -46215,7 +46204,7 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row" }, [
                                   _c("div", { staticClass: "col-md-12 p-0" }, [
-                                    _c("small", [
+                                    _c("span", { attrs: { id: "smallText" } }, [
                                       _vm._v(_vm._s(room.room_description))
                                     ])
                                   ])
@@ -46293,7 +46282,7 @@ var staticRenderFns = [
         [_vm._v("Rooms")]
       ),
       _vm._v(" "),
-      _c("small", [_vm._v("Choose a room to start chatting")])
+      _c("span", [_vm._v("Choose a room to start chatting")])
     ])
   },
   function() {
