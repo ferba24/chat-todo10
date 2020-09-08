@@ -2482,9 +2482,7 @@ __webpack_require__.r(__webpack_exports__);
       var filtered = this.arrayRooms; //Se filtra por rooms vacíos
 
       if (this.empty) {
-        filtered = this.arrayRooms.filter(function (m) {
-          return m.count_room <= 0;
-        });
+        filtered = this.arrayRooms;
       } else {
         filtered = this.arrayRooms.filter(function (m) {
           return m.count_room >= 1;

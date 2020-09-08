@@ -173,9 +173,7 @@ export default {
 			let filtered = this.arrayRooms;
 			//Se filtra por rooms vacíos
 			if(this.empty){
-				filtered = this.arrayRooms.filter(
-                    m => m.count_room <= 0
-                );
+				filtered = this.arrayRooms;
 			}else{
 				filtered = this.arrayRooms.filter(
                     m => m.count_room >= 1
