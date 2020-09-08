@@ -484,6 +484,55 @@ body {
         opacity: 0.5;
     }
 }
+/* SidebarComponent.vue */
+#sidebarGroup{
+    table{
+        background: white;
+        thead{
+            font-weight: bold;
+        }
+        td{
+            font-size: 12px;
+            line-height: 18px;
+            padding: 3px 5px;
+        }
+    }
+    .btn-success {
+        background-color: $green-c;
+        border: 1px solid $green-c;
+        color: $white;
+        min-height: 0px !important;
+        width: 100%;
+        border-radius: 4px;
+        text-transform: uppercase;
+    }
+    #sidebar-block{
+        padding-top: 1px;
+    }
+    .row{
+        &.checkbox{
+            font-size: 12px;
+            background-color: #eee; 
+            padding-top: 5px;
+            padding-bottom: 5px;
+            label{
+                margin-bottom: 0px !important;
+                input{
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+    #user-content{
+        cursor:pointer;
+    }
+    .nav-pills li{
+        width: 50%;
+    }
+    #search-wrapper-rooms input, #search-wrapper input, #search-wrapper-rooms i, #search-wrapper i{
+        border: 0px !important;
+    }
+}
 /* slide_block */
 #slide_block {
     margin-left: -30px;

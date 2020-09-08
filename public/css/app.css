@@ -11434,6 +11434,66 @@ body {
   opacity: 0.5;
 }
 
+/* SidebarComponent.vue */
+
+#sidebarGroup table {
+  background: white;
+}
+
+#sidebarGroup table thead {
+  font-weight: bold;
+}
+
+#sidebarGroup table td {
+  font-size: 12px;
+  line-height: 18px;
+  padding: 3px 5px;
+}
+
+#sidebarGroup .btn-success {
+  background-color: #51ce86;
+  border: 1px solid #51ce86;
+  color: #FFFFFF;
+  min-height: 0px !important;
+  width: 100%;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+#sidebarGroup #sidebar-block {
+  padding-top: 1px;
+}
+
+#sidebarGroup .row.checkbox {
+  font-size: 12px;
+  background-color: #eee;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#sidebarGroup .row.checkbox label {
+  margin-bottom: 0px !important;
+}
+
+#sidebarGroup .row.checkbox label input {
+  vertical-align: middle;
+}
+
+#sidebarGroup #user-content {
+  cursor: pointer;
+}
+
+#sidebarGroup .nav-pills li {
+  width: 50%;
+}
+
+#sidebarGroup #search-wrapper-rooms input,
+#sidebarGroup #search-wrapper input,
+#sidebarGroup #search-wrapper-rooms i,
+#sidebarGroup #search-wrapper i {
+  border: 0px !important;
+}
+
 /* slide_block */
 
 #slide_block {
