@@ -18,7 +18,7 @@
 						<span style="font-size: 12px;">EMPTY ROOMS</span>
 					</div>
 					<div class="col-md-2 hidden-md hidden-sm" id="toggleRooms" style="height: 40px;">
-						<input type="checkbox" id="toggleRooms_input" data-toggle="toggle"/>
+						<input type="checkbox" checked id="toggleRooms_input" data-toggle="toggle"/>
 					</div>
 				</div>
 				<div class="row" style="height: 300px; overflow-y: auto;">
@@ -86,7 +86,7 @@ export default {
 	data(){
 		return{
 			arrayRooms: [],
-			empty: false,
+			empty: true,
 			term: "",
 			csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
 		}

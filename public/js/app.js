@@ -2386,7 +2386,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       arrayRooms: [],
-      empty: false,
+      empty: true,
       term: "",
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     };
@@ -45572,6 +45572,7 @@ var staticRenderFns = [
         _c("input", {
           attrs: {
             type: "checkbox",
+            checked: "",
             id: "toggleRooms_input",
             "data-toggle": "toggle"
           }
