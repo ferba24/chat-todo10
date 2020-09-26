@@ -189,6 +189,16 @@ body {
         }
     }
 }
+#navbarSupportedContent{
+    @media(max-width:$medium){
+        position: absolute;
+        top: 50px;
+        background: white;
+        z-index: 9;
+        padding: 20px;
+        box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    }
+}
 .nav-tabs{
     border-bottom: 1px solid #ddd;
     > li{
@@ -335,6 +345,9 @@ body {
         color: #464646 !important;
         letter-spacing: 1.14px;
         font-size: 14px;
+        @media(max-width:$small){
+            font-size: 12px;
+        }
     }
 }
 #toggleSound{
@@ -346,11 +359,79 @@ body {
         border: 1px solid #51ce86 !important;
         color: #fff !important;
     }
+    .btn label.toggle-off{
+        background-color: #ff0142 !important;
+        border: 1px solid #ff0142 !important;
+        color: #fff !important;
+    }
 }
-.primary-menu li{
-    padding-right: 20px;
-    margin-left: 10px;
-    margin-right: 10px;
+.primary-menu {
+    @media(max-width:$medium){
+        display: inline;
+    }
+    li{
+        padding-right: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+        @media(max-width:$medium){
+            padding-right: 0px;
+            margin-right: 0px;
+            margin-left: 0px;
+            text-align: center;
+            display: inline-block;
+            i{
+                font-size: 21px;
+            }
+        }
+    }
+    li.rooms-list span{
+        @media(max-width:$small){
+            display:block;
+        }
+    }
+    li.private-msg {
+        @media(max-width:$small){
+            vertical-align: text-bottom;
+            span{
+                display:none;
+            }
+        }
+    }
+    li.sounds{
+        .nav-link{
+            display:block ruby;
+            @media(max-width:$small){
+                display: block;
+            }
+            #toggleSound{
+                >.toggle{
+                    height: 25px !important;
+                    min-height: 20px !important;
+                    line-height: 10px !important;
+                    .toggle-on, .toggle-off{
+                        height: 25px !important;
+                        min-height: 20px !important;
+                        line-height: 10px !important;
+                    }
+                    @media(max-width: $small){
+                        height: 15px !important;
+                        min-height: 0px !important;
+                        .toggle-on, .toggle-off{
+                            height: 15px !important;
+                            min-height: 0px !important;
+                            padding: 0px !important;
+                            line-height: 14px !important;
+                        }
+                    }
+                }
+            }
+        }
+        @media(max-width:$small){
+            span{
+                display:none;
+            }
+        }
+    }
 }
 /* Avatar */
 .p-navgroup-link.p-navgroup-link--user .avatar {

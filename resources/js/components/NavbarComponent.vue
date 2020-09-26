@@ -5,8 +5,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">	
-                <li  class="dropdown" id="user-content-me3">	
+            <ul class="navbar-nav mr-auto d-none d-sm-none d-md-block">
+                <li class="dropdown" id="user-content-me3">	
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration: none;">
                         <span class="avatar avatar--xxs avatar--default avatar--default--dynamic" data-user-id="1" style="background-color: #85a3e0; color: #24478f">
                         <span class="avatar-u1-s">
@@ -22,31 +22,33 @@
                     </ul>
                 </li>
             </ul>
-            <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto primary-menu">
-                <!-- Authentication Links -->
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#showModalRooms">
-                        <span><i class="fas fa-home"></i> ROOMS LIST</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#showModalPrivate">
-                        <span><i class="far fa-comment-dots"></i> PRIVATE MSG</span>
-                    </a>
-                </li>
-                <li class="nav-item pr-0 mr-0">
-                    <a class="nav-link">
-                        <span><i class="fas fa-music"></i> SOUNDS</span>
-                    </a>
-                </li>
-                <li class="nav-item">
+            <ul class="navbar-nav mr-auto d-block d-sm-block d-md-none">
+                <li><a href="javascript:void(0);" class="nav-link" data-toggle="modal" data-target="#showModalRooms"><i class="fas fa-home"></i> ROOMS</a></li>
+                <li><a href="javascript:void(0);" class="nav-link" v-on:click="logout"><i class="fas fa-sign-out-alt"></i> LOGOUT</a></li>
+            </ul>
+        </div>
+        <!-- Right Side Of Navbar -->
+        <ul class="navbar-nav ml-auto primary-menu">
+            <!-- Authentication Links -->
+            <li class="nav-item rooms-list mx-2 mx-md-0">
+                <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#showModalRooms">
+                    <i class="fas fa-home"></i><span class="ml-md-2">ROOMS LIST</span>
+                </a>
+            </li>
+            <li class="nav-item private-msg mx-2 mx-md-0">
+                <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#showModalPrivate">
+                    <i class="far fa-comment-dots"></i><span class="ml-md-2">PRIVATE MSG</span>
+                </a>
+            </li>
+            <li class="nav-item pr-0 mr-0 sounds mx-2 mx-md-0">
+                <a class="nav-link">
+                    <i class="fas fa-music"></i><span class="ml-md-2">SOUNDS</span>
                     <div id="toggleSound">
                         <input type="checkbox" checked id="toggleSound_input" data-toggle="toggle"/>
                     </div>
-                </li>
-            </ul>
-        </div>
+                </a>
+            </li>
+        </ul>
     </div>
 </nav>
 </template>
