@@ -8,16 +8,16 @@
 			</div>
 			<div class="modal-body">
 				<div class="row">
-					<div class="col-md-9">
+					<div class="col-md-9 col-7">
 						<div class="form-group">
 							<input type="text" class="form-control" v-model="term" placeholder="Search room" />
 							<span id="searchx" class="form-text text-muted">Find your preferred room in this field.</span>
 						</div>
 					</div>
-					<div class="col-md-1 hidden-md hidden-sm pl-0 pr-0" style="line-height: 14px;">
+					<div class="col-md-1 col-2 hidden-md hidden-sm pl-0 pr-0" style="line-height: 14px;">
 						<span style="font-size: 12px;">EMPTY ROOMS</span>
 					</div>
-					<div class="col-md-2 hidden-md hidden-sm" id="toggleRooms" style="height: 40px;">
+					<div class="col-md-2 col-3 hidden-md hidden-sm" id="toggleRooms" style="height: 40px;">
 						<input type="checkbox" checked id="toggleRooms_input" data-toggle="toggle"/>
 					</div>
 				</div>
@@ -36,21 +36,21 @@
 									<td>Loading...</td>
 								</tr>
 								<tr v-for="room in filterRooms" :key="room.id">
-									<td>							
+									<td class="table-col-1">
 										<div class="row">
-											<div class="col-md-4 p-0" v-if="room.room_photo == null">
+											<div class="col-4 p-0" v-if="room.room_photo == null">
 												<span class="avatar avatar--m avatar--default avatar--default--dynamic" data-user-id="1" style="background-color: #85a3e0; color: #24478f">
 													<span class="avatar-u1-m">
 														{{ room.room_name | capitalize }} 
 													</span> 
 												</span>
 											</div>
-											<div class="col-md-4 p-0" v-if="room.room_photo !== null">
+											<div class="col-4 p-0" v-if="room.room_photo !== null">
 												<span class="avatar avatar--m avatar--default avatar--default--dynamic" data-user-id="1" style="background-color: #85a3e0; color: #24478f">
 													<img :src="'/room/'+room.room_photo" :alt="room.room_name | capitalize" class="avatar-u1-o js-croppedAvatar cropImage" draggable="false" style="left: -9px; top: 0px; touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 115px;">
 												</span>									
 											</div>
-											<div class="col-md-8 p-0">
+											<div class="col-8 p-0">
 												{{ room.room_name }}
 											</div>
 										</div>
@@ -60,8 +60,8 @@
 											</div>
 										</div>
 									</td>
-									<td class="text-center" style="width:90px;">{{ room.count_room }}</td>
-									<td class="text-center justify-content-center" style="width:90px;">
+									<td class="text-center table-col-2">{{ room.count_room }}</td>
+									<td class="text-center justify-content-center table-col-3">
 										<a class="btn btn-success btn-block btn-sm active" @click="selectedRoom(`${room.id}`)"  role="button" href="javascript:void(0)"><i class="fas fa-door-open"></i> Enter</a>
 									</td>
 								</tr>
@@ -69,7 +69,7 @@
 						</table>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row mt-3">
 					<div class="col-md-12 text-right">
 						<button data-dismiss="modal" type="button" class="btn btn-default">Close</button>
 					</div>

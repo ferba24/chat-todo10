@@ -45297,7 +45297,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
             _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-9" }, [
+              _c("div", { staticClass: "col-md-9 col-7" }, [
                 _c("div", { staticClass: "form-group" }, [
                   _c("input", {
                     directives: [
@@ -45363,92 +45363,83 @@ var render = function() {
                           _vm._v(" "),
                           _vm._l(_vm.filterRooms, function(room) {
                             return _c("tr", { key: room.id }, [
-                              _c("td", [
+                              _c("td", { staticClass: "table-col-1" }, [
                                 _c("div", { staticClass: "row" }, [
                                   room.room_photo == null
-                                    ? _c(
-                                        "div",
-                                        { staticClass: "col-md-4 p-0" },
-                                        [
-                                          _c(
-                                            "span",
-                                            {
-                                              staticClass:
-                                                "avatar avatar--m avatar--default avatar--default--dynamic",
-                                              staticStyle: {
-                                                "background-color": "#85a3e0",
-                                                color: "#24478f"
-                                              },
-                                              attrs: { "data-user-id": "1" }
+                                    ? _c("div", { staticClass: "col-4 p-0" }, [
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass:
+                                              "avatar avatar--m avatar--default avatar--default--dynamic",
+                                            staticStyle: {
+                                              "background-color": "#85a3e0",
+                                              color: "#24478f"
                                             },
-                                            [
-                                              _c(
-                                                "span",
-                                                { staticClass: "avatar-u1-m" },
-                                                [
-                                                  _vm._v(
-                                                    "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t" +
-                                                      _vm._s(
-                                                        _vm._f("capitalize")(
-                                                          room.room_name
-                                                        )
-                                                      ) +
-                                                      " \n\t\t\t\t\t\t\t\t\t\t\t\t\t"
-                                                  )
-                                                ]
-                                              )
-                                            ]
-                                          )
-                                        ]
-                                      )
+                                            attrs: { "data-user-id": "1" }
+                                          },
+                                          [
+                                            _c(
+                                              "span",
+                                              { staticClass: "avatar-u1-m" },
+                                              [
+                                                _vm._v(
+                                                  "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t" +
+                                                    _vm._s(
+                                                      _vm._f("capitalize")(
+                                                        room.room_name
+                                                      )
+                                                    ) +
+                                                    " \n\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ])
                                     : _vm._e(),
                                   _vm._v(" "),
                                   room.room_photo !== null
-                                    ? _c(
-                                        "div",
-                                        { staticClass: "col-md-4 p-0" },
-                                        [
-                                          _c(
-                                            "span",
-                                            {
-                                              staticClass:
-                                                "avatar avatar--m avatar--default avatar--default--dynamic",
-                                              staticStyle: {
-                                                "background-color": "#85a3e0",
-                                                color: "#24478f"
-                                              },
-                                              attrs: { "data-user-id": "1" }
+                                    ? _c("div", { staticClass: "col-4 p-0" }, [
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass:
+                                              "avatar avatar--m avatar--default avatar--default--dynamic",
+                                            staticStyle: {
+                                              "background-color": "#85a3e0",
+                                              color: "#24478f"
                                             },
-                                            [
-                                              _c("img", {
-                                                staticClass:
-                                                  "avatar-u1-o js-croppedAvatar cropImage",
-                                                staticStyle: {
-                                                  left: "-9px",
-                                                  top: "0px",
-                                                  "touch-action": "none",
-                                                  "user-select": "none",
-                                                  "-webkit-user-drag": "none",
-                                                  "-webkit-tap-highlight-color":
-                                                    "rgba(0, 0, 0, 0)",
-                                                  width: "115px"
-                                                },
-                                                attrs: {
-                                                  src:
-                                                    "/room/" + room.room_photo,
-                                                  alt: _vm._f("capitalize")(
-                                                    room.room_name
-                                                  ),
-                                                  draggable: "false"
-                                                }
-                                              })
-                                            ]
-                                          )
-                                        ]
-                                      )
+                                            attrs: { "data-user-id": "1" }
+                                          },
+                                          [
+                                            _c("img", {
+                                              staticClass:
+                                                "avatar-u1-o js-croppedAvatar cropImage",
+                                              staticStyle: {
+                                                left: "-9px",
+                                                top: "0px",
+                                                "touch-action": "none",
+                                                "user-select": "none",
+                                                "-webkit-user-drag": "none",
+                                                "-webkit-tap-highlight-color":
+                                                  "rgba(0, 0, 0, 0)",
+                                                width: "115px"
+                                              },
+                                              attrs: {
+                                                src: "/room/" + room.room_photo,
+                                                alt: _vm._f("capitalize")(
+                                                  room.room_name
+                                                ),
+                                                draggable: "false"
+                                              }
+                                            })
+                                          ]
+                                        )
+                                      ])
                                     : _vm._e(),
                                   _vm._v(" "),
-                                  _c("div", { staticClass: "col-md-8 p-0" }, [
+                                  _c("div", { staticClass: "col-8 p-0" }, [
                                     _vm._v(
                                       "\n\t\t\t\t\t\t\t\t\t\t\t\t" +
                                         _vm._s(room.room_name) +
@@ -45468,10 +45459,7 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "td",
-                                {
-                                  staticClass: "text-center",
-                                  staticStyle: { width: "90px" }
-                                },
+                                { staticClass: "text-center table-col-2" },
                                 [_vm._v(_vm._s(room.count_room))]
                               ),
                               _vm._v(" "),
@@ -45479,8 +45467,7 @@ var render = function() {
                                 "td",
                                 {
                                   staticClass:
-                                    "text-center justify-content-center",
-                                  staticStyle: { width: "90px" }
+                                    "text-center justify-content-center table-col-3"
                                 },
                                 [
                                   _c(
@@ -45547,7 +45534,7 @@ var staticRenderFns = [
     return _c(
       "div",
       {
-        staticClass: "col-md-1 hidden-md hidden-sm pl-0 pr-0",
+        staticClass: "col-md-1 col-2 hidden-md hidden-sm pl-0 pr-0",
         staticStyle: { "line-height": "14px" }
       },
       [
@@ -45564,7 +45551,7 @@ var staticRenderFns = [
     return _c(
       "div",
       {
-        staticClass: "col-md-2 hidden-md hidden-sm",
+        staticClass: "col-md-2 col-3 hidden-md hidden-sm",
         staticStyle: { height: "40px" },
         attrs: { id: "toggleRooms" }
       },
@@ -45610,7 +45597,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
+    return _c("div", { staticClass: "row mt-3" }, [
       _c("div", { staticClass: "col-md-12 text-right" }, [
         _c(
           "button",

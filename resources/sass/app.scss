@@ -412,6 +412,9 @@ body {
         min-height: 0px !important;
         width: 100%;
         border-radius: 4px;
+        @media (max-width: $small){
+            border-radius: 20px;
+        }
     }
     small{
         font-size: 9px !important;
@@ -437,6 +440,15 @@ body {
         > tbody > tr td {
             padding: 3px 8px !important;
         }
+        tbody td.table-col-2{
+            width: 90px;
+            @media (max-width:$small){
+                width: 60px;
+            }
+        }
+        tbody td.table-col-3{
+            width: 90px;
+        }
     }
     .table-striped tbody tr:nth-of-type(2n+1){
         background-color: $white;
@@ -456,6 +468,9 @@ body {
             border: 1px solid $green-c !important;
             color: #fff !important;
         }
+    }
+    #smallText{
+        font-size: 9px;
     }
 }
 /* ChatMessagesComponent.vue */

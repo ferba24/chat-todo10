@@ -11346,6 +11346,12 @@ body {
   border-radius: 4px;
 }
 
+@media (max-width: 576px) {
+  #showModalRooms .btn-success {
+    border-radius: 20px;
+  }
+}
+
 #showModalRooms small {
   font-size: 9px !important;
 }
@@ -11377,6 +11383,20 @@ body {
   padding: 3px 8px !important;
 }
 
+#showModalRooms table tbody td.table-col-2 {
+  width: 90px;
+}
+
+@media (max-width: 576px) {
+  #showModalRooms table tbody td.table-col-2 {
+    width: 60px;
+  }
+}
+
+#showModalRooms table tbody td.table-col-3 {
+  width: 90px;
+}
+
 #showModalRooms .table-striped tbody tr:nth-of-type(2n+1) {
   background-color: #FFFFFF;
 }
@@ -11396,6 +11416,10 @@ body {
   background-color: #51ce86;
   border: 1px solid #51ce86 !important;
   color: #fff !important;
+}
+
+#showModalRooms #smallText {
+  font-size: 9px;
 }
 
 /* ChatMessagesComponent.vue */
