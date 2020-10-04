@@ -2020,12 +2020,13 @@ __webpack_require__.r(__webpack_exports__);
     tinymce.init({
       menubar: false,
       selector: '#text',
-      toolbar: 'bold italic underline',
+      plugins: 'textcolor',
+      toolbar: 'bold italic underline forecolor',
       setup: function setup(ed) {
         ed.on('load', function (e) {
           //Ocultar el copyright de tinymce
-          document.getElementById('mceu_9-body').style.display = "none"; //Obtener tamaños y establecer el tamaño del chat
-
+          //document.getElementById('mceu_9-body').style.display="none";
+          //Obtener tamaños y establecer el tamaño del chat
           var sizeNet = document.getElementById('card-box-navbar').getBoundingClientRect().height + document.getElementById('card-box-form').getBoundingClientRect().height;
 
           if (sizeNet >= 200) {
