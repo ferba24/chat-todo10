@@ -58554,17 +58554,16 @@ var app = new Vue({
       }
     },
     timezone: function timezone(value) {
-      var _this7 = this;
-
-      axios.post(this.$backendURL + '/api/offsetTimezone', {
-        _token: this.csrf,
+      var me = this;
+      axios.post(me.$backendURL + '/api/offsetTimezone', {
+        _token: me.csrf,
         tz1: value,
-        tz2: this.$serverTimeZone
+        tz2: me.$serverTimeZone
       }).then(function (response) {
         if (response.data) {
-          _this7.offset_timezone = response.data;
+          me.offset_timezone = response.data;
         } else {
-          _this7.offset_timezone = -1;
+          me.offset_timezone = -1;
         }
       });
     },

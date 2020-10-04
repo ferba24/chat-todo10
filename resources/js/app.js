@@ -210,15 +210,16 @@ const app = new Vue({
             }
         },
         timezone: function (value) {
-            axios.post(this.$backendURL + '/api/offsetTimezone', {
-                _token: this.csrf,
+            let me = this;
+            axios.post(me.$backendURL + '/api/offsetTimezone', {
+                _token: me.csrf,
                 tz1: value,
-                tz2: this.$serverTimeZone,
+                tz2: me.$serverTimeZone,
             }).then((response) => {
                 if (response.data) {
-                    this.offset_timezone = response.data;
+                    me.offset_timezone = response.data;
                 } else {
-                    this.offset_timezone = -1;
+                    me.offset_timezone = -1;
                 }
             });
         },
