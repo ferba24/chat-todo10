@@ -1930,7 +1930,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['messages', 'current_room', 'login_user_roles'],
   data: function data() {
-    return {};
+    return {
+      is_mod: false
+    };
   },
   filters: {
     get_username: function get_username(value) {
@@ -1942,9 +1944,19 @@ __webpack_require__.r(__webpack_exports__);
       return date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
     }
   },
-  watch: {},
+  watch: {
+    login_user_roles: function login_user_roles(value) {
+      this.checkIsMod();
+    }
+  },
   mounted: function mounted() {},
-  methods: {},
+  methods: {
+    checkIsMod: function checkIsMod() {
+      if (this.login_user_roles.includes(3) || this.login_user_roles.includes(4)) {
+        this.is_mod = true;
+      }
+    }
+  },
   updated: function updated() {
     var objDiv = document.getElementById("scroll-messages-content");
     objDiv.scrollTop = objDiv.scrollHeight;

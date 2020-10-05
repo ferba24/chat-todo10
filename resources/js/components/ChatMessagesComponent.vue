@@ -22,7 +22,7 @@ export default {
     props: ['messages', 'current_room', 'login_user_roles'],
     data() {
         return{
-            
+            is_mod: false
         }
     },
     filters: {
@@ -36,13 +36,19 @@ export default {
         }
     },
     watch: {
-        
+        login_user_roles: function(value){
+            this.checkIsMod();
+        }
     },
     mounted() {
 
     },
     methods: {
-        
+        checkIsMod(){
+            if(this.login_user_roles.includes(3) || this.login_user_roles.includes(4)){
+                this.is_mod = true;
+            }
+        }
     },
     updated() {
         var objDiv = document.getElementById("scroll-messages-content");
