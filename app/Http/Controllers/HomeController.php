@@ -11,10 +11,6 @@ class HomeController extends Controller{
 	use SessionTrait;
 
     public function index(Request $req){
-		/*echo \Cookie::get('xf_user');
-		echo "<br>";
-		var_dump($req->session()->all());
-		exit(1);*/
 		return view('home');
     }
 	public function logout(Request $req) {

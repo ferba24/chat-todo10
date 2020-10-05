@@ -1938,10 +1938,6 @@ __webpack_require__.r(__webpack_exports__);
     get_username: function get_username(value) {
       var parse = JSON.parse(value);
       return parse.username;
-    },
-    date_format: function date_format(value) {
-      var date = new Date(value);
-      return date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
     }
   },
   watch: {
@@ -44562,9 +44558,7 @@ var render = function() {
         _vm._v(" "),
         _vm.is_mod
           ? _c("div", { staticClass: "date" }, [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v(_vm._s(_vm._f("date_format")(message.date)))
-              ]),
+              _c("a", { attrs: { href: "#" } }, [_vm._v(_vm._s(message.date))]),
               _vm._v(" :\r\n        ")
             ])
           : _vm._e(),
@@ -44572,9 +44566,7 @@ var render = function() {
         !_vm.is_mod
           ? _c("div", { staticClass: "date" }, [
               _vm._v(
-                "\r\n            " +
-                  _vm._s(_vm._f("date_format")(message.date)) +
-                  " :\r\n        "
+                "\r\n            " + _vm._s(message.date) + " :\r\n        "
               )
             ])
           : _vm._e(),
@@ -58514,13 +58506,11 @@ var app = new Vue({
     },
     changeTimeZoneFormat: function changeTimeZoneFormat(data) {
       var date = new Date(Date.parse(data.date));
-
-      if (this.offset_timezone != -1) {
-        date.addHours(this.offset_timezone);
-      }
-
-      date = date.getFullYear() + "-" + (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1) + "-" + (date.getDate() < 10 ? '0' : '') + date.getDate() + " " + (date.getHours() < 10 ? '0' : '') + date.getHours() + ":" + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes() + ":" + (date.getSeconds() < 10 ? '0' : '') + date.getSeconds();
-      data.date = date;
+      date = date.toLocaleString("en-GB", {
+        timeZone: this.timezone
+      });
+      date = date.split(" ");
+      data.date = date[1];
       return data;
     }
   },
@@ -58538,26 +58528,6 @@ var app = new Vue({
         this.checkRoomsUser();
         $("#showModalRooms").modal("show");
       }
-    },
-    timezone: function timezone(value) {
-      var me = this;
-      axios.post(me.$backendURL + '/api/offsetTimezone', {
-        _token: me.csrf,
-        tz1: value,
-        tz2: me.$serverTimeZone
-      }).then(function (response) {
-        if (response.data) {
-          me.offset_timezone = response.data;
-        } else {
-          me.offset_timezone = -1;
-        }
-      });
-    },
-    offset_timezone: function offset_timezone(value) {
-      var me = this;
-      me.messages.forEach(function (item, index, object) {
-        item = me.changeTimeZoneFormat(item);
-      });
     }
   }
 });

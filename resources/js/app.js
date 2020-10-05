@@ -179,16 +179,9 @@ const app = new Vue({
         },
         changeTimeZoneFormat(data) {
             var date = new Date(Date.parse(data.date));
-            if (this.offset_timezone != -1) {
-                date.addHours(this.offset_timezone);
-            }
-            date = date.getFullYear() + "-"
-                + ((date.getMonth()+1)<10?'0':'') + (date.getMonth()+1) + "-"
-                + (date.getDate()<10?'0':'') + date.getDate() + " "
-                + (date.getHours()<10?'0':'') + date.getHours() + ":"
-                + (date.getMinutes()<10?'0':'') + date.getMinutes() + ":"
-                + (date.getSeconds()<10?'0':'') + date.getSeconds();
-            data.date = date;
+            date = date.toLocaleString("en-GB", { timeZone: this.timezone });
+            date = date.split(" ");
+            data.date = date[1];
             return data;
         }
     },
@@ -208,26 +201,6 @@ const app = new Vue({
 
                 $("#showModalRooms").modal("show");
             }
-        },
-        timezone: function (value) {
-            let me = this;
-            axios.post(me.$backendURL + '/api/offsetTimezone', {
-                _token: me.csrf,
-                tz1: value,
-                tz2: me.$serverTimeZone,
-            }).then((response) => {
-                if (response.data) {
-                    me.offset_timezone = response.data;
-                } else {
-                    me.offset_timezone = -1;
-                }
-            });
-        },
-        offset_timezone: function (value) {
-            let me = this;
-            me.messages.forEach(function (item, index, object) {
-                item = me.changeTimeZoneFormat(item);
-            });
-        },
+        }
     }
 });

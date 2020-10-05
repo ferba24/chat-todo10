@@ -3,10 +3,10 @@
     <div class="message_block" v-for="message in filterMessages" :key="message.id">
         <p class="msg">[{{ message.user | get_username }}]</p>
         <div class="date" v-if="is_mod">
-            <a href="#">{{ message.date | date_format }}</a> :
+            <a href="#">{{ message.date }}</a> :
         </div>
         <div class="date" v-if="!is_mod">
-            {{ message.date | date_format }} :
+            {{ message.date }} :
         </div>
         <span v-html="message.message"></span>
         <div class="report">
@@ -30,10 +30,6 @@ export default {
             let parse = JSON.parse(value);
             return parse.username;
         },
-        date_format: function(value){
-            let date = new Date(value);
-            return date.getHours()+':'+(date.getMinutes()<10?'0':'') + date.getMinutes();
-        }
     },
     watch: {
         login_user_roles: function(value){
