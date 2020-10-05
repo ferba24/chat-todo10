@@ -9,7 +9,7 @@
             {{ message.date | date_format }} :
         </div>
         <span v-html="message.message"></span>
-        <div class="report" v-if="!is_mod">
+        <div class="report">
             <a href="#"><i class="fas fa-flag"></i></a>
         </div>
     </div>
@@ -22,7 +22,7 @@ export default {
     props: ['messages', 'current_room', 'login_user_roles'],
     data() {
         return{
-            is_mod: false
+            
         }
     },
     filters: {
@@ -44,11 +44,7 @@ export default {
 
     },
     methods: {
-        checkIsMod(){
-            if(this.login_user_roles.includes(3) || this.login_user_roles.includes(4)){
-                this.is_mod = true;
-            }
-        }
+        
     },
     updated() {
         var objDiv = document.getElementById("scroll-messages-content");

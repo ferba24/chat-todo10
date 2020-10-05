@@ -1930,9 +1930,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['messages', 'current_room', 'login_user_roles'],
   data: function data() {
-    return {
-      is_mod: false
-    };
+    return {};
   },
   filters: {
     get_username: function get_username(value) {
@@ -1950,13 +1948,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {},
-  methods: {
-    checkIsMod: function checkIsMod() {
-      if (this.login_user_roles.includes(3) || this.login_user_roles.includes(4)) {
-        this.is_mod = true;
-      }
-    }
-  },
+  methods: {},
   updated: function updated() {
     var objDiv = document.getElementById("scroll-messages-content");
     objDiv.scrollTop = objDiv.scrollHeight;
@@ -44581,9 +44573,7 @@ var render = function() {
         _vm._v(" "),
         _c("span", { domProps: { innerHTML: _vm._s(message.message) } }),
         _vm._v(" "),
-        !_vm.is_mod
-          ? _c("div", { staticClass: "report" }, [_vm._m(0, true)])
-          : _vm._e()
+        _vm._m(0, true)
       ])
     }),
     0
@@ -44594,8 +44584,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-flag" })
+    return _c("div", { staticClass: "report" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fas fa-flag" })
+      ])
     ])
   }
 ]
