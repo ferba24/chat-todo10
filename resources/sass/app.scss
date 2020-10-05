@@ -555,7 +555,14 @@ body {
     }
 }
 /* ChatMessagesComponent.vue */
+#chatGroup{
+    @media(max-width: $semi-medium){
+        max-width: 100%;
+        flex: auto;
+    }
+}
 #scroll-messages-content{
+    z-index: 1;
     .msg{
         display: inline;
     }
@@ -582,13 +589,20 @@ body {
 }
 /* SidebarComponent.vue */
 #sidebarGroup{
+    @media (max-width: $semi-medium){
+        display: none;
+        position: absolute;
+        background: white;
+        right: 0;
+        max-width: 300px;
+    }
     table{
         background: white;
         thead{
             font-weight: bold;
         }
         td{
-            font-size: 12px;
+            font-size: 11px;
             line-height: 18px;
             padding: 3px 5px;
         }

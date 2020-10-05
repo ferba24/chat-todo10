@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid fill">
-    <div class="row justify-content-center fill vh100-55px">
+    <div class="row fill vh100-55px">
         <div id="chatGroup" class="col-md-9 pr-0 pl-0">
             <div id="card-box-messages" class="card border-0">
                 <div class="card-header">
@@ -19,7 +19,7 @@
 			
 			<div id="slide_block" class="slide_block" onclick="widthAllChat();"></div>
 		</div>
-        <div class="col-md-3 pr-0 pl-0">
+        <div id="sidebarGroup" class="col-md-3 pr-0 pl-0">
 			<sidebar-component :login_user="login_user" :current_room="current_room" :rooms="rooms" v-on:current_roomsent="setRoomUser" v-on:connected_userssent="setConnectedUsers"></sidebar-component>
 		</div><!-- .col-md-3 -->
 	</div><!-- .row.justify-content-center -->
@@ -31,16 +31,34 @@
 @section('script')
 <script>
 	function widthAllChat(){
-		if(document.getElementById('chatGroup').classList.contains('col-md-9')){
-			document.getElementById('chatGroup').classList.remove("col-md-9");
-			document.getElementById('chatGroup').classList.add("col-md-12");
+		var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+		if(width <= 850){
+			if(document.getElementById('sidebarGroup').classList.contains('show')){
+				document.getElementById('sidebarGroup').classList.remove("show");
+				document.getElementById('sidebarGroup').style.display="none";
+				
+				document.getElementById('chatGroup').style.maxWidth="100%";
+				document.getElementById('chatGroup').style.flex="auto";
+				
+			}else{
+				document.getElementById('sidebarGroup').classList.add("show");
+				document.getElementById('sidebarGroup').style.display="block";
 
-			document.getElementById('sidebarGroup').style.display="none";
+				document.getElementById('chatGroup').style.maxWidth="calc(100% - 300px)";
+				document.getElementById('chatGroup').style.flex="0 0 calc(100% - 300px)";
+			}
 		}else{
-			document.getElementById('chatGroup').classList.remove("col-md-12");
-			document.getElementById('chatGroup').classList.add("col-md-9");
+			if(document.getElementById('chatGroup').classList.contains('col-md-9')){
+				document.getElementById('chatGroup').classList.remove("col-md-9");
+				document.getElementById('chatGroup').classList.add("col-md-12");
 
-			document.getElementById('sidebarGroup').style.display="block";
+				document.getElementById('sidebarGroup').style.display="none";
+			}else{
+				document.getElementById('chatGroup').classList.remove("col-md-12");
+				document.getElementById('chatGroup').classList.add("col-md-9");
+
+				document.getElementById('sidebarGroup').style.display="block";
+			}
 		}
 	}
 </script>

@@ -1,5 +1,5 @@
 <template>
-<div id="sidebarGroup" class="card border-0">
+<div class="card border-0">
     <div id="sidebar-header" class="card-header">
         <ul class="nav nav-pills nav-stacked" id="myTab">
             <li class="text-center">
@@ -36,7 +36,7 @@
                                         <span class="avatar-u1-m">{{ user.name | capitalize }}</span> 
                                     </span>
                                 </div>
-                                <div class="col-md-10 pr-0 pl-0">
+                                <div class="col-md-10 pr-0 pl-1">
                                     {{ user.name }}
                                 </div>
                             </div>

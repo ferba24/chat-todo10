@@ -11527,6 +11527,17 @@ body {
 
 /* ChatMessagesComponent.vue */
 
+@media (max-width: 850px) {
+  #chatGroup {
+    max-width: 100%;
+    flex: auto;
+  }
+}
+
+#scroll-messages-content {
+  z-index: 1;
+}
+
 #scroll-messages-content .msg {
   display: inline;
 }
@@ -11558,6 +11569,16 @@ body {
 
 /* SidebarComponent.vue */
 
+@media (max-width: 850px) {
+  #sidebarGroup {
+    display: none;
+    position: absolute;
+    background: white;
+    right: 0;
+    max-width: 300px;
+  }
+}
+
 #sidebarGroup table {
   background: white;
 }
@@ -11567,7 +11588,7 @@ body {
 }
 
 #sidebarGroup table td {
-  font-size: 12px;
+  font-size: 11px;
   line-height: 18px;
   padding: 3px 5px;
 }
