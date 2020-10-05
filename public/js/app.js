@@ -1942,11 +1942,7 @@ __webpack_require__.r(__webpack_exports__);
       return date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
     }
   },
-  watch: {
-    login_user_roles: function login_user_roles(value) {
-      this.checkIsMod();
-    }
-  },
+  watch: {},
   mounted: function mounted() {},
   methods: {},
   updated: function updated() {

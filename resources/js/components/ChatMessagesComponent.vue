@@ -36,9 +36,7 @@ export default {
         }
     },
     watch: {
-        login_user_roles: function(value){
-            this.checkIsMod();
-        }
+        
     },
     mounted() {
 
