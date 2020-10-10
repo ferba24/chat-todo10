@@ -190,7 +190,7 @@ body {
     }
 }
 #navbarSupportedContent{
-    @media(max-width:$medium - 1px){
+    @media(max-width:$medium - 0.5px){
         position: absolute;
         top: 50px;
         background: white;
