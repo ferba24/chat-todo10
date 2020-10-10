@@ -19,12 +19,4 @@ class HomeController extends Controller{
 		$req->session()->flush();
 		return redirect()->route('home')->withCookie(\Cookie::forget('xf_user'));
 	}
-	public function offsetTimezone(Request $req){
-		$origin_dtz = new \DateTimeZone($req->get('tz1'));
-		$remote_dtz = new \DateTimeZone($req->get('tz2'));
-		$origin_dt = new \DateTime("now", $origin_dtz);
-		$remote_dt = new \DateTime("now", $remote_dtz);
-		$offset = $origin_dtz->getOffset($origin_dt) - $remote_dtz->getOffset($remote_dt);
-		return ($offset/60)/60;
-	}
 }

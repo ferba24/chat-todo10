@@ -58506,11 +58506,11 @@ var app = new Vue({
     },
     changeTimeZoneFormat: function changeTimeZoneFormat(data) {
       var date = new Date(Date.parse(data.date));
-      date = date.toLocaleString("en-GB", {
+      date = date.toLocaleString("en-US", {
         timeZone: this.timezone
       });
       date = date.split(" ");
-      data.date = date[1];
+      data.date = date[1] + " " + date[2];
       return data;
     }
   },

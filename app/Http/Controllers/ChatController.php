@@ -42,7 +42,7 @@ class ChatController extends Controller{
 		foreach($messages as $m){
 			$date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $m->date, 'America/Mexico_City');
 			$date = $date->setTimezone($timezone);
-			$m->date = $date->toTimeString();
+			$m->date = $date->format('h:i:s A');
 		}
 		return response($messages->toJson());
 	}
