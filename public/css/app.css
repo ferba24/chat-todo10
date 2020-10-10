@@ -11068,7 +11068,7 @@ body {
   border: 1px solid #ddd;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   #navbarSupportedContent {
     position: absolute;
     top: 50px;
