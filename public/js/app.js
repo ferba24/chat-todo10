@@ -44552,6 +44552,8 @@ var render = function() {
     },
     _vm._l(_vm.filterMessages, function(message) {
       return _c("div", { key: message.id, staticClass: "message_block" }, [
+        _vm._m(0, true),
+        _vm._v(" "),
         _c("p", { staticClass: "msg" }, [
           _vm._v("[" + _vm._s(_vm._f("get_username")(message.user)) + "]")
         ]),
@@ -44571,9 +44573,7 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _c("span", { domProps: { innerHTML: _vm._s(message.message) } }),
-        _vm._v(" "),
-        _vm._m(0, true)
+        _c("span", { domProps: { innerHTML: _vm._s(message.message) } })
       ])
     }),
     0

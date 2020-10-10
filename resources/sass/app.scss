@@ -580,11 +580,17 @@ body {
     }
     .report{
         opacity: 0;
-        float: right;
-        margin-right: 15px;
+        margin-right: 3px;
+        display: inline;
+        @media(max-width: $medium){
+            opacity: 0.5;
+        }
     }
     .message_block:hover .report{
         opacity: 0.5;
+        @media(max-width: $medium){
+            opacity: 1;
+        }
     }
 }
 /* SidebarComponent.vue */

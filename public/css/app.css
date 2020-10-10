@@ -11559,12 +11559,24 @@ body {
 
 #scroll-messages-content .report {
   opacity: 0;
-  float: right;
-  margin-right: 15px;
+  margin-right: 3px;
+  display: inline;
+}
+
+@media (max-width: 768px) {
+  #scroll-messages-content .report {
+    opacity: 0.5;
+  }
 }
 
 #scroll-messages-content .message_block:hover .report {
   opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  #scroll-messages-content .message_block:hover .report {
+    opacity: 1;
+  }
 }
 
 /* SidebarComponent.vue */

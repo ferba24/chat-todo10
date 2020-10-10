@@ -1,6 +1,9 @@
 <template>
 <div class="card-body messages-content" style="overflow-y: auto;" id="scroll-messages-content">
     <div class="message_block" v-for="message in filterMessages" :key="message.id">
+        <div class="report">
+            <a href="#"><i class="fas fa-flag"></i></a>
+        </div>
         <p class="msg">[{{ message.user | get_username }}]</p>
         <div class="date" v-if="is_mod">
             <a href="#">{{ message.date }}</a> :
@@ -9,9 +12,6 @@
             {{ message.date }} :
         </div>
         <span v-html="message.message"></span>
-        <div class="report">
-            <a href="#"><i class="fas fa-flag"></i></a>
-        </div>
     </div>
 </div>
     
