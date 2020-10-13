@@ -18,9 +18,9 @@
             </div>
             <div class="container">
                 <div class="row checkbox bg-white">
-                    <label class="col-md-4 text-center"><input type="checkbox" v-model="show_admins"> Admins</label>
-                    <label class="col-md-4 text-center"><input type="checkbox" v-model="show_mods"> Mods</label>
-                    <label class="col-md-4 text-center"><input type="checkbox" v-model="show_others"> Others</label>
+                    <label class="col-4 text-center"><input type="checkbox" v-model="show_admins"> Admins</label>
+                    <label class="col-4 text-center"><input type="checkbox" v-model="show_mods"> Mods</label>
+                    <label class="col-4 text-center"><input type="checkbox" v-model="show_others"> Others</label>
                 </div>
             </div>
             <div class="card-body bg-white" style="overflow-y: auto;">
@@ -31,12 +31,12 @@
                     <li v-for="user in filterUsers" :key="user.id" style="padding-bottom: 5px;">
                         <div id="user-content">
                             <div class="row">
-                                <div class="col-md-2 text-center pr-0 pl-0">
+                                <div class="col-2 text-center pr-0 pl-0">
                                     <span class="avatar avatar--m avatar--default avatar--default--dynamic" data-user-id="1" style="background-color: #85a3e0; color: #24478f">
                                         <span class="avatar-u1-m">{{ user.name | capitalize }}</span> 
                                     </span>
                                 </div>
-                                <div class="col-md-10 pr-0 pl-1">
+                                <div class="col-10 pr-0 pl-1">
                                     {{ user.name }}
                                 </div>
                             </div>

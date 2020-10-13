@@ -45756,7 +45756,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "row checkbox bg-white" }, [
-            _c("label", { staticClass: "col-md-4 text-center" }, [
+            _c("label", { staticClass: "col-4 text-center" }, [
               _c("input", {
                 directives: [
                   {
@@ -45797,7 +45797,7 @@ var render = function() {
               _vm._v(" Admins")
             ]),
             _vm._v(" "),
-            _c("label", { staticClass: "col-md-4 text-center" }, [
+            _c("label", { staticClass: "col-4 text-center" }, [
               _c("input", {
                 directives: [
                   {
@@ -45838,7 +45838,7 @@ var render = function() {
               _vm._v(" Mods")
             ]),
             _vm._v(" "),
-            _c("label", { staticClass: "col-md-4 text-center" }, [
+            _c("label", { staticClass: "col-4 text-center" }, [
               _c("input", {
                 directives: [
                   {
@@ -45912,7 +45912,7 @@ var render = function() {
                         _c("div", { staticClass: "row" }, [
                           _c(
                             "div",
-                            { staticClass: "col-md-2 text-center pr-0 pl-0" },
+                            { staticClass: "col-2 text-center pr-0 pl-0" },
                             [
                               _c(
                                 "span",
@@ -45936,7 +45936,7 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-md-10 pr-0 pl-1" }, [
+                          _c("div", { staticClass: "col-10 pr-0 pl-1" }, [
                             _vm._v(
                               "\r\n                                    " +
                                 _vm._s(user.name) +

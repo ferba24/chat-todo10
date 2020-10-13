@@ -11588,6 +11588,8 @@ body {
     background: white;
     right: 0;
     max-width: 300px;
+    z-index: 9;
+    height: 100%;
   }
 }
 

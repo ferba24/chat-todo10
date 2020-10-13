@@ -32,20 +32,27 @@
 <script>
 	function widthAllChat(){
 		var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-		if(width <= 850){
+		if(width <= 850){ // Mobile full width
 			if(document.getElementById('sidebarGroup').classList.contains('show')){
 				document.getElementById('sidebarGroup').classList.remove("show");
 				document.getElementById('sidebarGroup').style.display="none";
 				
-				document.getElementById('chatGroup').style.maxWidth="100%";
-				document.getElementById('chatGroup').style.flex="auto";
+				//document.getElementById('chatGroup').style.maxWidth="100%";
+				//document.getElementById('chatGroup').style.flex="auto";
+				document.getElementById('slide_block').style.right="0";
 				
 			}else{
 				document.getElementById('sidebarGroup').classList.add("show");
 				document.getElementById('sidebarGroup').style.display="block";
 
-				document.getElementById('chatGroup').style.maxWidth="calc(100% - 300px)";
-				document.getElementById('chatGroup').style.flex="0 0 calc(100% - 300px)";
+				//document.getElementById('chatGroup').style.maxWidth="calc(100% - 300px)";
+				//document.getElementById('chatGroup').style.flex="0 0 calc(100% - 300px)";
+				var offset = document.getElementById('sidebarGroup').offsetWidth;
+				if(width <= (offset + 30)){
+					document.getElementById('slide_block').style.right= (offset - 30) + "px";
+				}else{
+					document.getElementById('slide_block').style.right= offset + "px";
+				}
 			}
 		}else{
 			if(document.getElementById('chatGroup').classList.contains('col-md-9')){
