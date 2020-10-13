@@ -26,7 +26,7 @@
             <div class="card-body bg-white" style="overflow-y: auto;">
                 <ul style="list-style: none;" id="users-list">
                     <li v-if="filterUsers.length <= 0">
-                        Loading...
+                        {{ usersIsZero }}
                     </li>
                     <li v-for="user in filterUsers" :key="user.id" style="padding-bottom: 5px;">
                         <div id="user-content">
@@ -87,6 +87,7 @@ export default {
             show_admins: true,
             show_mods: true,
             show_others: true,
+            usersIsZero: 'Loading...',
         }
     },
     filters: {
@@ -230,6 +231,7 @@ export default {
 
             //Se filtra por el término buscado
             if(this.term_user != ""){
+                this.usersIsZero = "Not found";
                 filtered_tu = filtered_tu.filter(
                     m => m.name.toLowerCase().indexOf(this.term_user) > -1
                 );

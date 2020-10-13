@@ -2614,7 +2614,8 @@ __webpack_require__.r(__webpack_exports__);
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       show_admins: true,
       show_mods: true,
-      show_others: true
+      show_others: true,
+      usersIsZero: 'Loading...'
     };
   },
   filters: {
@@ -2772,6 +2773,7 @@ __webpack_require__.r(__webpack_exports__);
       filtered_tu = filtered_tu.concat(filtered_so); //Se filtra por el término buscado
 
       if (this.term_user != "") {
+        this.usersIsZero = "Not found";
         filtered_tu = filtered_tu.filter(function (m) {
           return m.name.toLowerCase().indexOf(_this4.term_user) > -1;
         });
@@ -45898,7 +45900,9 @@ var render = function() {
                 _vm.filterUsers.length <= 0
                   ? _c("li", [
                       _vm._v(
-                        "\r\n                        Loading...\r\n                    "
+                        "\r\n                        " +
+                          _vm._s(_vm.usersIsZero) +
+                          "\r\n                    "
                       )
                     ])
                   : _vm._e(),
