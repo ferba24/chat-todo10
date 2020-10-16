@@ -84,26 +84,4 @@ class RoomController extends Controller{
 		}
 		return response($room->toJson());
 	}
-/*
-	public function change(Request $req, $room = '') {
-		$room = RoomUser::where("room_id", $room)->where('user_id', $req->session()->get('user'))->first();
-		if($room) {
-			$req->session()->put('room', $room->room_id);
-		}	
-		return redirect()->route('home')->with('success', 'Se ha creado satisfactoriamente!');
-	}
-	//
-	public function exitRoom(Request $req, $room = null) {
-		$room = RoomUser::where("room_id", $room)->where('user_id', $req->session()->get('user'))->first();
-		$room->delete();
-		return redirect()->route('home')->with('success', 'Se ha creado satisfactoriamente!');
-	}
-	public function getRoomsUser($id = null){
-		if(!$id){
-			return null;
-		}
-		$rooms = \DB::table('room_user')->where('room_id', '!=', 1)->where('user_id', $id)->get();
-		return response($rooms->toJson());
-	}
-	*/
 }
