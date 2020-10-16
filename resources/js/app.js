@@ -169,7 +169,8 @@ const app = new Vue({
                         message: message.message,
                         user: message.user,
                         room: message.room,
-                        date: message.date
+                        date: message.date,
+                        id: message.id
                 });
                 this.sounds();
             });

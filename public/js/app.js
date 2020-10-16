@@ -1927,11 +1927,61 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['messages', 'current_room', 'login_user_roles'],
   data: function data() {
     return {
-      is_mod: false
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      is_mod: false,
+      send_report: false,
+      id_message_report: -1,
+      fields: {},
+      errors: {},
+      report_success: false
     };
   },
   filters: {
@@ -1945,12 +1995,82 @@ __webpack_require__.r(__webpack_exports__);
       this.checkIsMod();
     }
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    $('#showModalReport').on('hidden.bs.modal', this.setZIndex);
+  },
   methods: {
+    setZIndex: function setZIndex() {
+      document.getElementById('scroll-messages-content').style.zIndex = '1';
+    },
     checkIsMod: function checkIsMod() {
       if (this.login_user_roles.includes(3) || this.login_user_roles.includes(4)) {
         this.is_mod = true;
       }
+    },
+    reportMessage: function reportMessage(id) {
+      var me = this;
+      me.report_success = false;
+      me.id_message_report = id;
+      document.getElementById('sendButton_report').style.display = ""; //check freport exist
+
+      var url = me.$backendURL + '/api/report/check';
+      axios.post(url, {
+        id: id,
+        _token: me.csrf
+      }).then(function (response) {
+        if (response.data.count == 0) {
+          document.getElementById('scroll-messages-content').style.zIndex = 'auto';
+          $("#showModalReport").modal("show");
+        } else {
+          alert('You already reported this message');
+        }
+      })["catch"](function (error) {
+        if (error.response.status == 500) {
+          me.send_report = false;
+          me.errors = {
+            "generic": "Error to check report: 500."
+          } || {};
+        }
+      });
+    },
+    report: function report() {
+      var me = this;
+      me.send_report = true;
+      document.getElementById('sendButton_report').setAttribute("disabled", "disabled");
+      var url = me.$backendURL + '/api/report/send';
+      me.errors = {};
+      axios.post(url, {
+        message_id: me.id_message_report,
+        reason: me.fields.reason,
+        _token: me.csrf
+      }).then(function (response) {
+        me.send_report = false;
+        document.getElementById('sendButton_report').style.display = "none";
+
+        if (response.data.success) {
+          me.report_success = true; //$('#showModalReport').modal('hide');
+        } else if (response.data.errors) {
+          me.errors = {
+            "generic": response.data.errors[0].message
+          } || {};
+        } else {
+          me.errors.generic = "Some error. Contact the webmaster.";
+        }
+      })["catch"](function (error) {
+        if (error.response.status == 422) {
+          me.send_report = false;
+          document.getElementById('sendButton_report').removeAttribute("disabled");
+          me.errors = error.response.data.errors || {};
+        }
+
+        if (error.response.status == 500) {
+          me.send_report = false;
+          document.getElementById('sendButton_report').removeAttribute("disabled");
+          me.errors = {
+            "generic": "Error 500."
+          } || {};
+        }
+      });
     }
   },
   updated: function updated() {
@@ -44552,33 +44672,210 @@ var render = function() {
       staticStyle: { "overflow-y": "auto" },
       attrs: { id: "scroll-messages-content" }
     },
-    _vm._l(_vm.filterMessages, function(message) {
-      return _c("div", { key: message.id, staticClass: "message_block" }, [
-        _vm._m(0, true),
-        _vm._v(" "),
-        _c("p", { staticClass: "msg" }, [
-          _vm._v("[" + _vm._s(_vm._f("get_username")(message.user)) + "]")
-        ]),
-        _vm._v(" "),
-        _vm.is_mod
-          ? _c("div", { staticClass: "date" }, [
-              _c("a", { attrs: { href: "#" } }, [_vm._v(_vm._s(message.date))]),
-              _vm._v(" :\r\n        ")
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        !_vm.is_mod
-          ? _c("div", { staticClass: "date" }, [
-              _vm._v(
-                "\r\n            " + _vm._s(message.date) + " :\r\n        "
-              )
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("span", { domProps: { innerHTML: _vm._s(message.message) } })
-      ])
-    }),
-    0
+    [
+      _vm._l(_vm.filterMessages, function(message) {
+        return _c("div", { key: message.id, staticClass: "message_block" }, [
+          _c("div", { staticClass: "report" }, [
+            _c(
+              "a",
+              {
+                attrs: { href: "javascript:void(0);" },
+                on: {
+                  click: function($event) {
+                    return _vm.reportMessage(message.id)
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fas fa-flag" })]
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "msg" }, [
+            _vm._v("[" + _vm._s(_vm._f("get_username")(message.user)) + "]")
+          ]),
+          _vm._v(" "),
+          _vm.is_mod
+            ? _c("div", { staticClass: "date" }, [
+                _c("a", { attrs: { href: "#" } }, [
+                  _vm._v(_vm._s(message.date))
+                ]),
+                _vm._v(" :\n        ")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.is_mod
+            ? _c("div", { staticClass: "date" }, [
+                _vm._v("\n            " + _vm._s(message.date) + " :\n        ")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("span", { domProps: { innerHTML: _vm._s(message.message) } })
+        ])
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "showModalReport",
+            "data-backdrop": "static",
+            "data-keyboard": "false",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "exampleModalLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.report($event)
+                        }
+                      }
+                    },
+                    [
+                      _vm.errors && _vm.errors.generic
+                        ? _c("div", { staticClass: "text-danger" }, [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(_vm.errors.generic) +
+                                "\n                        "
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-12" }, [
+                          !_vm.report_success
+                            ? _c("div", { staticClass: "form-group" }, [
+                                _c("label", [_vm._v("Reason")]),
+                                _vm._v(" "),
+                                _c("textarea", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.fields.reason,
+                                      expression: "fields.reason"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { name: "reason", id: "reason" },
+                                  domProps: { value: _vm.fields.reason },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.fields,
+                                        "reason",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _vm.errors && _vm.errors.reason
+                                  ? _c("div", { staticClass: "text-danger" }, [
+                                      _vm._v(_vm._s(_vm.errors.reason[0]))
+                                    ])
+                                  : _vm._e()
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.report_success
+                            ? _c("div", [
+                                _vm._v(
+                                  "\n                                    Your report was sent\n                                "
+                                )
+                              ])
+                            : _vm._e()
+                        ])
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-12 text-right" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: {
+                            href: "javascript:void(0);",
+                            "data-dismiss": "modal"
+                          }
+                        },
+                        [_vm._v("Close")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-primary",
+                          staticStyle: { color: "white !important" },
+                          attrs: {
+                            href: "javascript:void(0);",
+                            id: "sendButton_report"
+                          },
+                          on: { click: _vm.report }
+                        },
+                        [
+                          !_vm.send_report
+                            ? _c("span", [
+                                _c("i", { staticClass: "fas fa-bug" }),
+                                _vm._v(
+                                  " Send report\n                                "
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.send_report
+                            ? _c("span", [
+                                _c("span", {
+                                  staticClass:
+                                    "spinner-border spinner-border-sm",
+                                  staticStyle: {
+                                    display: "table-cell !important"
+                                  },
+                                  attrs: {
+                                    role: "status",
+                                    "aria-hidden": "true"
+                                  }
+                                }),
+                                _vm._v(
+                                  "\n                                    Loading...\n                                "
+                                )
+                              ])
+                            : _vm._e()
+                        ]
+                      )
+                    ])
+                  ])
+                ])
+              ])
+            ]
+          )
+        ]
+      )
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -44586,10 +44883,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "report" }, [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-flag" })
-      ])
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Report message")]
+      )
     ])
   }
 ]
@@ -58499,7 +58798,8 @@ var app = new Vue({
           message: message.message,
           user: message.user,
           room: message.room,
-          date: message.date
+          date: message.date,
+          id: message.id
         });
 
         _this6.sounds();

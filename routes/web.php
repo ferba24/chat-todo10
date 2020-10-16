@@ -69,6 +69,10 @@ Route::prefix('api')->group(function(){
             Route::get('getRoomsByUser/{room_id}', 'RoomController@getRoomsByUser');
         });
     });
+    Route::prefix('report')->group(function(){
+        Route::post('check', 'ChatController@checkReportExist');
+        Route::post('send', 'ChatController@sendReport');
+    });
 });
 Route::get('/api/getUser/{room}/{search?}', 'ApiController@getUser')->name('api.getUser');
 Route::get('/api/getUserPrivate', 'ApiController@getUserPrivate')->name('api.getUserPrivate');
