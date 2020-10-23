@@ -2,6 +2,7 @@
 namespace App\Traits;
 use Illuminate\Http\Request;
 use App\XenUser;
+use App\RoomUser;
 
 trait SessionTrait {
     /*
@@ -46,6 +47,10 @@ trait SessionTrait {
 	}
     // API GET ROOM BEFORE LOGIN
 	public function getRoomLogin(Request $req){
-        return ($req->session()->get('user'))?$req->session()->get('room'):null;
+		if($req->session()->get('user')){
+			$r_user = RoomUser::where('user_id', $req->session()->get('user'))->first();
+			return $r_user->room_id;
+		}
+		return null;
 	}
 }

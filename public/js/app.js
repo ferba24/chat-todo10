@@ -2947,9 +2947,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['rooms', 'current_room'],
   data: function data() {
@@ -46379,60 +46376,42 @@ var render = function() {
   return _c(
     "ul",
     { staticClass: "nav nav-pills nav-stacked" },
-    [
-      _c("li", { staticClass: "nav-item" }, [
+    _vm._l(_vm.rooms, function(room) {
+      return _c("li", { key: room.id, staticClass: "nav-item" }, [
         _c(
           "a",
           {
-            class: { active: _vm.current_room == 1 },
+            class: { active: _vm.current_room == room.id },
             attrs: { href: "javascript:void(0)" },
             on: {
               click: function($event) {
-                return _vm.changeRoom(1)
+                return _vm.changeRoom("" + room.id)
               }
             }
           },
-          [_vm._v("General   ")]
-        )
-      ]),
-      _vm._v(" "),
-      _vm._l(_vm.rooms, function(room) {
-        return _c("li", { key: room.id, staticClass: "nav-item" }, [
-          _c(
-            "a",
-            {
-              class: { active: _vm.current_room == room.id },
-              attrs: { href: "javascript:void(0)" },
-              on: {
-                click: function($event) {
-                  return _vm.changeRoom("" + room.id)
-                }
-              }
-            },
-            [
-              _vm._v(
-                "\r\n        " + _vm._s(room.room_name) + "    \r\n        "
-              ),
-              _c(
-                "span",
-                {
-                  staticClass: "badge badge-light",
-                  staticStyle: { cursor: "pointer" },
-                  attrs: { id: "badge", title: "Exit room" },
-                  on: {
-                    click: function($event) {
-                      return _vm.exitRoom("" + room.id)
-                    }
+          [
+            _vm._v(
+              "\r\n        " + _vm._s(room.room_name) + "    \r\n        "
+            ),
+            _c(
+              "span",
+              {
+                staticClass: "badge badge-light",
+                staticStyle: { cursor: "pointer" },
+                attrs: { id: "badge", title: "Exit room" },
+                on: {
+                  click: function($event) {
+                    return _vm.exitRoom("" + room.id)
                   }
-                },
-                [_c("i", { staticClass: "fas fa-times" })]
-              )
-            ]
-          )
-        ])
-      })
-    ],
-    2
+                }
+              },
+              [_c("i", { staticClass: "fas fa-times" })]
+            )
+          ]
+        )
+      ])
+    }),
+    0
   )
 }
 var staticRenderFns = []
@@ -58769,10 +58748,16 @@ var app = new Vue({
     },
     deleteRoomFromUser: function deleteRoomFromUser(room) {
       var me = this;
+
+      if (me.rooms.length <= 0) {
+        me.current_room = -1;
+        return;
+      }
+
       me.rooms.forEach(function (item, index, object) {
         if (item.id == room.room_id) {
           if (me.current_room == room.room_id) {
-            me.current_room = 1;
+            me.current_room = -1;
           }
 
           object.splice(index, 1);

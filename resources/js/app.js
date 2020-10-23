@@ -144,10 +144,14 @@ const app = new Vue({
         },
         deleteRoomFromUser(room) {
             let me = this;
+            if (me.rooms.length <= 0) {
+                me.current_room = -1;
+                return;
+            }
             me.rooms.forEach(function (item, index, object) {
                 if (item.id == room.room_id) {
                     if (me.current_room == room.room_id) {
-                        me.current_room = 1;
+                        me.current_room = -1;
                     }
                     object.splice(index, 1);
                     return;

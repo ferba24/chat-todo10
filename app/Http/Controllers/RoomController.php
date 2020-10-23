@@ -8,12 +8,7 @@ use App\XenUser;
 class RoomController extends Controller{
 	// Get all rooms
 	public function getRooms() {
-		/*$rooms = \DB::table('room')->where('room.id', '!=', 1)
-				->leftJoin('room_user', 'room.id', 'room_user.room_id')
-				->select('room.*', \DB::raw('(SELECT COUNT(*) FROM room_user WHERE room.id = room_user.room_id) as count_room'))
-				->groupBy('room.id')
-				->orderBy('count_room', 'desc')->get();*/
-		$rooms = \DB::table('room')->where('room.id', '!=', 1)
+		$rooms = \DB::table('room')
 						//->select('room.*', \DB::raw('0 as count_room'))
 						->orderBy('room.room_name', 'desc')->get();
 		return response($rooms->toJson());
@@ -51,7 +46,6 @@ class RoomController extends Controller{
 	public function getFromUser(Request $req){
 		$rooms = \DB::table('room_user')
 					->where('room_user.user_id', $req->session()->get('user'))
-					->where('room_user.room_id', '!=', 1)
 					->leftJoin('room', 'room.id', '=', 'room_user.room_id')
 					->select('room.room_name as room_name', 'room.id as id')
 					->get();
