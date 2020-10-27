@@ -94,7 +94,7 @@ const app = new Vue({
                 if (response.data && response.data != '') {
                     this.current_room = response.data;
                 } else {
-                    this.current_room = 1;
+                    this.current_room = -1;
                 }
             });
 

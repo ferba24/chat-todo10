@@ -49,7 +49,9 @@ trait SessionTrait {
 	public function getRoomLogin(Request $req){
 		if($req->session()->get('user')){
 			$r_user = RoomUser::where('user_id', $req->session()->get('user'))->first();
-			return $r_user->room_id;
+			if($r_user){
+				return $r_user->room_id;
+			}
 		}
 		return null;
 	}
