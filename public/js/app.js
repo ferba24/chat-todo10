@@ -2409,6 +2409,151 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PrivateComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PrivateComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['chats_private', 'login_user'],
+  mounted: function mounted() {},
+  methods: {
+    hide_chat: function hide_chat(id) {
+      $('.hide-chat-box-' + id).parent().children(".chat-content").slideToggle();
+    },
+    close_chat: function close_chat(id) {
+      this.$emit('closeprivatechat_send', {
+        user_id: id
+      });
+    },
+    send_m: function send_m(id) {
+      var text = document.getElementById('message-text').value;
+
+      if (text.length > 0 && this.login_user != 0) {
+        this.$emit('messagesentprivate', {
+          message: text,
+          user_id: id
+        });
+        document.getElementById('message-text').value = "";
+      }
+    }
+  },
+  watch: {
+    chats_private: {
+      handler: function handler(val) {
+        setInterval(function () {
+          var objDiv = document.getElementById("messages-ul-" + val[0].user_id);
+
+          if (objDiv != null) {
+            objDiv.scrollTop = objDiv.scrollHeight + 25; //25 del tamaño del mensaje a poner
+          }
+        }, 1000);
+      },
+      deep: true //Forzar que todo la variable si cambia hace un watch
+
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RoomsComponent.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RoomsComponent.vue?vue&type=script&lang=js& ***!
@@ -2721,8 +2866,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['login_user', 'current_room', 'rooms'],
+  props: ['login_user', 'current_room', 'rooms', 'chats_private'],
   data: function data() {
     return {
       users_count: 0,
@@ -2735,7 +2884,8 @@ __webpack_require__.r(__webpack_exports__);
       show_admins: true,
       show_mods: true,
       show_others: true,
-      usersIsZero: 'Loading...'
+      usersIsZero: 'Loading...',
+      user_private_chat: 0
     };
   },
   filters: {
@@ -2789,6 +2939,10 @@ __webpack_require__.r(__webpack_exports__);
         _this2.arrayUsers = _this2.arrayUsers.filter(function (u) {
           return u.user_id !== user.user_id;
         });
+
+        if (_this2.user_private_chat != 0) {
+          _this2.close_popup_user();
+        }
       });
     },
     // Copiar esta función en RoomsComponent.vue si hay algún cambio
@@ -2830,6 +2984,34 @@ __webpack_require__.r(__webpack_exports__);
           console.log('Error in SidebarComponent.vue in watch.current_room: ' + error);
         });
       });
+    },
+    popup_user: function popup_user(id, e) {
+      var me = this;
+
+      if (me.login_user != id) {
+        me.user_private_chat = id;
+        var sizeNet = document.getElementById('card-box-navbar').getBoundingClientRect().height;
+        var offset = e.clientY - sizeNet;
+        document.getElementById('popup_user').style = "top: " + offset + "px;";
+        document.getElementById('popup_user').style.display = "block"; //Revisar si ya existe el chat privado
+
+        me.chats_private.forEach(function (item, index, object) {
+          if (item.user_id == id) {
+            me.close_popup_user();
+          }
+        });
+      }
+    },
+    open_private_chat: function open_private_chat() {
+      document.getElementById('popup_user').style.display = "none";
+      this.$emit('privatechat_send', {
+        user_id: this.user_private_chat
+      });
+      this.user_private_chat = 0;
+    },
+    close_popup_user: function close_popup_user(e) {
+      this.user_private_chat = 0;
+      document.getElementById('popup_user').style.display = "none";
     }
   },
   mounted: function mounted() {
@@ -45484,113 +45666,140 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
+  return _c("div", { staticClass: "chat-private" }, [
+    _c(
       "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "showModalPrivate",
-          "data-backdrop": "static",
-          "data-keyboard": "false",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c(
-                  "h5",
-                  {
-                    staticClass: "modal-title",
-                    attrs: { id: "exampleModalLabel" }
-                  },
-                  [_vm._v("Private Chat")]
-                ),
+      { staticClass: "row pt-3 align-items-end" },
+      _vm._l(_vm.chats_private, function(chat) {
+        return _c("div", { key: chat.user_id, staticClass: "chat-main" }, [
+          _c(
+            "div",
+            {
+              class:
+                "col-md-12 chat-header rounded-top bg-primary text-white hide-chat-box-" +
+                chat.user_id,
+              on: {
+                click: function($event) {
+                  return _vm.hide_chat(chat.user_id)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6 username pl-2" }, [
+                  _c("h6", { staticClass: "m-0" }, [_vm._v(_vm._s(chat.name))])
+                ]),
                 _vm._v(" "),
-                _c("small", [_vm._v("Choose a user to start chatting")])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "row",
-                    staticStyle: { height: "300px", "overflow-y": "auto" }
-                  },
-                  [
-                    _c("div", { staticClass: "col-md-12" }, [
-                      _c(
-                        "table",
-                        {
-                          staticClass: "table table-bordered table-striped",
-                          attrs: { id: "privateUserModel" }
-                        },
-                        [
-                          _c("thead", [
-                            _c("tr", [
-                              _c("td", { staticClass: "text-center" }, [
-                                _vm._v("Users")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                {
-                                  staticClass: "text-center",
-                                  staticStyle: { width: "100px" }
-                                },
-                                [_vm._v("Action")]
-                              )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tbody")
-                        ]
-                      )
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6 options text-right pr-2" }, [
                   _c(
-                    "div",
+                    "a",
                     {
-                      staticClass: "col-md-12 text-right",
-                      attrs: { "data-dismiss": "modal" }
+                      attrs: { href: "javascript:void(0);" },
+                      on: {
+                        click: function($event) {
+                          return _vm.close_chat(chat.user_id)
+                        }
+                      }
                     },
-                    [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-default",
-                          attrs: { href: "#" }
-                        },
-                        [_vm._v("Close")]
-                      )
-                    ]
+                    [_c("i", { staticClass: "far fa-times-circle" })]
                   )
                 ])
               ])
-            ])
-          ]
-        )
-      ]
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "chat-content" }, [
+            _c("div", { staticClass: "col-md-12 chats border" }, [
+              _c(
+                "ul",
+                {
+                  staticClass: "p-0 m-0",
+                  staticStyle: {
+                    "overflow-y": "auto",
+                    width: "100%",
+                    height: "100%"
+                  },
+                  attrs: { id: "messages-ul-" + chat.user_id }
+                },
+                _vm._l(chat.messages, function(message) {
+                  return _c(
+                    "li",
+                    {
+                      key: message.id,
+                      staticClass:
+                        "pl-2 pr-2 bg-primary rounded text-white text-center send-msg mb-1"
+                    },
+                    [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(message.text) +
+                          "\n                            "
+                      )
+                    ]
+                  )
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "col-md-12 message-box border pl-2 pr-2 border-top-0"
+              },
+              [
+                _c("div", { staticClass: "form-row" }, [
+                  _c("div", { staticClass: "col-9" }, [
+                    _c("input", {
+                      staticClass: "pl-0 pr-0 w-100",
+                      attrs: {
+                        id: "message-text",
+                        type: "text",
+                        placeholder: "Type a message..."
+                      },
+                      on: {
+                        keyup: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.send_m(chat.user_id)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-3" }, [
+                    _c("input", {
+                      staticClass: "btn",
+                      attrs: { type: "submit", value: "Send" },
+                      on: {
+                        click: function($event) {
+                          return _vm.send_m(chat.user_id)
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ]
+            )
+          ])
+        ])
+      }),
+      0
     )
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -46187,6 +46396,42 @@ var render = function() {
           },
           [
             _c(
+              "div",
+              { staticClass: "popup_user", attrs: { id: "popup_user" } },
+              [
+                _c("div", [
+                  _c(
+                    "a",
+                    {
+                      attrs: { href: "javascript:void(0);" },
+                      on: {
+                        click: function($event) {
+                          return _vm.open_private_chat()
+                        }
+                      }
+                    },
+                    [_vm._v("Open private chat")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c(
+                    "a",
+                    {
+                      attrs: { href: "javascript:void(0);" },
+                      on: {
+                        click: function($event) {
+                          return _vm.close_popup_user()
+                        }
+                      }
+                    },
+                    [_vm._v("Close")]
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
               "ul",
               {
                 staticStyle: { "list-style": "none" },
@@ -46206,7 +46451,15 @@ var render = function() {
                 _vm._l(_vm.filterUsers, function(user) {
                   return _c(
                     "li",
-                    { key: user.id, staticStyle: { "padding-bottom": "5px" } },
+                    {
+                      key: user.id,
+                      staticStyle: { "padding-bottom": "5px" },
+                      on: {
+                        click: function($event) {
+                          return _vm.popup_user(user.user_id, $event)
+                        }
+                      }
+                    },
                     [
                       _c("div", { attrs: { id: "user-content" } }, [
                         _c("div", { staticClass: "row" }, [
@@ -58635,7 +58888,8 @@ var app = new Vue({
     echoRun: false,
     timezone: null,
     offset_timezone: -1,
-    connected_users: []
+    connected_users: [],
+    chats_private: []
   },
   mounted: function mounted() {
     //Escucha los mensajes de Pusher
@@ -58695,7 +58949,7 @@ var app = new Vue({
         if (response.data && response.data != '') {
           _this4.current_room = response.data;
         } else {
-          _this4.current_room = 1;
+          _this4.current_room = -1;
         }
       }); //TEST
 
@@ -58736,10 +58990,9 @@ var app = new Vue({
       me.current_room = room.room_id;
     },
     sounds: function sounds() {
-      var me = this; //Reproduce el audio cuando llega un mensaje
-
-      if (me.sound_active) {
-        var audio = new Audio(me.$backendURL + "/js/sounds/bell_ring.mp3");
+      //Reproduce el audio cuando llega un mensaje
+      if (this.sound_active) {
+        var audio = new Audio(this.$backendURL + "/js/sounds/bell_ring.mp3");
         audio.play();
       }
     },
@@ -58751,19 +59004,18 @@ var app = new Vue({
 
       if (me.rooms.length <= 0) {
         me.current_room = -1;
-        return;
-      }
+      } else {
+        me.rooms.forEach(function (item, index, object) {
+          if (item.id == room.room_id) {
+            if (me.current_room == room.room_id) {
+              me.current_room = -1;
+            }
 
-      me.rooms.forEach(function (item, index, object) {
-        if (item.id == room.room_id) {
-          if (me.current_room == room.room_id) {
-            me.current_room = -1;
+            object.splice(index, 1);
+            return;
           }
-
-          object.splice(index, 1);
-          return;
-        }
-      });
+        });
+      }
     },
     echoListen: function echoListen() {
       var _this6 = this;
@@ -58801,6 +59053,41 @@ var app = new Vue({
       date = date.split(" ");
       data.date = date[1] + " " + date[2];
       return data;
+    },
+    //PrivateChatComponent.vue
+    addPrivateChat: function addPrivateChat(user) {
+      var me = this;
+      me.connected_users.forEach(function (item, index, object) {
+        if (item.user_id == user.user_id) {
+          me.chats_private.push({
+            user_id: user.user_id,
+            name: item.name,
+            messages: []
+          });
+        }
+      });
+    },
+    closePrivateChat: function closePrivateChat(user) {
+      if (this.chats_private.length > 0) {
+        this.chats_private.forEach(function (item, index, object) {
+          if (item.user_id == user.user_id) {
+            object.splice(index, 1);
+            return;
+          }
+        });
+      }
+    },
+    addMessagePrivate: function addMessagePrivate(message) {
+      //console.log(message);
+      var me = this;
+      me.chats_private.forEach(function (item, index, object) {
+        if (item.user_id == message.user_id) {
+          item.messages.push({
+            user_id: me.login_user,
+            text: message.message
+          });
+        }
+      });
     }
   },
   watch: {
@@ -59130,15 +59417,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PrivateComponent_vue_vue_type_template_id_45297fb6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PrivateComponent.vue?vue&type=template&id=45297fb6& */ "./resources/js/components/PrivateComponent.vue?vue&type=template&id=45297fb6&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _PrivateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PrivateComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/PrivateComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PrivateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _PrivateComponent_vue_vue_type_template_id_45297fb6___WEBPACK_IMPORTED_MODULE_0__["render"],
   _PrivateComponent_vue_vue_type_template_id_45297fb6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -59152,6 +59441,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/components/PrivateComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PrivateComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/PrivateComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PrivateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PrivateComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PrivateComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PrivateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

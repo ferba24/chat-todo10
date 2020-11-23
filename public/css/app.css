@@ -11651,6 +11651,36 @@ body {
   border: 0px !important;
 }
 
+#sidebarGroup .popup_user {
+  display: none;
+  position: absolute;
+  color: black;
+  padding: 40px;
+  border: solid 1px #ddd;
+  background: #f4f4f4 !important;
+  width: 150px;
+  z-index: 9;
+  padding: 0px;
+  font-size: 0.7em;
+}
+
+#sidebarGroup .popup_user div {
+  width: 100%;
+  padding: 5px;
+}
+
+#sidebarGroup .popup_user div:hover {
+  background: #eee;
+}
+
+#sidebarGroup .popup_user div a {
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+}
+
 /* slide_block */
 
 #slide_block {
@@ -11688,5 +11718,101 @@ body {
   border-style: solid;
   border-width: 7.5px 10px 7.5px 0;
   border-color: transparent #d4d0d0 transparent transparent;
+}
+
+/*PrivateComponent.vue*/
+
+.chat-private {
+  position: absolute;
+  bottom: 0;
+  right: 25px;
+}
+
+.chat-private .chat-main {
+  width: 270px;
+  z-index: 99;
+  background: white;
+  margin-right: 10px;
+}
+
+.chat-private .chat-header {
+  background: #3490dc;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.chat-private .username i {
+  font-size: 9px;
+}
+
+.chat-private .username h6 {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.chat-private .options a {
+  color: white;
+}
+
+.chat-private .options i {
+  font-size: 14px;
+  font-weight: normal;
+  opacity: 0.7;
+}
+
+.chat-private .options .live-video {
+  font-size: 6px;
+}
+
+.chat-private .chats {
+  height: 260px;
+  overflow-x: scroll;
+  overflow-x: hidden;
+}
+
+.chat-private .chats ul li {
+  list-style: none;
+  clear: both;
+  font-size: 13px;
+}
+
+.chat-private .chats .send-msg {
+  float: right;
+}
+
+.chat-private .receive-msg img {
+  border-radius: 100%;
+  height: 30px;
+  width: 12%;
+}
+
+.chat-private .receive-msg .receive-msg-desc {
+  display: inline-block;
+}
+
+.chat-private .receive-msg .receive-msg-desc p {
+  background: #c1c1c1;
+}
+
+.chat-private .receive-msg-img {
+  display: inline;
+}
+
+.chat-private .message-box input {
+  border: none;
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.chat-private .message-box input:focus {
+  outline: none;
+}
+
+.chat-private .tools i {
+  color: #a1a1a1;
+  cursor: pointer;
+  font-size: 20px;
+  margin-right: 6px;
 }
 

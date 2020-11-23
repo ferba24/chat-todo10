@@ -42,6 +42,7 @@ const app = new Vue({
         timezone: null,
         offset_timezone: -1,
         connected_users: [],
+        chats_private: []
     },
     mounted() {
         //Escucha los mensajes de Pusher
@@ -132,10 +133,9 @@ const app = new Vue({
             me.current_room = room.room_id;
         },
         sounds() {
-            let me = this;
             //Reproduce el audio cuando llega un mensaje
-            if (me.sound_active) {
-                let audio = new Audio(me.$backendURL + "/js/sounds/bell_ring.mp3");
+            if (this.sound_active) {
+                let audio = new Audio(this.$backendURL + "/js/sounds/bell_ring.mp3");
                 audio.play();
             }
         },
@@ -146,17 +146,17 @@ const app = new Vue({
             let me = this;
             if (me.rooms.length <= 0) {
                 me.current_room = -1;
-                return;
-            }
-            me.rooms.forEach(function (item, index, object) {
-                if (item.id == room.room_id) {
-                    if (me.current_room == room.room_id) {
-                        me.current_room = -1;
+            } else {
+                me.rooms.forEach(function (item, index, object) {
+                    if (item.id == room.room_id) {
+                        if (me.current_room == room.room_id) {
+                            me.current_room = -1;
+                        }
+                        object.splice(index, 1);
+                        return;
                     }
-                    object.splice(index, 1);
-                    return;
-                }
-            });
+                });   
+            }
         },
         echoListen() {
             window.Echo = new EchoLibrary({
@@ -188,6 +188,41 @@ const app = new Vue({
             date = date.split(" ");
             data.date = date[1] + " " + date[2];
             return data;
+        },
+        //PrivateChatComponent.vue
+        addPrivateChat(user) {
+            let me = this;
+            me.connected_users.forEach(function (item, index, object) {
+                if (item.user_id == user.user_id) {
+                    me.chats_private.push({
+                        user_id: user.user_id,
+                        name: item.name,
+                        messages: []
+                    });
+                }
+            });
+        },
+        closePrivateChat(user) {
+            if (this.chats_private.length > 0) {
+                this.chats_private.forEach(function (item, index, object) {
+                    if (item.user_id == user.user_id) {
+                        object.splice(index, 1);
+                        return;
+                    }
+                });
+            }
+        },
+        addMessagePrivate(message) {
+            //console.log(message);
+            let me = this;
+            me.chats_private.forEach(function (item, index, object) {
+                if (item.user_id == message.user_id) {
+                    item.messages.push({
+                        user_id: me.login_user,
+                        text: message.message
+                    });
+                }
+            });
         }
     },
     watch: {

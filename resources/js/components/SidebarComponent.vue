@@ -24,11 +24,15 @@
                 </div>
             </div>
             <div class="card-body bg-white" style="overflow-y: auto;">
+                <div class="popup_user" id="popup_user" style="">
+                    <div><a href="javascript:void(0);" @click="open_private_chat()">Open private chat</a></div>
+                    <div><a href="javascript:void(0);" @click="close_popup_user()">Close</a></div>
+                </div>
                 <ul style="list-style: none;" id="users-list">
                     <li v-if="filterUsers.length <= 0">
                         {{ usersIsZero }}
                     </li>
-                    <li v-for="user in filterUsers" :key="user.id" style="padding-bottom: 5px;">
+                    <li v-for="user in filterUsers" :key="user.id" style="padding-bottom: 5px;" @click="popup_user(user.user_id, $event)">
                         <div id="user-content">
                             <div class="row">
                                 <div class="col-2 text-center pr-0 pl-0">
@@ -74,7 +78,7 @@
 </template>
 <script>
 export default {
-    props: ['login_user', 'current_room', 'rooms'],
+    props: ['login_user', 'current_room', 'rooms', 'chats_private'],
     data(){
         return{
             users_count: 0,
@@ -88,6 +92,7 @@ export default {
             show_mods: true,
             show_others: true,
             usersIsZero: 'Loading...',
+            user_private_chat: 0,
         }
     },
     filters: {
@@ -137,6 +142,9 @@ export default {
                     this.arrayUsers.push(user);
                 }).leaving(user => {
                     this.arrayUsers = this.arrayUsers.filter(u => (u.user_id !== user.user_id))
+                    if(this.user_private_chat != 0){
+                        this.close_popup_user();
+                    }
                 });
         },
         // Copiar esta función en RoomsComponent.vue si hay algún cambio
@@ -173,6 +181,33 @@ export default {
                     console.log('Error in SidebarComponent.vue in watch.current_room: ' + error);
                 });
             });
+        },
+        popup_user(id, e){
+            let me = this;
+            if(me.login_user != id){
+                me.user_private_chat = id;
+                let sizeNet = document.getElementById('card-box-navbar').getBoundingClientRect().height
+                var offset = e.clientY - sizeNet;
+                document.getElementById('popup_user').style = "top: " + offset +"px;";
+                document.getElementById('popup_user').style.display = "block";
+                //Revisar si ya existe el chat privado
+                me.chats_private.forEach(function (item, index, object) {
+                    if (item.user_id == id) {
+                        me.close_popup_user();
+                    }
+                });
+            }
+        },
+        open_private_chat(){
+            document.getElementById('popup_user').style.display = "none";
+            this.$emit('privatechat_send', {
+                user_id: this.user_private_chat
+            });
+            this.user_private_chat = 0;
+        },
+        close_popup_user(e){
+            this.user_private_chat = 0;
+            document.getElementById('popup_user').style.display = "none";
         }
     },
     mounted(){

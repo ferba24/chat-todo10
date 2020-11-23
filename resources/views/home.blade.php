@@ -20,13 +20,14 @@
 			<div id="slide_block" class="slide_block" onclick="widthAllChat();"></div>
 		</div>
         <div id="sidebarGroup" class="col-md-3 pr-0 pl-0">
-			<sidebar-component :login_user="login_user" :current_room="current_room" :rooms="rooms" v-on:current_roomsent="setRoomUser" v-on:connected_userssent="setConnectedUsers"></sidebar-component>
+			<sidebar-component :login_user="login_user" :current_room="current_room" :rooms="rooms" v-on:current_roomsent="setRoomUser" v-on:connected_userssent="setConnectedUsers" v-on:privatechat_send="addPrivateChat" :chats_private="chats_private"></sidebar-component>
 		</div><!-- .col-md-3 -->
 	</div><!-- .row.justify-content-center -->
 </div><!-- .container-fluid -->
 <rooms-component :login_user="login_user" :current_room="current_room" v-on:current_roomsent="setRoomUser" :connected_users="connected_users"></rooms-component>
 <login-user-component v-on:login_usersent="setLoginUser"></login-user-component>
-<!-- <private-component></private-component> -->
+
+<private-component :chats_private="chats_private" :login_user="login_user" v-on:closeprivatechat_send="closePrivateChat" v-on:messagesentprivate="addMessagePrivate"></private-component>
 @endsection
 @section('script')
 <script>
